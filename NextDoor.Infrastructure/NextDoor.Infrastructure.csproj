@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.12.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NextDoor.Dtos\NextDoor.Dtos.csproj" />
+    <ProjectReference Include="..\NextDoor.Entities\NextDoor.Entities.csproj" />
+    <ProjectReference Include="..\NextDoor.Entity\NextDoor.Models.csproj" />
+    <ProjectReference Include="..\NextDoor.Utilities\NextDoor.Utilities.csproj" />
+  </ItemGroup>
+
+</Project>
