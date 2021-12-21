@@ -11,13 +11,15 @@ namespace UserManagement.Infrastructure.Repositories
     public interface INextDoorUserRepository
     {
         Task AddAsync(NextDoorUser entity);
-
-        /*Task<NextDoorUserDto> GetByNextDoorUserEmailAsync(string email);
+        Task<NextDoorUserDto> GetByUserEmailAsync(string email);
+        Task<NextDoorUser> GetAsync(int userid);
+        void Edit(NextDoorUser entity);
+        /*;
 
 
         Task DeleteAsync(int id);
         Task<List<NextDoorUserDto>> GetAllAsync();
         Task<NextDoorUserDto> GetByUserAsync(string email);*/
-       
+
     }
 }

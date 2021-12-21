@@ -39,10 +39,10 @@ namespace NextDoor.DataLayer.Repositories
         public async Task<EventCategoriesDetailDto> GetDetailAsync(int id)
         {
             return await (from s in _dataContext.EventCategories
-                          where s.Id == id
+                          where s.EventCategory_Id == id
                           select new EventCategoriesDetailDto
                           {
-                              Id = s.Id,
+                              Id = s.EventCategory_Id,
                               EventCategoryName = s.EventCategoryName,
                               Status = s.Status
 
@@ -64,7 +64,7 @@ namespace NextDoor.DataLayer.Repositories
 
                           select new EventCategoriesDetailDto
                           {
-                              Id = s.Id,
+                              Id = s.EventCategory_Id,
                               EventCategoryName = s.EventCategoryName,
 
                               Status = s.Status

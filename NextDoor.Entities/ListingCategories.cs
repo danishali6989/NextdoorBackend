@@ -7,7 +7,7 @@ namespace NextDoor.Entities
 {
     public class ListingCategories
     {
-        public int Id { get; set; }
+        public int ListingCategoryId { get; set; }
         public string ListingCategoryName { get; set; }
         public Constants.RecordStatus Status { get; set; }
         public DateTime CreatedOn { get; set; }

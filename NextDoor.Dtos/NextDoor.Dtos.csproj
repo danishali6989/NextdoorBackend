@@ -9,7 +9,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\NextDoor.Entity\NextDoor.Models.csproj" />
     <ProjectReference Include="..\NextDoor.Utilities\NextDoor.Utilities.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Location\" />
   </ItemGroup>
 
 </Project>

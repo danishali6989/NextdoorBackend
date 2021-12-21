@@ -24,11 +24,16 @@ namespace NextDoor.DataLayer.EntityConfiguration
 
             builder.Property(x => x.Gender).IsRequired();
             
+            builder.Property(x => x.City).IsRequired();
+            builder.Property(x => x.State).IsRequired();
+            builder.Property(x => x.Postalcode).IsRequired();
             builder.Property(x => x.StreetAdress).IsRequired();
             builder.Property(x => x.ApartmentNo).IsRequired();
             builder.Property(x => x.Email).IsRequired();
             builder.Property(x => x.Lan).IsRequired();
             builder.Property(x => x.Lat).IsRequired();
+            builder.Property(x => x.FAPreference).IsRequired(false);
+            builder.Property(x => x.Pronoun).IsRequired(false);
 
             builder.Property(x => x.Status).IsRequired();
             builder.Property(x => x.CreatedOn).IsRequired();

@@ -11,12 +11,13 @@ namespace UserManagement.Infrastructure.Managers
    public interface INextDoorUserManager
     {
         Task AddAsync(AddNextDoorUserModel model,string header);
-        /*Task<NextDoorUserDto> CheckNextDoorUserEmail(string Email);
+        //  Task<NextDoorUserDto> CheckNextDoorUser(string U_Fname);
+        Task EditAsync(EditNextDoorUser model);
+        Task<NextDoorUserDto> CheckNextDoorUserEmail(string Email);
 
-        Task DeleteAsync(int id);
-        Task<List<NextDoorUserDto>> GetAllAsync();
+        /*Task DeleteAsync(int id);
+        Task<List<NextDoorUserDto>> GetAllAsync();*/
 
-        Task<NextDoorUserDto> CheckUser(string email);*/
-        
+
     }
 }

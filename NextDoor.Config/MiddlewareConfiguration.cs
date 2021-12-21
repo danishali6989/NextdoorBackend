@@ -38,9 +38,16 @@ namespace NextDoor.Config
             services.AddScoped<IListingCategoriesManager, ListingCategoriesManager>();
             services.AddScoped<IEventCategoriesManager, EventCategoriesManager>();
             services.AddScoped<INextDoorUserManager, NextDoorUserManager>();
-
-
-
+            services.AddScoped<IPostManager,PostManager>();
+            services.AddScoped<IPollManager, PollManager>();
+            services.AddScoped<IEventManager, EventManager>();
+            services.AddScoped<ICommentManager, CommentManager>();
+            services.AddScoped<ILikeManager, LikeManager>();
+            services.AddScoped<IBookmarkManager, BookmarkManager>();
+            services.AddScoped<INextDoorUserLoginManager, NextDoorUserLoginManager>();
+            services.AddScoped<INeighbourhoodManager,NeighbourhoodManager>();
+            services.AddScoped<IMasterCredentialManager, MasterCredentialManager>();
+            services.AddScoped<ILocationManager, LocationManager>();
 
         }
         public static void ConfigureRepository(IServiceCollection services)
@@ -50,8 +57,16 @@ namespace NextDoor.Config
             services.AddScoped<IListingCategoriesRepository, ListingCategoriesRepository>();
             services.AddScoped<IEventCategoriesRepository, EventCategoriesRepository>();
             services.AddScoped<INextDoorUserRepository, NextDoorUserRepository>();
-
-       
+            services.AddScoped<IPostRepository,PostRepository>();
+            services.AddScoped<IPollRepository, PollRepository>();
+            services.AddScoped<IEventRepository, EventRepository>();
+            services.AddScoped<ICommentRepository, CommentRepository>();
+            services.AddScoped<ILikeRepository, LikeRepository>();
+            services.AddScoped<IBookmarkRepository, BookmarkRepository>();
+            services.AddScoped<INextDoorUserLoginReository, NextDoorUserLoginRepository>();
+            services.AddScoped<INeighbourhoodRepository,NeighbourhoodRepository>();
+            services.AddScoped<IMasterCredentialRepository, MasterCredentialRepository>();
+            services.AddScoped<ILocationRepository, LocationRepository>();
         }
         public static void ConfigureServices(IServiceCollection services)
         {
@@ -59,3 +74,4 @@ namespace NextDoor.Config
         }
     }
 }
+ 

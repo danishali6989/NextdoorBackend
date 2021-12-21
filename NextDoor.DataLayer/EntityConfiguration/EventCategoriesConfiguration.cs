@@ -13,9 +13,9 @@ namespace NextDoor.DataLayer.EntityConfiguration
         {
             builder.ToTable("EventCategories");
 
-            builder.HasKey(x => x.Id);
+            builder.HasKey(x => x.EventCategory_Id);
 
-            builder.Property(x => x.Id).ValueGeneratedOnAdd();
+            builder.Property(x => x.EventCategory_Id).ValueGeneratedOnAdd();
 
             builder.Property(x => x.EventCategoryName).IsRequired();
 

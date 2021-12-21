@@ -7,6 +7,7 @@
         public const int DefaultPageSize = 10;
 
         public enum RecordStatus { Created, Active, Inactive, Deleted }
+        public enum ReactionStatus { Nothing,Like, Thank, Together, Haha,Wow,Sad }
 
 
 

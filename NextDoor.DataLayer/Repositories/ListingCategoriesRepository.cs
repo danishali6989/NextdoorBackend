@@ -39,10 +39,10 @@ namespace NextDoor.DataLayer.Repositories
         public async Task<ListingCategoriesDetailDto> GetDetailAsync(int id)
         {
             return await (from s in _dataContext.ListingCategories
-                          where s.Id == id
+                          where s.ListingCategoryId == id
                           select new ListingCategoriesDetailDto
                           {
-                              Id = s.Id,
+                              Id = s.ListingCategoryId,
                               ListingCategoryName = s.ListingCategoryName,
                               Status = s.Status
 
@@ -64,7 +64,7 @@ namespace NextDoor.DataLayer.Repositories
 
                           select new ListingCategoriesDetailDto
                           {
-                              Id = s.Id,
+                              Id = s.ListingCategoryId,
                               ListingCategoryName = s.ListingCategoryName,
 
                               Status = s.Status

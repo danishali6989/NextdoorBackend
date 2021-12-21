@@ -105,7 +105,6 @@ namespace NextDoor.Controllers
        
         
         [HttpGet]
-        
         [Route("get-all")]
         public async Task<IActionResult> GetAllAsync()
         {

@@ -46,23 +46,35 @@ namespace UserManagement.Managers
             await _unitOfWork.SaveChangesAsync();
         }
 
-
-       /* public async Task DeleteAsync(int id)
+        public async Task<NextDoorUserDto> CheckNextDoorUserEmail(string Email)
         {
-            await _repository.DeleteAsync(id);
+            return await _repository.GetByUserEmailAsync(Email);
+        }
+
+        public async Task EditAsync(EditNextDoorUser model)
+        {
+            var item = await _repository.GetAsync(model.UserId);
+            NextDoorUserFactory.Create(model, item, _userId);
+            _repository.Edit(item);
             await _unitOfWork.SaveChangesAsync();
         }
 
-        public async Task<List<NextDoorUserDto>> GetAllAsync()
-        {
-            return await _repository.GetAllAsync();
-        }
+        /* public async Task DeleteAsync(int id)
+         {
+             await _repository.DeleteAsync(id);
+             await _unitOfWork.SaveChangesAsync();
+         }
 
-        public async Task<NextDoorUserDto> CheckUser(string email)
-        {
-            return await _repository.GetByUserAsync(email);
-        }
-*/
-       
+         public async Task<List<NextDoorUserDto>> GetAllAsync()
+         {
+             return await _repository.GetAllAsync();
+         }
+
+         public async Task<NextDoorUserDto> CheckUser(string email)
+         {
+             return await _repository.GetByUserAsync(email);
+         }
+ */
+
     }
 }
