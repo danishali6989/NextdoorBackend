@@ -37,7 +37,53 @@ namespace UserManagement.DataLayer.Repositories
                               FirstName = s.FirstName,
                               LastName = s.LastName,
                               Gender = s.Gender,
+                           //  TimeStamp = s.UserTimeStamp,
+                              StreetAdress = s.StreetAdress,
+                              ApartmentNo = s.ApartmentNo,
+                              Email = s.Email,
+                              Lan = s.Lan,
+                              Lat = s.Lat
 
+                          })
+                         .AsNoTracking()
+                         .SingleOrDefaultAsync();
+        }
+
+        public async Task<NextDoorUserDto> GetByUseridAsync(int userid)
+        {
+            return await (from s in _dataContext.NextDoorUser
+                          where s.UserId == userid
+                          select new NextDoorUserDto
+                          {
+                              Id = s.Id,
+                              UserId = s.UserId,
+                              FirstName = s.FirstName,
+                              LastName = s.LastName,
+                              Gender = s.Gender,
+                              PostalCode = s.Postalcode,
+                              StreetAdress = s.StreetAdress,
+                              ApartmentNo = s.ApartmentNo,
+                              Email = s.Email,
+                            //  TimeStamp = s.UserTimeStamp,
+                              Lan = s.Lan,
+                              Lat = s.Lat
+
+                          })
+                         .AsNoTracking()
+                         .SingleOrDefaultAsync();
+        }
+        public async Task<NextDoorUserDto> getuserdetail(string username)
+        {
+            return await (from s in _dataContext.NextDoorUser
+                          where s.Email == username
+                          select new NextDoorUserDto
+                          {
+                              Id = s.Id,
+                              UserId = s.UserId,
+                              FirstName = s.FirstName,
+                              LastName = s.LastName,
+                              Gender = s.Gender,
+                           //   TimeStamp = s.UserTimeStamp,
                               StreetAdress = s.StreetAdress,
                               ApartmentNo = s.ApartmentNo,
                               Email = s.Email,
@@ -63,62 +109,69 @@ namespace UserManagement.DataLayer.Repositories
         {
             _dataContext.NextDoorUser.Update(entity);
         }
-        /* public async Task DeleteAsync(int id)
-         {
-             var data = await _dataContext.NextDoorUser.FindAsync(id);
-             data.Status = Constants.RecordStatus.Deleted;
-             _dataContext.NextDoorUser.Update(data);
-         }
+       /* public async Task DeleteAsync(int id)
+        {
+            var data = await _dataContext.NextDoorUser.FindAsync(id);
+            data.Status = Constants.RecordStatus.Deleted;
+            _dataContext.NextDoorUser.Update(data);
+        }*/
 
-         public async Task<List<NextDoorUserDto>> GetAllAsync()
-         {
-             return await (from s in _dataContext.NextDoorUser
-
-                           select new NextDoorUserDto
-                           {
-                               Id = s.Id,
-                               FirstName = s.FirstName,
-                               LastName = s.LastName,
-                               Gender = s.Gender,
-                               Password = s.StreetAdress,
-                               StreetAdress = s.StreetAdress,
-                               ApartmentNo = s.ApartmentNo,
-                               Email = s.Email,
-                               Lan = s.Lan,
-                               Lat = s.Lat,
-                               Status = s.Status
-
-                           })
-                           .AsNoTracking()
-                           .ToListAsync();
-         }
-
-         public async Task<NextDoorUserDto> GetByUserAsync(string email)
-         {
-             return await (from s in _dataContext.NextDoorUser
-                           where s.Email == email
-                           select new NextDoorUserDto
-                           {
-                               Id = s.Id,
-                               FirstName = s.FirstName,
-                               LastName = s.LastName,
-                               Gender = s.Gender,
-                               Password = s.Password,
-                               StreetAdress = s.StreetAdress,
-                               Email = s.Email,
-                               ApartmentNo = s.ApartmentNo,
-                               Lan = s.Lan,
-                               Lat = s.Lat,
-
-                               Status = s.Status,
+        public async Task<List<NextDoorUserDto>> GetUserList(string PostalCode)
+        {
+            return await (from s in _dataContext.NextDoorUser
+                          where s.Postalcode == PostalCode
 
 
+                          select new NextDoorUserDto
+                          {
+                              Id = s.Id,
+                              FirstName = s.FirstName,
+                              LastName = s.LastName,
+                              Gender = s.Gender,
+                              City = s.City,
+                              State = s.State,
+                              FAPronounce = s.FAPreference,
+                              PostalCode = s.Postalcode,
+                              StreetAdress = s.StreetAdress,
+                              ApartmentNo = s.ApartmentNo,
+                              Email = s.Email,
+                              Lan = s.Lan,
+                              Lat = s.Lat,
+                              Status = s.Status,
+                            //  TimeStamp = s.UserTimeStamp
 
-                           })
+                          })
+                          .OrderBy(x=> x.FirstName)
                           .AsNoTracking()
-                          .SingleOrDefaultAsync();
-         }
- */
+                          .ToListAsync();
+        }
+
+       /* public async Task<NextDoorUserDto> GetByUserAsync(string email)
+        {
+            return await (from s in _dataContext.NextDoorUser
+                          where s.Email == email
+                          select new NextDoorUserDto
+                          {
+                              Id = s.Id,
+                              FirstName = s.FirstName,
+                              LastName = s.LastName,
+                              Gender = s.Gender,
+                              Password = s.Password,
+                              StreetAdress = s.StreetAdress,
+                              Email = s.Email,
+                              ApartmentNo = s.ApartmentNo,
+                              Lan = s.Lan,
+                              Lat = s.Lat,
+
+                              Status = s.Status,
+
+
+
+                          })
+                         .AsNoTracking()
+                         .SingleOrDefaultAsync();
+        }*/
+
 
     }
 }

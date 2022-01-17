@@ -43,7 +43,7 @@ namespace NextDoor.Controllers
 
             try
             {
-                if (model.image != null)
+                if (model.image != null )
                 {
 
                     //this is a simple white background image
@@ -65,7 +65,7 @@ namespace NextDoor.Controllers
                     }
                     model.FileUrl = filename;
                     model.MediaType = "Image";
-
+                   // model.FileData = file;
                     //add Images/Video to Multimedia
                     await _manager.AddImageAsync(model);
                 }

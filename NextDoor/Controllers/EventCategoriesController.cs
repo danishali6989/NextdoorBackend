@@ -15,13 +15,12 @@ namespace NextDoor.Controllers
     public class EventCategoriesController : ControllerBase
     {
         private readonly IEventCategoriesManager _manager;
-        private readonly IHostingEnvironment _environment;
+      //  private readonly IHostingEnvironment _environment;
 
-        public EventCategoriesController(IEventCategoriesManager manager,
-            IHostingEnvironment environment)
+        public EventCategoriesController(IEventCategoriesManager manager)
         {
             _manager = manager;
-            _environment = environment;
+          //  _environment = environment;
         }
 
         [HttpPost]

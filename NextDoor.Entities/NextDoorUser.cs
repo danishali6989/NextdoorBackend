@@ -21,6 +21,7 @@ namespace NextDoor.Entities
         public string Email { get; set; }
         public double Lan { get; set; }
         public double Lat { get; set; }
+        public string UserTimeStamp { get; set; }
 
         public string FAPreference { get; set; }
         public string Pronoun { get; set; }

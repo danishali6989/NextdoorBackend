@@ -16,13 +16,14 @@ namespace NextDoor.Factories
             var data = new Poll
             {
                 
-                UserID      = model.UserID,
-                Question    = model.Question,
-                Description = model.Description ,
-                PollBookmark = false,
-                Status      = Constants.RecordStatus.Active,
-                CreatedBy   = userId ?? "0",
-                CreatedOn   = Utility.GetDateTime(),
+                UserID        = model.UserID,
+                Question      = model.Question,
+                Description   = model.Description ,
+                PollBookmark  = false,
+                PollTimeStamp = model.TimeStamp==null ? "" : model.TimeStamp,
+                Status        = Constants.RecordStatus.Active,
+                CreatedBy     = userId ?? "0",
+                CreatedOn     = Utility.GetDateTime(),
 
 
             };
@@ -42,6 +43,7 @@ namespace NextDoor.Factories
                 Atachments    = model.FileUrl,
                 AtachmentType = model.MediaType,
                 CreatedOn     = Utility.GetDateTime(),
+                FileData      = model.FileData
             };
 
             return data;

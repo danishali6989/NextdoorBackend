@@ -84,7 +84,7 @@ namespace NextDoor.DataLayer.Repositories
                               StartTime = s.StartTime,
                               EndDate = s.EndDate,
                               EndTime = s.EndTime,
-
+                             // EventTimeStamp = s.EventTimestamp,
                               CreatedOn = s.CreatedOn,
 
                               Status = s.Status
@@ -102,6 +102,8 @@ namespace NextDoor.DataLayer.Repositories
                           {
                               ID = s.ID,
                               EventCategory_Id = s.EventCategoryId,
+                              FirstName = s.NextDoorUser.FirstName,
+                              LastName = s.NextDoorUser.LastName,
                               EventCategoryName = s.EventCategories.EventCategoryName,
                               EventBookmark = s.EventBookmark,
                               User_ID = s.User_ID,
@@ -113,7 +115,36 @@ namespace NextDoor.DataLayer.Repositories
                               StartTime = s.StartTime,
                               EndDate = s.EndDate,
                               EndTime = s.EndTime,
-                             
+                           //   EventTimeStamp = s.EventTimestamp,
+                              CreatedOn = s.CreatedOn,
+
+                              Status = s.Status
+
+                          })
+                          .AsNoTracking()
+                          .ToListAsync();
+        }
+
+        public async Task<List<EventDetailDto>> EventGetAllBookmarkAsync(int userid)
+        {
+            return await (from s in _dataContext.Event
+                          where s.EventBookmark == true && s.User_ID == userid
+                          select new EventDetailDto
+                          {
+                              ID = s.ID,
+                              EventCategory_Id = s.EventCategoryId,
+                              EventCategoryName = s.EventCategories.EventCategoryName,
+                              EventBookmark = s.EventBookmark,
+                              User_ID = s.User_ID,
+                              Title = s.Title,
+                              Description = s.Description,
+                              Attachmentfile = s.Attachmentfile,
+                              Address = s.Address,
+                              StartDate = s.StartDate,
+                              StartTime = s.StartTime,
+                              EndDate = s.EndDate,
+                              EndTime = s.EndTime,
+                            //  EventTimeStamp = s.EventTimestamp,
                               CreatedOn = s.CreatedOn,
 
                               Status = s.Status
@@ -132,6 +163,8 @@ namespace NextDoor.DataLayer.Repositories
                           {
                               id = s.Id,
                               User_id = s.User_id,
+                              FirstName = s.NextDoorUser.FirstName,
+                              LastName = s.NextDoorUser.LastName,
                               Eventid = s.Event_id,
                               CommentParent_Id = s.CommentParent_Id,
                               CommentText = s.CommentText,
@@ -140,11 +173,13 @@ namespace NextDoor.DataLayer.Repositories
                               Attachment3 = s.Attachment3,
                               lat = s.lat,
                               lng = s.lng,
+                              TimeStamp = s.TimeStamp
 
 
 
 
                           })
+                          .OrderByDescending(x => x.id)
                           .AsNoTracking()
                           .ToListAsync();
         }

@@ -14,6 +14,8 @@ namespace NextDoor.Models.Post
         public string SafetyPersonDescription { get; set; }
         public string Subject { get; set; }
         public string Message { get; set; }
+        public string TimeStamp { get; set; }
+
         public double Lan { get; set; }
         public double Lat { get; set; }
         public List<string> image { get; set; }
@@ -21,6 +23,7 @@ namespace NextDoor.Models.Post
         public List<string> oldImage { get; set; }
         public List<string> oldVideo { get; set; }
         public string FileUrl { get; set; }
+        public string FileData { get; set; }
         public string MediaType { get; set; }
         public List<AddPersonModel> Person { get; set; }
         public List<AddVechileModel> Vechile { get; set; }

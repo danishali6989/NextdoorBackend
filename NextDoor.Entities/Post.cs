@@ -9,6 +9,7 @@ namespace NextDoor.Entities
     {
         public int Id { get; set; }
         public int User_id { get; set; }
+        public NextDoorUser NextDoorUser { get; set; }
         public int Category_id { get; set; }
         public Categories Categories { get; set; }
         public int ListingCategoryId { get; set; }
@@ -21,7 +22,7 @@ namespace NextDoor.Entities
         public double Price { get; set; }
         public double lat { get; set; }
         public double lan { get; set; }
-
+        public string PostTimeStamp { get;set;}
         public string Attachment { get; set; }
         public Constants.RecordStatus Status { get; set; }
         public DateTime CreatedOn { get; set; }

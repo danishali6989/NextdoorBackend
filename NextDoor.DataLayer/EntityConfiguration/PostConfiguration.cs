@@ -27,6 +27,7 @@ namespace NextDoor.DataLayer.EntityConfiguration
             builder.Property(x => x.lat).IsRequired(); 
             builder.Property(x => x.lan).IsRequired();
             builder.Property(x => x.Attachment).IsRequired(false);
+            builder.Property(x => x.PostTimeStamp).IsRequired(false);
 
             builder.Property(x => x.Bookmark).IsRequired(false);
             builder.Property(x => x.Status).IsRequired();

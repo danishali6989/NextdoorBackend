@@ -25,6 +25,8 @@ namespace NextDoor.Infrastructure.Repositories
         //get poll response
         Task<List<PollOptionDetailDto>> GetAllOption(int pollid);
         Task<List<PollDetailDto>> GetAllPoll();
+        Task<List<PollDetailDto>> GetAllPollBookmark(int userid);
+
         Task<List<PollDetailDto>> GetPollDetail(int id);
         Task<List<PollOptionDto>> getPollOptionByPoll(int id);
         Task<List<PollComment>> getPollCommentByid(int id);

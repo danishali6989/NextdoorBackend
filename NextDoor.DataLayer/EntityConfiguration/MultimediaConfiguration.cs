@@ -23,6 +23,8 @@ namespace NextDoor.DataLayer.EntityConfiguration
             builder.Property(x=>x.UserId).IsRequired();
             builder.Property(x => x.CategoryiD).IsRequired();
             builder.Property(x => x.Atachments).IsRequired();
+            builder.Property(x => x.FileData).IsRequired(false);
+
             builder.Property(x => x.AtachmentType).IsRequired();
             builder.Property(x => x.CreatedOn).IsRequired();
         }

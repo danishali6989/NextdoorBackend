@@ -28,12 +28,13 @@ namespace NextDoor.Managers
 
         public BookmarkManager(IHttpContextAccessor contextAccessor,
           IBookmarkRepository repository,IPostRepository repository1, IEventRepository eventRepository,
-          IUnitOfWork unitOfWork, IPollRepository pollrepository)
+          IUnitOfWork unitOfWork, IPollRepository pollrepository, ICommentRepository Commentrepository)
         {
             _userId = contextAccessor.HttpContext.User.GetUserId();
             _eventrepository = eventRepository;
             _pollrepository = pollrepository;
             _repository = repository;
+            _Commentrepository = Commentrepository;
             _repository1 = repository1;
             _unitOfWork = unitOfWork;
         }

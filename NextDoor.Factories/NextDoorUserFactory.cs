@@ -27,6 +27,7 @@ namespace UserManagement.Factories
                 ApartmentNo = model.ApartmentNo,
                 Lan = model.Lan,
                 Lat = model.Lat,
+                UserTimeStamp = model.UserTimeStamp==null?"":model.UserTimeStamp,
                 Status = Constants.RecordStatus.Active,
                 CreatedBy = userId ?? "0",
                 CreatedOn = Utility.GetDateTime(),
@@ -47,6 +48,7 @@ namespace UserManagement.Factories
             entity.Gender       = model.Gender;
             entity.Pronoun      = model.Pronoun;
             entity.FAPreference = model.FA_Preference;
+            entity.UserTimeStamp = model.TimeStamp == null ? "" : model.TimeStamp;
             entity.UpdatedBy    = userId ?? "0";
             entity.UpdatedOn    = Utility.GetDateTime();
 

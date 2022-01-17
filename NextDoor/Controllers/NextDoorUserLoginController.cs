@@ -1,15 +1,19 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 using NextDoor.Helpers;
 using NextDoor.Infrastructure.Managers;
 using NextDoor.Models.NextDoorUserLogin;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Net.Http;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using UserManagement.Infrastructure.Managers;
 
 namespace NextDoor.Controllers
 {
@@ -19,16 +23,22 @@ namespace NextDoor.Controllers
     [ApiController]
     public class NextDoorUserLoginController : ControllerBase
     {
-        private readonly IConfiguration _configuration;
+       // private readonly IConfiguration _configuration;
         private readonly INextDoorUserLoginManager _manager;
-        private readonly IHostingEnvironment _environment;
+        private readonly INextDoorUserManager _usermanager;
+      //  private readonly IHostingEnvironment _environment;
+        private readonly IJoinNeighbourhoodManager _joinmanager;
+        private readonly IConfiguration _configuration;
 
-        public NextDoorUserLoginController(IConfiguration configuration ,INextDoorUserLoginManager manager, IHostingEnvironment environment)
+
+        public NextDoorUserLoginController(IConfiguration configuration, IJoinNeighbourhoodManager joinmanager,INextDoorUserManager usermanager ,INextDoorUserLoginManager manager) //IConfiguration configuration) IHostingEnvironment environment)
         {
 
             _configuration = configuration;
             _manager = manager;
-            _environment = environment;
+           // _environment = environment;
+            _usermanager = usermanager;
+            _joinmanager = joinmanager;
         }
 
 
@@ -48,22 +58,69 @@ namespace NextDoor.Controllers
             var json = Newtonsoft.Json.JsonConvert.SerializeObject(login);
             var data = new System.Net.Http.StringContent(json, Encoding.UTF8, "application/json");
 
-             var url = "http://172.248.67.186:80/api/UserLogin/NextDoorUserlogin";
-            //var url = "https://localhost:44308/api/UserLogin/NextDoorUserlogin";
-
+             var url = "http://172.119.151.139:80/api/UserLogin/NextDoorUserlogin";
+          // var url = "https://localhost:44308/api/UserLogin/NextDoorUserlogin";
+       
             using var client = new HttpClient();
             client.DefaultRequestHeaders.Add("CompanyId", "1");
 
 
             try
             {
-            var response = await client.PostAsync(url, data);
+           
+
+
+                        var response = await client.PostAsync(url, data);
                 if (response.ReasonPhrase == "OK")
                 {
                     string result = response.Content.ReadAsStringAsync().Result;
+                        var user = await _usermanager.getuser(model.UserName);
+                        var userjoin = await _joinmanager.checkjoin(user.UserId);
                     if (result != "")
                     {
-                        return Ok(result);
+
+                        var tokenHandler = new JwtSecurityTokenHandler();
+                        var key = Encoding.ASCII.GetBytes(_configuration.GetValue<string>("Jwt:secret"));
+                        var tokenDescription = new SecurityTokenDescriptor
+                        {
+                            Subject = new ClaimsIdentity(new[]
+                                { new Claim("id", user.Id.ToString()) ,
+                                   new Claim("userid",result.ToString()),
+                                   new Claim("name", user.FirstName.ToString()),
+                                   new Claim("lastname",user.LastName.ToString())
+                                }
+                                ),
+                            Audience = _configuration.GetValue<string>("Jwt:Audience"),
+                            Issuer = _configuration.GetValue<string>("Jwt:Issuer"),
+                            Expires = DateTime.UtcNow.AddDays(10),
+                            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+                        };
+
+                        var token = tokenHandler.CreateToken(tokenDescription);
+                        if (userjoin != null)
+                        {
+                            var res = new
+                            {
+                                token1=tokenHandler.WriteToken(token),
+                                
+                                isJoined = true,
+                              
+                            };
+                          return Ok(res);
+
+                        }
+                        else
+                        {
+                            var res = new
+                            {
+                                token1 = tokenHandler.WriteToken(token),
+                               // result,
+                                isJoined = false,
+                            
+
+                            };
+                            return Ok(res);
+                        }
                     }
                     else
                     {
@@ -118,7 +175,7 @@ namespace NextDoor.Controllers
 
           //  var url = "https://localhost:44308/api/UserLogin/logout/" + id;
 
-            var url = "http://172.248.67.186:80/api/UserLogin/logout/" + id;
+            var url = "http://172.119.151.139:80/api/UserLogin/logout/" + id;
             using var client = new HttpClient();
             client.DefaultRequestHeaders.Add("CompanyId", "1");
 
@@ -172,7 +229,7 @@ namespace NextDoor.Controllers
                 var json = Newtonsoft.Json.JsonConvert.SerializeObject(data1);
                 var data2 = new System.Net.Http.StringContent(json, Encoding.UTF8, "application/json");
 
-                var url = "http://172.248.67.186:80/api/UserLogin/checkpassword";
+                var url = "http://172.119.151.139:80/api/UserLogin/checkpassword";
                // var url = "https://localhost:44308/api/UserLogin/checkpassword";
 
 
@@ -195,7 +252,7 @@ namespace NextDoor.Controllers
                     string ApiResponse1 = "";
                     var json1 = Newtonsoft.Json.JsonConvert.SerializeObject(data4);
                     var data5 = new System.Net.Http.StringContent(json1, Encoding.UTF8, "application/json");
-                    var url2 = "http://172.248.67.186:80/api/UserLogin/nxtchangePassword";
+                    var url2 = "http://172.119.151.139:80/api/UserLogin/nxtchangePassword";
                    // var url2 = "https://localhost:44308/api/UserLogin/nxtchangePassword";
 
 

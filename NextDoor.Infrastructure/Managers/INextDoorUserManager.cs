@@ -14,9 +14,10 @@ namespace UserManagement.Infrastructure.Managers
         //  Task<NextDoorUserDto> CheckNextDoorUser(string U_Fname);
         Task EditAsync(EditNextDoorUser model);
         Task<NextDoorUserDto> CheckNextDoorUserEmail(string Email);
-
-        /*Task DeleteAsync(int id);
-        Task<List<NextDoorUserDto>> GetAllAsync();*/
+        Task<NextDoorUserDto> getuser(string username);
+        Task<NextDoorUserDto> CheckNextDoorUser(int userid);
+       // Task DeleteAsync(int id);
+        Task<List<NextDoorUserDto>> GetUserList(string PostalCode);
 
 
     }

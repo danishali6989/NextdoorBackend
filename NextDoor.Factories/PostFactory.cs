@@ -25,6 +25,7 @@ namespace NextDoor.Factories
                 lat                = (model.Lat == 0) ? 0 : model.Lat,
                 lan                = (model.Lan == 0) ? 0 : model.Lan,
                 Bookmark           = false,
+                PostTimeStamp      = model.TimeStamp== null ?"":model.TimeStamp,
                 Attachment         = "",
                 Status             = Constants.RecordStatus.Active,
                 CreatedBy          = userId ?? "0",
@@ -49,7 +50,7 @@ namespace NextDoor.Factories
                 Message           = model.Message,
                 lat               = (model.Lat == 0) ? 0 : model.Lat,
                 lan               = (model.Lan == 0) ? 0 : model.Lan,
-
+                PostTimeStamp     = model.TimeStamp==null?"":model.TimeStamp,
                 Attachment        = "",
                 Status            = Constants.RecordStatus.Active,
                 CreatedBy         = userId ?? "0",
@@ -75,7 +76,7 @@ namespace NextDoor.Factories
                 Message            = model.Message,
                 lat                = (model.Lat == 0)             ? 0 : model.Lat,
                 lan                = (model.Lan == 0)             ? 0 : model.Lan,
-               
+                PostTimeStamp      = model.TimeStamp == null ? "" :model.TimeStamp,
                 Price              = (model.free == 1             ? 0 : (model.Price == 0 ? 0 : model.Price)),
                 Attachment         = "",
                 Status             = Constants.RecordStatus.Active,
@@ -105,6 +106,7 @@ namespace NextDoor.Factories
                 lan                     = (model.Lan == 0) ? 0 : model.Lan,
                 ListingCategoryId       = 23,
                 Attachment              = "",
+                PostTimeStamp           = model.TimeStamp==null?"":model.TimeStamp,
                 Status                  = Constants.RecordStatus.Active,
                 CreatedBy               = userId ?? "0",
                 CreatedOn               = Utility.GetDateTime(),
@@ -119,14 +121,14 @@ namespace NextDoor.Factories
 
 
             var data = new Multimedia
-            {  
-                PostId        = model.Id,
-                UserId        = model.UserId,
-                Atachments    = model.FileUrl,
+            {
+                PostId = model.Id,
+                UserId = model.UserId,
+                Atachments = model.FileUrl,
                 AtachmentType = model.MediaType,
-                CreatedOn     = Utility.GetDateTime(),
-                CategoryiD    = model.CategoryId 
-              
+                CreatedOn = Utility.GetDateTime(),
+                CategoryiD = model.CategoryId,
+                FileData = model.FileData
 
             };
 
@@ -145,7 +147,8 @@ namespace NextDoor.Factories
                 Atachments    = model.FileUrl,
                 AtachmentType = model.MediaType,
                 CreatedOn     = Utility.GetDateTime(),
-                CategoryiD    = model.CategoryId
+                CategoryiD    = model.CategoryId,
+                FileData       = model.FileData,
 
 
             };
@@ -164,8 +167,9 @@ namespace NextDoor.Factories
                 Atachments    = model.FileUrl,
                 AtachmentType = model.MediaType,
                 CreatedOn     = Utility.GetDateTime(),
-                CategoryiD    = model.CategoryId
-
+                CategoryiD    = model.CategoryId,
+                FileData      = model.FileData,
+                
 
             };
 
@@ -182,8 +186,8 @@ namespace NextDoor.Factories
                 Atachments    = model.FileUrl,
                 AtachmentType = model.MediaType,
                 CreatedOn     = Utility.GetDateTime(),
-                CategoryiD    = model.CategoryId
-
+                CategoryiD    = model.CategoryId,
+                FileData      = model.FileData,
             };
 
             return data;
@@ -199,7 +203,8 @@ namespace NextDoor.Factories
                 Atachments    = model.FileUrl,
                 AtachmentType = model.MediaType,
                 CreatedOn     = Utility.GetDateTime(),
-                CategoryiD    = model.CategoryId
+                CategoryiD    = model.CategoryId,
+                FileData      = model.FileData,
             };
 
             return data;
@@ -265,6 +270,7 @@ namespace NextDoor.Factories
             entity.Price             = (model.free == 1              ? 0  : (model.Price == 0 ? 0 : model.Price));
             entity.lat               = model.Lat;
             entity.lan               = model.Lan;
+            entity.PostTimeStamp     = model.TimeStamp == null ? "" : model.TimeStamp;
             entity.UpdatedBy         = userId ?? "0";
             entity.UpdatedOn         = Utility.GetDateTime();
 
@@ -277,6 +283,7 @@ namespace NextDoor.Factories
             entity.Price             = (model.free == 1              ? 0  : (model.Price == 0 ? 0 : model.Price));
             entity.lat               = model.Lat;
             entity.lan               = model.Lan;
+            entity.PostTimeStamp     = model.TimeStamp == null ? "" : model.TimeStamp;
             entity.UpdatedBy         = userId ?? "0";
             entity.UpdatedOn         = Utility.GetDateTime();
 
@@ -289,6 +296,7 @@ namespace NextDoor.Factories
             entity.SafetyPersonDescription = model.SafetyPersonDescription;
             entity.lat                     = model.Lat;
             entity.lan                     = model.Lan;
+            entity.PostTimeStamp           = model.TimeStamp == null ? "" :  model.TimeStamp;
             entity.UpdatedBy               = userId ?? "0";
             entity.UpdatedOn               = Utility.GetDateTime();
 

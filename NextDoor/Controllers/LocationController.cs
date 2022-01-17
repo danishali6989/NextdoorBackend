@@ -15,13 +15,13 @@ namespace NextDoor.Controllers
     public class LocationController : ControllerBase
     {
         private readonly ILocationManager _manager;
-        private readonly IHostingEnvironment _environment;
+       // private readonly IHostingEnvironment _environment;
 
 
-        public LocationController(ILocationManager manager, IHostingEnvironment environment)
+        public LocationController(ILocationManager manager)
         {
             _manager = manager;
-            _environment = environment;
+           // _environment = environment;
         }
 
         [HttpPost]

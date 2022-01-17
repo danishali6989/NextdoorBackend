@@ -17,6 +17,8 @@ namespace NextDoor.Factories
             {
                 Userid = model.userid,
                 NeighbourhoodName = model.NeighbourhoodName,
+                NeighbourhoodTimeStamp = model.NeighbourhoodTimeStamp==null?"":model.NeighbourhoodTimeStamp,
+                Postalcode = model.PostalCode,
                 Status = Constants.RecordStatus.Active,
                 CreatedBy = userId ?? "0",
                 CreatedOn = Utility.GetDateTime(),
@@ -45,6 +47,8 @@ namespace NextDoor.Factories
         {
             entity.Userid = model.userid;
             entity.NeighbourhoodName = model.NeighbourhoodName;
+            entity.NeighbourhoodTimeStamp = model.NeighbourhoodTimeStamp == null ? "" : model.NeighbourhoodTimeStamp;
+            entity.Postalcode = model.PostalCode;
             entity.UpdatedBy = userId ?? "0";
             entity.UpdatedOn = Utility.GetDateTime();
 

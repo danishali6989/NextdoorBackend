@@ -212,8 +212,9 @@ namespace NextDoor.Managers
                 item.persons = await _repository.getPeronsbyid(item.Id);
                 item.vehicles = await _repository.getVehiclebyid(item.Id);
                 item.multimedia = await _repository.getPostMultimediaByPostid(item.Id);
+                
                 item.postcomments = await _repository.getPostsCommentByid(item.Id);
-
+                item.multimediaCount = item.multimedia.Count;
                 item.postlikes = await _repository.getPostlikesById(item.Id);
                 //item.Reaction_Id = _repository.getPostLikesReactionByUserId(userid, item.Id);
                 foreach (var r in item.postcomments)
@@ -251,7 +252,10 @@ namespace NextDoor.Managers
             }
             return data;
         }
-
+        public async Task<List<PostDetailDto>> GetFreeFinds()
+        {
+            return await _repository.GetFreeFinds();
+        }
         public async Task<List<PostDetailDto>> GetFindsPostByUserId(int userid)
         {
             var data = await _repository.getfindspostbyuserid(userid);
@@ -272,8 +276,10 @@ namespace NextDoor.Managers
                 item.vehicles =   await _repository.getVehiclebyid(item.Id);
                 item.multimedia = await _repository.getPostMultimediaByPostid(item.Id);
                 item.postcomments = await _repository.getPostsCommentByid(item.Id);
-
+                item.PostCommentCount = item.postcomments.Count;
                 item.postlikes = await _repository.getPostlikesById(item.Id);
+                item.multimediaCount = item.multimedia.Count;
+
                 item.Reaction_Id = _repository.getPostLikesReactionByUserId(userid,item.Id);
                 foreach (var r in item.postcomments)
                 {
@@ -300,6 +306,42 @@ namespace NextDoor.Managers
             return data;// await _repository.GetAllPostAsync();
         }
 
+        public async Task<List<PostDetailDto>> GetAllBookmarkPostAsync(int userid)
+        {
+            var data = await _repository.GetAllBookmarkPostAsync(userid);
+            foreach (var item in data)
+            {
+                item.persons = await _repository.getPeronsbyid(item.Id);
+                item.vehicles = await _repository.getVehiclebyid(item.Id);
+                item.multimedia = await _repository.getPostMultimediaByPostid(item.Id);
+                item.postcomments = await _repository.getPostsCommentByid(item.Id);
+
+                item.postlikes = await _repository.getPostlikesById(item.Id);
+                item.Reaction_Id = _repository.getPostLikesReactionByUserId(userid, item.Id);
+                foreach (var r in item.postcomments)
+                {
+                    var replies = await _Commentrepository.GetAllCommentById(r.id);
+                    r.replies = replies;
+                    var likes = await _likerepository.GetAllLikesByCommentId(r.id);
+                    r.likes = likes.Count;
+                    // r.Reaction_Id =  _likerepository.getreactionId(r.id);
+                    if (r.replies.Count > 0)
+                    {
+                        foreach (var item1 in r.replies)
+                        {
+                            var innerReplies = await _Commentrepository.GetAllCommentById(item1.Id);
+                            item1.replies = innerReplies;
+                            //item1.likes = await _likerepository.GetAllLikesByCommentId(item1.Id);
+                            var Commentlikes = await _likerepository.GetAllLikesByCommentId(item1.Id);
+                            item1.Commentlikes = Commentlikes.Count;
+                        }
+                    }
+
+                }
+            }
+
+            return data;// await _repository.GetAllPostAsync();
+        }
         public async Task<JqDataTableResponse<PostDetailDto>> GetPostPagedResultAsync(JqDataTableRequest model)
         {
             return await _repository.GetPostPagedResultAsync(model);

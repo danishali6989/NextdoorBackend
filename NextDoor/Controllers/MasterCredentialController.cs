@@ -17,13 +17,13 @@ namespace NextDoor.Controllers
     {
 
         private readonly IMasterCredentialManager _manager;
-        private readonly IHostingEnvironment _environment;
+       // private readonly IHostingEnvironment _environment;
 
 
-        public MasterCredentialController(IMasterCredentialManager manager, IHostingEnvironment environment)
+        public MasterCredentialController(IMasterCredentialManager manager)//, IHostingEnvironment environment)
         {
             _manager = manager;
-            _environment = environment;
+           // _environment = environment;
         }
 
         [HttpPost]

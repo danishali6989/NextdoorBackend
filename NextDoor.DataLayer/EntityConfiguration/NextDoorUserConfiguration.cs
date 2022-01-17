@@ -14,7 +14,7 @@ namespace NextDoor.DataLayer.EntityConfiguration
             builder.ToTable("NextDoorUser");
 
             builder.HasKey(x => x.Id);
-
+           // builder.HasKey(x => x.UserId);
             builder.Property(x => x.Id).ValueGeneratedOnAdd();
             builder.Property(x => x.UserId).IsRequired();
             builder.Property(x => x.CompanyId).IsRequired();
@@ -32,6 +32,8 @@ namespace NextDoor.DataLayer.EntityConfiguration
             builder.Property(x => x.Email).IsRequired();
             builder.Property(x => x.Lan).IsRequired();
             builder.Property(x => x.Lat).IsRequired();
+            builder.Property(x => x.UserTimeStamp).IsRequired(false);
+
             builder.Property(x => x.FAPreference).IsRequired(false);
             builder.Property(x => x.Pronoun).IsRequired(false);
 

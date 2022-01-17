@@ -135,7 +135,7 @@ namespace NextDoor.Controllers
                                 }
                                 Post.FileUrl = filename;
                                 Post.MediaType = "Image";
-
+                                Post.FileData = file;
                                 //add Images/Video to Multimedia
                                 await _manager.AddMultimediaAsync(Post);
                             }
@@ -167,6 +167,7 @@ namespace NextDoor.Controllers
                             }
                             Post.FileUrl = filename;
                             Post.MediaType = "Video";
+                            Post.FileData = file;
                             //add Images/Video to Multimedia
                             await _manager.AddMultimediaAsync(Post);
 
@@ -199,7 +200,7 @@ namespace NextDoor.Controllers
                             }
                             Post.FileUrl = filename;
                             Post.MediaType = "Document";
-
+                            Post.FileData = file;
                             //add Images/Video/Document to Multimedia
                             await _manager.AddMultimediaAsync(Post);
                         }
@@ -326,6 +327,7 @@ namespace NextDoor.Controllers
                                     }
                                     Post.FileUrl = filename;
                                     Post.MediaType = "Image";
+                                    Post.FileData = file;
                                     await _manager.AddMultimediaAsync(Post);
 
                                     //add Images/Video to Multimedia
@@ -492,6 +494,7 @@ namespace NextDoor.Controllers
                                     }
                                     Post.FileUrl = filename;
                                     Post.MediaType = "Image";
+                                    Post.FileData = file;
                                     await _manager.AddMultimediaAsync(Post);
 
                                     //add Images/Video to Multimedia
@@ -525,6 +528,7 @@ namespace NextDoor.Controllers
                                 }
                                 Post.FileUrl = filename;
                                 Post.MediaType = "Video";
+                                Post.FileData = file;
                                 //add Images/Video to Multimedia
                                 await _manager.AddMultimediaAsync(Post);
 
@@ -557,7 +561,7 @@ namespace NextDoor.Controllers
                                 }
                                 Post.FileUrl = filename;
                                 Post.MediaType = "Document";
-
+                                Post.FileData = file;
                                 //add Images/Video/Document to Multimedia
                                 await _manager.AddMultimediaAsync(Post);
                             }
@@ -683,7 +687,7 @@ namespace NextDoor.Controllers
                             }
                             Post1.FileUrl = filename;
                             Post1.MediaType = "Image";
-
+                            Post1.FileData = file;
                             //add Images/Video to Multimedia
                             await _manager.AddFindsMultimediaAsync(Post1);
                         }
@@ -890,7 +894,7 @@ namespace NextDoor.Controllers
                                 }
                                 Post1.FileUrl = filename;
                                 Post1.MediaType = "Image";
-
+                                Post1.FileData = file;
                                 //add Images/Video to Multimedia
                                 await _manager.AddSafetyMultimediaAsync(Post1);
                             }
@@ -921,7 +925,7 @@ namespace NextDoor.Controllers
                                 }
                                 Post1.FileUrl = filename;
                                 Post1.MediaType = "Video";
-
+                                Post1.FileData = file;
                                 //add Images/Video to Multimedia
                                 await _manager.AddSafetyMultimediaAsync(Post1);
 
@@ -1134,7 +1138,7 @@ namespace NextDoor.Controllers
                             }
                             Post1.FileUrl = filename;
                             Post1.MediaType = "Image";
-
+                            Post1.FileData = file;
                             //add Images/Video to Multimedia
                             await _manager.AddSafetyMultimediaAsync(Post1);
                         }
@@ -1165,7 +1169,7 @@ namespace NextDoor.Controllers
                             }
                             Post1.FileUrl = filename;
                             Post1.MediaType = "Video";
-
+                            Post1.FileData = file;
                             //add Images/Video to Multimedia
                             await _manager.AddSafetyMultimediaAsync(Post1);
 
@@ -1248,10 +1252,17 @@ namespace NextDoor.Controllers
         }
 
         [HttpGet]
-        [Route("get-Finds-by-UserId")]
+        [Route("get-Finds-by-UserId-YoursListing")]
         public async Task<IActionResult> getFindsbyUserid(int userid)
         {
             return Ok(await _manager.GetFindsPostByUserId(userid));
+        }
+
+        [HttpGet]
+        [Route("get-free-finds")]
+        public async Task<IActionResult> GetFreeFinds()
+        {
+            return Ok(await _manager.GetFreeFinds());
         }
     }
 }

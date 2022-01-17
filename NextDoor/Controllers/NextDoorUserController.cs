@@ -89,7 +89,7 @@ namespace NextDoor.Controllers
                     var json = Newtonsoft.Json.JsonConvert.SerializeObject(data);
                     var data1 = new System.Net.Http.StringContent(json, Encoding.UTF8, "application/json");
 
-                  var url = "http://172.248.67.186/api/User/addNextDoorUser";
+                  var url = "http://172.119.151.139:80/api/User/addNextDoorUser";
                // var url = "https://localhost:44308/api/User/addNextDoorUser";
 
                 
@@ -187,7 +187,7 @@ namespace NextDoor.Controllers
                 var json = Newtonsoft.Json.JsonConvert.SerializeObject(data);
                 var data1 = new System.Net.Http.StringContent(json, Encoding.UTF8, "application/json");
 
-                 var url = "http://172.248.67.186:80/api/User/editNextDoorUser";
+                 var url = "http://172.119.151.139:80/api/User/editNextDoorUser";
               //  var url = "https://localhost:44308/api/User/editNextDoorUser";
                 string ApiResponse = "";
                 using var client = new HttpClient();
@@ -207,6 +207,13 @@ namespace NextDoor.Controllers
             }
 
             
+        }
+
+        [HttpGet]
+        [Route("get-user-list")]
+        public async Task<IActionResult> GetUserList(string PostalCode)
+        {
+            return Ok(await _manager.GetUserList(PostalCode));
         }
     }
 }

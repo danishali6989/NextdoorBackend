@@ -38,9 +38,11 @@ namespace NextDoor.Infrastructure.Managers
         Task<List<PostDetailDto>> GetPostByPostId(int postid);
         Task<List<PostDetailDto>> GetFindsPostByListingId(int listingid);
         Task<List<PostDetailDto>> GetFindsPostByUserId(int userid);
+        Task<List<PostDetailDto>> GetFreeFinds();
 
         //get all post
         Task<List<PostDetailDto>> GetAllPostAsync(int userid);
+        Task<List<PostDetailDto>> GetAllBookmarkPostAsync(int userid);
         Task<JqDataTableResponse<PostDetailDto>> GetPostPagedResultAsync(JqDataTableRequest model);
         Task ChangeCategoryAsync(int userid,int postid,int categoryId);
         Task Deletemultimedia(int id);

@@ -12,7 +12,9 @@ namespace NextDoor.Models.Comment
         public int EventId { get; set; }
         public int Comment_Parent_Id { get; set; }
         public string CommentText { get; set; }
-       
+        public string TimeStamp { get; set; }
+
+
         public string File1 { get; set; }
         public string File2 { get; set; }
         public string File3 { get; set; }

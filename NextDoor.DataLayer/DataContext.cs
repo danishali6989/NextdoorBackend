@@ -40,6 +40,9 @@ namespace NextDoor.DataLayer
         public DbSet<Neighbourhood> Neighbourhood { get; set; }
         public DbSet<Location> Location { get; set; }
         public DbSet<MasterCredential> MasterCredential { get; set; }
+        public DbSet<JoinNeighbourhood> JoinNeighbourhood { get; set; }
+        public DbSet<Group> Group { get; set; }
+        public DbSet<JoinGroup> JoinGroup { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -67,11 +70,18 @@ namespace NextDoor.DataLayer
             modelBuilder.ApplyConfiguration(new NeighbourhoodConfiguration());
             modelBuilder.ApplyConfiguration(new MasterCredentialConfiguration());
             modelBuilder.ApplyConfiguration(new LocationConfiguration());
+            modelBuilder.ApplyConfiguration(new JoinNeighbourhoodConfiguration());
+            modelBuilder.ApplyConfiguration(new GroupConfiguration());
+            modelBuilder.ApplyConfiguration(new JoinGroupConfiguration());
 
             modelBuilder.Entity<Post>()
             .HasOne(p => p.ListingCategories)
             .WithMany().HasForeignKey(x => x.ListingCategoryId); ;
-           
+
+            modelBuilder.Entity<Post>()
+            .HasOne(p => p.NextDoorUser)
+            .WithMany().HasForeignKey(x => x.User_id); ;
+
             modelBuilder.Entity<Post>()
            .HasOne(p => p.Categories)
            .WithMany().HasForeignKey(x => x.Category_id); ;
@@ -79,6 +89,18 @@ namespace NextDoor.DataLayer
             modelBuilder.Entity<Event>()
            .HasOne(p => p.EventCategories)
            .WithMany().HasForeignKey(x => x.EventCategoryId); ;
+
+            modelBuilder.Entity<Event>()
+          .HasOne(p => p.NextDoorUser)
+          .WithMany().HasForeignKey(x => x.User_ID); ;
+
+            modelBuilder.Entity<Poll>()
+         .HasOne(p => p.NextDoorUser)
+         .WithMany().HasForeignKey(x => x.UserID); ;
+
+            modelBuilder.Entity<Comment>()
+         .HasOne(p => p.NextDoorUser)
+         .WithMany().HasForeignKey(x => x.User_id); ;
 
         }
     }

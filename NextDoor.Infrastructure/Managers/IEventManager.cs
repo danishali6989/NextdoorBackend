@@ -14,6 +14,7 @@ namespace NextDoor.Infrastructure.Managers
         Task EventEditAsync(EventAddModel model);
         Task<List<ImageDetailDto>> ImageGetAllAsync();
         Task<List<EventDetailDto>> EventGetAllAsync(int userid);
+        Task<List<EventDetailDto>> EventGetAllBookmarkAsync(int userid);
         Task<List<EventDetailDto>> EventGetAllAsync();
         Task DeleteEventAsync(int eventid);
         Task<List<EventDetailDto>> GetEventByEventId(int eventid);

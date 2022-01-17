@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <Folder Include="Location\" />
+    <Folder Include="JoinGroup\" />
   </ItemGroup>
 
 </Project>

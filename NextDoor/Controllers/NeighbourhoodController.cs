@@ -17,12 +17,15 @@ namespace NextDoor.Controllers
     {
         private readonly INeighbourhoodManager _manager;
         private readonly IHostingEnvironment _environment;
+        private readonly IJoinNeighbourhoodManager _joinmanager;
 
 
-        public NeighbourhoodController(INeighbourhoodManager manager,IHostingEnvironment environment)
+        public NeighbourhoodController(INeighbourhoodManager manager,IHostingEnvironment environment,
+            IJoinNeighbourhoodManager joinmanager)
         {
             _manager = manager;
             _environment = environment;
+            _joinmanager = joinmanager;
         }
       
         
@@ -41,7 +44,10 @@ namespace NextDoor.Controllers
             {
                 await _manager.AddAsync(model);
                 var data = await _manager.GetDetail(model.userid);
-                
+                NeighbourhoodAddModel join = new NeighbourhoodAddModel();
+                join.userid = data.userid;
+                join.id = data.id;
+                await _joinmanager.JoinAsync(join);
                 if (model.location != null)
                 {
                     foreach (var a in model.location)

@@ -86,6 +86,44 @@ namespace NextDoor.Managers
             foreach(var item in data)
             {
                 item.multimedia =await _repository.getPollMultimediByPoll(item.Poll_Id);
+                item.MultimediaCount = item.multimedia.Count;
+                item.options = await _repository.getPollOptionByPoll(item.Poll_Id);
+                item.pollcomment = await _repository.getPollCommentByid(item.Poll_Id);
+                item.PollCommentCount = item.pollcomment.Count;
+                item.polllike = await _repository.getPolllikesById(item.Poll_Id);
+                item.UserReaction_id = _repository.getPollLikesReactionByUserId(userid, item.Poll_Id);
+
+                foreach (var r in item.pollcomment)
+                {
+                    var replies = await _Commentrepository.GetAllCommentById(r.id);
+                    r.replies = replies;
+                    var likes = await _likerepository.GetAllLikesByCommentId(r.id);
+                    r.likes = likes.Count;
+                    // r.Reaction_Id =  _likerepository.getreactionId(r.id);
+                    if (r.replies.Count > 0)
+                    {
+                        foreach (var item1 in r.replies)
+                        {
+                            var innerReplies = await _Commentrepository.GetAllCommentById(item1.Id);
+                            item1.replies = innerReplies;
+                            //item1.likes = await _likerepository.GetAllLikesByCommentId(item1.Id);
+                            var Commentlikes = await _likerepository.GetAllLikesByCommentId(item1.Id);
+                            item1.Commentlikes = Commentlikes.Count;
+                        }
+                    }
+
+                }
+            }
+            return data;
+        }
+
+
+        public async Task<List<PollDetailDto>> PollGetAllBookmarkAsync(int userid)
+        {
+            var data = await _repository.GetAllPollBookmark(userid);
+            foreach (var item in data)
+            {
+                item.multimedia = await _repository.getPollMultimediByPoll(item.Poll_Id);
                 item.options = await _repository.getPollOptionByPoll(item.Poll_Id);
                 item.pollcomment = await _repository.getPollCommentByid(item.Poll_Id);
                 item.polllike = await _repository.getPolllikesById(item.Poll_Id);

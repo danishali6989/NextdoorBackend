@@ -11,6 +11,8 @@ namespace NextDoor.Dtos.Poll
     {
         public int Poll_Id { get; set; }
         public int User_id { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
         public string Question { get; set; }
         public string Description { get; set; }
         public bool? PollBookmark { get; set; }
@@ -19,11 +21,14 @@ namespace NextDoor.Dtos.Poll
         public string OptionName { get; set; }
         public string Attachments { get; set; }
         public string AttachmentType{ get; set; }
+        public string PollTimeStamp { get; set; }
 
         public int response_id { get; set; }
         public List<PollOptionDto> options { get; set; }
         public List<PollMultimediDto> multimedia { get; set; }
+        public int MultimediaCount { get; set; }
         public List<PollComment> pollcomment { get; set; }
+        public int PollCommentCount { get; set; }
         public List<PollLikes> polllike { get; set; }
         public Constants.RecordStatus Status { get; set; }
         public DateTime CreatedOn { get; set; }
@@ -48,7 +53,11 @@ namespace NextDoor.Dtos.Poll
         public int id { get; set; }
         public int CommentParent_Id { get; set; }
         public int User_id { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
         public int Pollid { get; set; }
+        public string PollTimeStamp { get; set; }
+
         public string CommentText { get; set; }
         public double lat { get; set; }
         public double lng { get; set; }

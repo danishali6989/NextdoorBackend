@@ -16,6 +16,7 @@ namespace NextDoor.Factories
                 CommentParent_Id = model.Comment_Parent_Id,
                 User_id          = model.User_Id,
                 Post_id          = model.PostId  != 0 ? model.PostId : 0,
+                Poll_id          = model.Poll_id !=0 ? model.Poll_id : 0,
                 Event_id         = model.EventId != 0 ? model.EventId : 0,
                 CommentText      = model.CommentText == null ? "" : model.CommentText,
                 lat              = model.Lat,
@@ -26,7 +27,7 @@ namespace NextDoor.Factories
                 AttachmentType1  = model.MediaType1 == null || model.MediaType1 == "string" ? "" : model.MediaType1,
                 AttachmentType2  = model.MediaType2 == null || model.MediaType2 == "string" ? "" : model.MediaType2,
                 AttachmentType3  = model.MediaType3 == null || model.MediaType3 == "string" ? "" : model.MediaType3,
-
+                TimeStamp        = model.TimeStamp  == null ? "" : model.TimeStamp,
                 Status           = Constants.RecordStatus.Active,
                 CreatedBy        = userId ?? "0",
                 CreatedOn        = Utility.GetDateTime(),

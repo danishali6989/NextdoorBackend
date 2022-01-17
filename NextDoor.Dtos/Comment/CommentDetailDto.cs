@@ -11,6 +11,8 @@ namespace NextDoor.Dtos.Comment
     {
         public int Id { get; set; }
         public int User_Id { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
         public int PostId { get; set; }
         public int EventId { get; set; }
         public int Comment_Parent_Id { get; set; }
@@ -24,6 +26,7 @@ namespace NextDoor.Dtos.Comment
         public string AttachmentType2 { get; set; }
         public string AttachmentType3 { get; set; }
         public Constants.RecordStatus Status { get; set; }
+        public string TimeStamp { get; set; }
 
 
 

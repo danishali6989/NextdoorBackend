@@ -48,11 +48,13 @@ namespace NextDoor.Controllers
                  Post.CategoryId = data.Category_id;*/
                 cmnt.User_Id = model.User_Id;
                 cmnt.PostId = model.PostId;
+                cmnt.Poll_id = model.Poll_id;
                 cmnt.EventId = model.EventId;
                 cmnt.Comment_Parent_Id = model.Comment_Parent_Id;
                 cmnt.CommentText = model.CommentText;
                 cmnt.Lan = model.Lan;
                 cmnt.Lat = model.Lat;
+                cmnt.TimeStamp = model.TimeStamp;
                 cmnt.File1 = model.File1;
                 cmnt.File2 = model.File2;
                 cmnt.File3 = model.File3;

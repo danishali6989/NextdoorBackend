@@ -27,6 +27,8 @@ namespace NextDoor.Factories
                 EndTime = model.EndTime == null ? "" : model.EndTime,
                 Address = model.Address == null ? "" : model.Address,
                 Attachmentfile = model.FileUrl == null ||model.FileUrl =="string" ? "" : model.FileUrl,
+                EventFileData = model.image,
+                EventTimestamp = model.TimeStamp == null ? "" : model.TimeStamp,
                 CreatedBy = userId ?? "0",
                 CreatedOn = Utility.GetDateTime(),
                 // CreatedOn = model.CreatedOn,
@@ -65,6 +67,8 @@ namespace NextDoor.Factories
             entity.EndDate = model.EndDate;
             entity.EndTime = model.EndTime;
             entity.Address = model.Address;
+            entity.EventFileData = model.image;
+            entity.EventTimestamp = model.TimeStamp == null ? "" : model.TimeStamp;
             if(model.FileUrl == "string")
             {
                 if(entity.Attachmentfile == "")

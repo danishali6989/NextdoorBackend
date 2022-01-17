@@ -17,9 +17,11 @@ namespace NextDoor.Models.Post
         public double Lan { get; set; }
         public double Lat { get; set; }
         public List<string> image { get; set; }
-        
+        public string TimeStamp { get; set; }
+
+
         public string FileUrl { get; set; }
-        //  public string videoUrl { get; set; }
+          public string FileData { get; set; }
         public string MediaType { get; set; }
     }
 }

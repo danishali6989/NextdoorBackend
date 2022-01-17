@@ -33,6 +33,8 @@ namespace NextDoor.DataLayer.EntityConfiguration
 
             builder.Property(x => x.Status).IsRequired();
             builder.Property(x => x.CreatedOn).IsRequired();
+            builder.Property(x => x.TimeStamp).IsRequired(false);
+
             builder.Property(x => x.CreatedBy).IsRequired().HasMaxLength(40);
             builder.Property(x => x.UpdatedOn).IsRequired(false);
             builder.Property(x => x.UpdatedBy).IsRequired(false).HasMaxLength(40);

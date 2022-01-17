@@ -20,6 +20,7 @@ namespace NextDoor.Infrastructure.Managers
 
         Task<List<PollOptionDetailDto>> GetAllOptionAsync(int pollid);
         Task<List<PollDetailDto>> PollGetAllAsync(int userid);
+        Task<List<PollDetailDto>> PollGetAllBookmarkAsync(int userid);
         Task DeleteAsync(int id);
         Task<List<CheckUserVoteDetailDto>> CheckUserVote(int userid,int pollid,int responseid);
 

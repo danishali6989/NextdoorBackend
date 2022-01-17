@@ -36,6 +36,8 @@ namespace NextDoor.Infrastructure.Repositories
         Task<List<PostDetailDto>> getfindspostbylistingid(int listingid);
         Task<List<PostDetailDto>> getfindspostbyuserid(int userid);
         Task<List<PostDetailDto>> GetAllPostAsync();
+        Task<List<PostDetailDto>> GetAllBookmarkPostAsync(int userid);
+
         Task<JqDataTableResponse<PostDetailDto>> GetPostPagedResultAsync(JqDataTableRequest model);
         Task<List<PostPersons>> getPeronsbyid(int Id);
         Task<List<PostComment>> getPostsCommentByid(int id);
@@ -46,5 +48,7 @@ namespace NextDoor.Infrastructure.Repositories
         Task<List<PostMultimedia>> getPostMultimediaByPostid(int id);
         Task<List<PostMultimedia>> getPostMultimediaRecord(int id);
         Constants.ReactionStatus getPostLikesReactionByUserId(int userid,int postid);
+
+        Task<List<PostDetailDto>> GetFreeFinds();
     }
 }

@@ -12,14 +12,16 @@ namespace UserManagement.Infrastructure.Repositories
     {
         Task AddAsync(NextDoorUser entity);
         Task<NextDoorUserDto> GetByUserEmailAsync(string email);
+        Task<NextDoorUserDto> GetByUseridAsync(int userid);
+        Task<NextDoorUserDto> getuserdetail(string username);
         Task<NextDoorUser> GetAsync(int userid);
         void Edit(NextDoorUser entity);
-        /*;
+        
 
+        Task<List<NextDoorUserDto>> GetUserList(string PostalCode);
 
-        Task DeleteAsync(int id);
-        Task<List<NextDoorUserDto>> GetAllAsync();
-        Task<NextDoorUserDto> GetByUserAsync(string email);*/
-
+       /* Task DeleteAsync(int id);
+        Task<NextDoorUserDto> GetByUserAsync(string email);
+*/
     }
 }

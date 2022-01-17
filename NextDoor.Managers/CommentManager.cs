@@ -33,8 +33,16 @@ namespace NextDoor.Managers
 
         public async Task AddAsync(CommentAddModel model)
         {
+            try
+            {
+
             await _repository.AddCommentAsync(CommentFactory.CreateComment(model, _userId));
             await _unitOfWork.SaveChangesAsync();
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
         }
         
         public async Task EditAsync(CommentEditModel model)

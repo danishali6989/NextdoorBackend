@@ -10,6 +10,7 @@ namespace NextDoor.Entities
         public int Id { get; set; }
         public int CommentParent_Id { get; set; }
         public int User_id { get; set; }
+        public NextDoorUser NextDoorUser { get; set; }
         public int Post_id { get; set; }
         public int Poll_id { get; set; }
         public int Event_id { get; set; }
@@ -22,6 +23,7 @@ namespace NextDoor.Entities
         public string AttachmentType1 { get; set; }
         public string AttachmentType2 { get; set; }
         public string AttachmentType3 { get; set; }
+        public string TimeStamp { get; set; }
         public Constants.RecordStatus Status { get; set; }
         public DateTime CreatedOn { get; set; }
         public string CreatedBy { get; set; }

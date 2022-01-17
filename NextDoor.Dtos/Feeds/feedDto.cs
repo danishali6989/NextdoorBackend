@@ -15,6 +15,8 @@ namespace NextDoor.Dtos.Feeds
         #region post
         public int Id { get; set; }
         public int User_id { get; set; }
+        public   string FirstName { get; set; }
+        public string LastName { get; set; }
         public int Category_id { get; set; }
         public bool? Bookmark { get; set; }
         public string SafetyDescription { get; set; }
@@ -35,7 +37,9 @@ namespace NextDoor.Dtos.Feeds
         public List<PostPersons> persons { get; set; }
         public List<PostVehicle> vehicles { get; set; }
         public List<PostMultimedia> postmultimedia { get; set; }
+        public int PostMultimediaCount { get; set; }
         public List<PostComment> postComments { get; set; }
+        public int PostCommentCount { get; set; }
         public List<PostLikes> Postlikes { get; set; }
         public int postAllLikes { get; set; }
         public Constants.ReactionStatus User_ReactionId { get; set; }
@@ -57,7 +61,10 @@ namespace NextDoor.Dtos.Feeds
         public int response_id { get; set; }
         public List<PollOptionDto> options { get; set; }
         public List<PollMultimediDto> multimedia { get; set; }
+        public int PollMultimedia { get; set; }
         public List<PollComment> pollComments { get; set; }
+        public int PollCommentCount { get; set; }
+
         public List<PollLikes> pollLike { get; set; }
         public int pollLikes { get; set; }
         public int? count { get; set; }
@@ -81,6 +88,7 @@ namespace NextDoor.Dtos.Feeds
         public string Address { get; set; }
         public Constants.RecordStatus EventStatus { get; set; }
         public List<EventComment> eventComments { get; set; }
+        public int EventCommentCount { get; set; }
         public List<EventLikes> eventLike { get; set; }
         public int eventLikes { get; set; }
         public Constants.ReactionStatus UserReaction_Id { get; set; }

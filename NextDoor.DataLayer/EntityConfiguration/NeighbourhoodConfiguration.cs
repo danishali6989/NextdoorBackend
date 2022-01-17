@@ -19,6 +19,8 @@ namespace NextDoor.DataLayer.EntityConfiguration
             builder.Property(x => x.Id).ValueGeneratedOnAdd();
             builder.Property(x => x.Userid).IsRequired();
             builder.Property(x => x.NeighbourhoodName).IsRequired();
+            builder.Property(x => x.Postalcode).IsRequired();
+            builder.Property(x => x.NeighbourhoodTimeStamp).IsRequired(false);
 
             builder.Property(x => x.Status).IsRequired();
             builder.Property(x => x.CreatedOn).IsRequired();

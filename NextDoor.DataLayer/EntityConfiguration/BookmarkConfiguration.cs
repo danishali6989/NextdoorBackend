@@ -19,11 +19,14 @@ namespace NextDoor.DataLayer.EntityConfiguration
             builder.Property(x => x.id).ValueGeneratedOnAdd();
 
             builder.Property(x => x.Post_id).IsRequired();
-             builder.Property(x => x.Event_id).IsRequired();
+            builder.Property(x => x.USerId).IsRequired();
+            builder.Property(x => x.Event_id).IsRequired();
             builder.Property(x => x.Poll_id).IsRequired();
             builder.Property(x => x.Category_id).IsRequired();
             builder.Property(x => x.EventCategory_id).IsRequired();
             builder.Property(x => x.Listingcategory_id).IsRequired();
+            builder.Property(x => x.BookmarkTimeStamp).IsRequired(false);
+
             builder.Property(x => x.CreatedOn).IsRequired();
             builder.Property(x => x.CreatedBy).IsRequired().HasMaxLength(40);
         }

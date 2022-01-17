@@ -22,6 +22,7 @@ namespace NextDoor.DataLayer.EntityConfiguration
             builder.Property(x => x.UserID).IsRequired();
             builder.Property(x => x.Question).IsRequired();
             builder.Property(x => x.Description).IsRequired();
+            builder.Property(x => x.PollTimeStamp).IsRequired(false);
             
             builder.Property(x => x.CreatedOn).IsRequired();
             builder.Property(x => x.CreatedBy).IsRequired();

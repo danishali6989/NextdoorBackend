@@ -20,6 +20,7 @@ namespace NextDoor.DataLayer.EntityConfiguration
             builder.Property(x => x.User_ID).IsRequired();
             builder.Property(x => x.EventCategoryId).IsRequired();
             builder.Property(x => x.Attachmentfile).IsRequired(false);
+            builder.Property(x => x.EventFileData).IsRequired(false);
             builder.Property(x => x.Title).IsRequired();
             builder.Property(x => x.Description).IsRequired();
 
@@ -29,6 +30,7 @@ namespace NextDoor.DataLayer.EntityConfiguration
             builder.Property(x => x.EndTime).IsRequired();
             builder.Property(x => x.Address).IsRequired();
             builder.Property(x => x.EventBookmark).IsRequired(false);
+            builder.Property(x => x.EventTimestamp).IsRequired(false);
 
             builder.Property(x => x.Status).IsRequired();
             builder.Property(x => x.CreatedOn).IsRequired();

@@ -48,6 +48,9 @@ namespace NextDoor.Config
             services.AddScoped<INeighbourhoodManager,NeighbourhoodManager>();
             services.AddScoped<IMasterCredentialManager, MasterCredentialManager>();
             services.AddScoped<ILocationManager, LocationManager>();
+            services.AddScoped<IJoinNeighbourhoodManager, JoinNeighbourhoodManager>();
+            services.AddScoped<IGroupManager, GroupManager>();
+            services.AddScoped<IJoinGroupManager, JoinGroupManager>();
 
         }
         public static void ConfigureRepository(IServiceCollection services)
@@ -67,6 +70,10 @@ namespace NextDoor.Config
             services.AddScoped<INeighbourhoodRepository,NeighbourhoodRepository>();
             services.AddScoped<IMasterCredentialRepository, MasterCredentialRepository>();
             services.AddScoped<ILocationRepository, LocationRepository>();
+            services.AddScoped<IJoinNeighbourhoodRepository, JoinNeighbourhoodRepository>();
+            services.AddScoped<IGroupRepository, GroupRepository>();
+            services.AddScoped<IJoinGroupRepository, JoinGroupRepository>();
+
         }
         public static void ConfigureServices(IServiceCollection services)
         {

@@ -10,6 +10,8 @@ namespace NextDoor.Dtos.Neighbourhood
         public int id { get; set; }
         public int userid { get; set; }
         public string Neighbourhood_Name { get; set; }
+        public string NeighbourhoodTimeStamp { get; set; }
+        public string PostalCode { get; set; }
         public Constants.RecordStatus Status { get; set; }
         public DateTime CreatedOn { get; set; }
         public List<AddLocation> location { get; set; }

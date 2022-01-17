@@ -20,6 +20,8 @@ namespace NextDoor.Factories
                 Category_id      = model.Categoryid      == 0 ? 0 : model.Categoryid,
                 EventCategory_id = model.EventCategoryid == 0 ? 0 : model.EventCategoryid,
                 CreatedBy        = userId ?? "0",
+                USerId           = model.userid, 
+                BookmarkTimeStamp = model.TimeStamp == null ?"" : model.TimeStamp,
                 CreatedOn        = Utility.GetDateTime(),
 
 

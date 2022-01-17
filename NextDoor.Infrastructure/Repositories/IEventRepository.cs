@@ -17,6 +17,7 @@ namespace NextDoor.Infrastructure.Repositories
         Task<Event> geteventdetail(int eventid);
         Task<List<ImageDetailDto>> ImageGetAllAsync();
         Task<List<EventDetailDto>> EventGetAllAsync();
+        Task<List<EventDetailDto>> EventGetAllBookmarkAsync(int userid);
         Task<List<EventDetailDto>> geteventbyeventid(int eventid);
         Task<List<EventLikes>> getEventlikesById(int id);
          Constants.ReactionStatus getEventLikesReactionById(int userid,int eventid);

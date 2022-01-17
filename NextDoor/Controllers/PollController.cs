@@ -29,7 +29,6 @@ namespace NextDoor.Controllers
 
 
         [HttpPost]
-
         [Route("AddPoll")]
         public async Task<IActionResult> Add([FromBody] PollAddModel model)
         {
@@ -43,8 +42,8 @@ namespace NextDoor.Controllers
             if (model.Question != null && model.Question != "string")
             {
 
-            //add data to Poll
-            await _manager.AddPollAsync(model);
+               //add data to Poll
+               await _manager.AddPollAsync(model);
             }
             else
             {
@@ -67,59 +66,64 @@ namespace NextDoor.Controllers
 
                 if (poll.image != null)
                 {
+
                     foreach (var file in poll.image)
                     {
-                        var data1 = file.Substring(0, 5);
-                        switch (data1.ToUpper())
+                        if (file != "string" && file != "" && file != null)
                         {
-                            case "IVBOR":
-                                extension = ".jpg";
-                                poll.MediaType = "image";
-                                extensions = "jpg";
-                                break;
-
-                            case "/9J/4":
-                                extension = ".png";
-                                poll.MediaType = "image";
-                                extensions = "png";
-                                break;
-
-                            case "AAAAI":
-                                extension = ".mp4";
-                                poll.MediaType = "video";
-                                extensions = "mp4";
-                                break;
-
-                            default:
-                                extension = ".jpeg";
-                                poll.MediaType = "image";
-                                extensions = "jpeg";
-                                break;
-                        }
-
-                        if (extensions != "mp4")
-                        {
-                            var myfilename = string.Format(@"{0}", Guid.NewGuid());
-
-                            var fileExtension = Path.GetExtension(myfilename);
-
-                            string uploadsFolder = Path.Combine(_environment.WebRootPath, "Attachment", "image");
-
-                            string filepath = uploadsFolder + "/" + myfilename + extension;
-
-                            string filename = "image/" + myfilename + extension;
-
-                            var bytess = Convert.FromBase64String(file);
-                            using (var imageFile = new FileStream(filepath, FileMode.Create))
+                            var data1 = file.Substring(0, 5);
+                            switch (data1.ToUpper())
                             {
-                                imageFile.Write(bytess, 0, bytess.Length);
-                                imageFile.Flush();
-                            }
-                            poll.FileUrl = filename;
-                            poll.MediaType = "Image";
+                                case "IVBOR":
+                                    extension = ".jpg";
+                                    poll.MediaType = "image";
+                                    extensions = "jpg";
+                                    break;
 
-                            //add Images/Video to PollMultimedia
-                            await _manager.AddPollMultimediaAsync(poll);
+                                case "/9J/4":
+                                    extension = ".png";
+                                    poll.MediaType = "image";
+                                    extensions = "png";
+                                    break;
+
+                                case "AAAAI":
+                                    extension = ".mp4";
+                                    poll.MediaType = "video";
+                                    extensions = "mp4";
+                                    break;
+
+                                default:
+                                    extension = ".jpeg";
+                                    poll.MediaType = "image";
+                                    extensions = "jpeg";
+                                    break;
+                            }
+
+                            if (extensions != "mp4")
+                            {
+                                var myfilename = string.Format(@"{0}", Guid.NewGuid());
+
+                                var fileExtension = Path.GetExtension(myfilename);
+
+                                string uploadsFolder = Path.Combine(_environment.WebRootPath, "Attachment", "image");
+
+                                string filepath = uploadsFolder + "/" + myfilename + extension;
+
+                                string filename = "image/" + myfilename + extension;
+
+                                var bytess = Convert.FromBase64String(file);
+                                using (var imageFile = new FileStream(filepath, FileMode.Create))
+                                {
+                                    imageFile.Write(bytess, 0, bytess.Length);
+                                    imageFile.Flush();
+                                }
+                                poll.FileUrl = filename;
+                                poll.MediaType = "Image";
+                                poll.FileData = file;
+
+                                //add Images/Video to PollMultimedia
+                                await _manager.AddPollMultimediaAsync(poll);
+                            }
                         }
                     }
                 }
@@ -128,30 +132,33 @@ namespace NextDoor.Controllers
                 {
                     foreach (var file in poll.video)
                     {
-                        var myfilename = string.Format(@"{0}", Guid.NewGuid());
-
-                        var fileExtension = Path.GetExtension(myfilename);
-
-                        string uploadsFolder = Path.Combine(_environment.WebRootPath,"Attachment", "Videos");
-
-                        string filepath = uploadsFolder + "/" + myfilename + ".mp4";
-
-                        string filename = "Videos/" + myfilename + ".mp4";
-
-                        var bytess = Convert.FromBase64String(file);
-                        using (var videoFile = new FileStream(filepath, FileMode.Create))
+                        if (file != "string" && file != "" && file != null)
                         {
-                            videoFile.Write(bytess, 0, bytess.Length);
-                            videoFile.Flush();
-                        }
-                        poll.FileUrl = filename;
-                        poll.MediaType = "Video";
-                        //add Images/Video to PollMultimedia
-                        await _manager.AddPollMultimediaAsync(poll);
+                            var myfilename = string.Format(@"{0}", Guid.NewGuid());
 
+                            var fileExtension = Path.GetExtension(myfilename);
+
+                            string uploadsFolder = Path.Combine(_environment.WebRootPath, "Attachment", "Videos");
+
+                            string filepath = uploadsFolder + "/" + myfilename + ".mp4";
+
+                            string filename = "Videos/" + myfilename + ".mp4";
+
+                            var bytess = Convert.FromBase64String(file);
+                            using (var videoFile = new FileStream(filepath, FileMode.Create))
+                            {
+                                videoFile.Write(bytess, 0, bytess.Length);
+                                videoFile.Flush();
+                            }
+                            poll.FileUrl = filename;
+                            poll.MediaType = "Video";
+                            poll.FileData = file;
+                            //add Images/Video to PollMultimedia
+                            await _manager.AddPollMultimediaAsync(poll);
+
+                        }
                     }
                 }
-
                 try
                 {
                     if (model.Option.Count > 1)

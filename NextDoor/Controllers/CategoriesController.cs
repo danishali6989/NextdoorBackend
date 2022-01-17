@@ -17,13 +17,12 @@ namespace NextDoor.Controllers
     {
 
         private readonly ICategoriesManager _manager;
-        private readonly IHostingEnvironment _environment;
+      //  private readonly IHostingEnvironment _environment;
 
-        public CategoriesController(ICategoriesManager manager,
-            IHostingEnvironment environment)
+        public CategoriesController(ICategoriesManager manager)
         {
             _manager = manager;
-            _environment = environment;
+           // _environment = environment;
         }
 
 

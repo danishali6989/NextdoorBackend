@@ -18,6 +18,7 @@ namespace NextDoor.Models.Event
         public string EndTime { get; set; }
         public string Address { get; set; }
         public string image { get; set; }
+        public string TimeStamp { get; set; }
 
         public string FileUrl { get; set; }
     }

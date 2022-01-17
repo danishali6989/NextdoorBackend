@@ -12,6 +12,8 @@ namespace NextDoor.Models.NextDoorUser
         public string LastName { get; set; }
         public string Gender { get; set; }
         public string Email { get; set; }
+        public string TimeStamp { get; set; }
+
         public string FA_Preference { get; set; }
         public string Pronoun { get; set; }
         public string Language { get; set; }

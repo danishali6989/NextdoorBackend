@@ -41,6 +41,7 @@ namespace NextDoor.DataLayer.Repositories
                               SafetyPersonDescription = s.SafetyPersonDescription,
                               lan                     = s.lan,
                               lat                     = s.lat,
+                          //    TimeStamp               = s.PostTimeStamp,
                               Subject                 = s.Subject,
                               Message                 = s.Message,
                               Price                   = s.Price,
@@ -65,6 +66,7 @@ namespace NextDoor.DataLayer.Repositories
                               Listing_CategoryId      = s.ListingCategoryId,
                               SafetyDescription       = s.SafetyDescription,
                               SafetyPersonDescription = s.SafetyPersonDescription,
+                          //    TimeStamp               = s.PostTimeStamp,
                               lan                     = s.lan,
                               lat                     = s.lat,
                               Subject                 = s.Subject,
@@ -214,6 +216,7 @@ namespace NextDoor.DataLayer.Repositories
                               listingcategoryname     = s.ListingCategories.ListingCategoryName,
                               SafetyDescription       = s.SafetyDescription,
                               SafetyPersonDescription = s.SafetyPersonDescription,
+                          //    TimeStamp               = s.PostTimeStamp,
                               Subject                 = s.Subject,
                               Message                 = s.Message,
                               lan                     = s.lan,
@@ -243,6 +246,7 @@ namespace NextDoor.DataLayer.Repositories
                               SafetyDescription       = s.SafetyDescription,
                               SafetyPersonDescription = s.SafetyPersonDescription,
                               Listing_CategoryId      = s.ListingCategoryId,
+                          //   TimeStamp               = s.PostTimeStamp,
                               Subject                 = s.Subject,
                               Message                 = s.Message,
                               lan                     = s.lan,
@@ -274,6 +278,7 @@ namespace NextDoor.DataLayer.Repositories
                               Listing_CategoryId      = s.ListingCategoryId,
                               SafetyDescription       = s.SafetyDescription,
                               SafetyPersonDescription = s.SafetyPersonDescription,
+                          //    TimeStamp               = s.PostTimeStamp,
                               Subject                 = s.Subject,
                               Message                 = s.Message,
                               lan                     = s.lan,
@@ -307,6 +312,39 @@ namespace NextDoor.DataLayer.Repositories
                               SafetyPersonDescription = s.SafetyPersonDescription,
                               Subject = s.Subject,
                               Message = s.Message,
+                           //   TimeStamp = s.PostTimeStamp,
+                              lan = s.lan,
+                              lat = s.lat,
+                              Price = s.Price,
+                              Status = s.Status,
+                              CreatedOn = s.CreatedOn,
+
+
+
+                          })
+                          .AsNoTracking()
+                          .ToListAsync();
+        }
+
+        public async Task<List<PostDetailDto>> GetFreeFinds()
+        {
+            return await (from s in _dataContext.Post
+
+
+                          where s.Category_id == 2 && s.Price == 0
+
+                          select new PostDetailDto
+                          {
+                              Id = s.Id,
+                              User_id = s.User_id,
+                              Category_id = s.Category_id,
+                              CategoryName = s.Categories.CategoryName,
+                              Listing_CategoryId = s.ListingCategoryId,
+                              SafetyDescription = s.SafetyDescription,
+                              SafetyPersonDescription = s.SafetyPersonDescription,
+                              Subject = s.Subject,
+                              Message = s.Message,
+                           //   TimeStamp = s.PostTimeStamp,
                               lan = s.lan,
                               lat = s.lat,
                               Price = s.Price,
@@ -341,6 +379,8 @@ namespace NextDoor.DataLayer.Repositories
                           { 
                               Id                      = s.Id,
                               User_id                 = s.User_id,
+                              FirstName                = s.NextDoorUser.FirstName,
+                              LastName                 = s.NextDoorUser.LastName,
                               Category_id             = s.Category_id,
                               CategoryName            = s.Categories.CategoryName,
                               Listing_CategoryId      = s.ListingCategoryId,
@@ -350,6 +390,7 @@ namespace NextDoor.DataLayer.Repositories
                               Message                 = s.Message,
                               lan                     = s.lan,
                               lat                     =  s.lat,
+                           //   TimeStamp               = s.PostTimeStamp,
                               Price                   = s.Price,
                               Status                  = s.Status,
                               Bookmark                  =s.Bookmark,
@@ -381,12 +422,43 @@ namespace NextDoor.DataLayer.Repositories
         }
 
 
+        public async Task<List<PostDetailDto>> GetAllBookmarkPostAsync(int  userid)
+        {
+            return await (from s in _dataContext.Post
+                          where s.Bookmark == true && s.User_id == userid
+                          select new PostDetailDto
+                          {
+                              Id = s.Id,
+                              User_id = s.User_id,
+                              Category_id = s.Category_id,
+                              CategoryName = s.Categories.CategoryName,
+                              Listing_CategoryId = s.ListingCategoryId,
+                              SafetyDescription = s.SafetyDescription,
+                              SafetyPersonDescription = s.SafetyPersonDescription,
+                              Subject = s.Subject,
+                              Message = s.Message,
+                              lan = s.lan,
+                              lat = s.lat,
+                          //    TimeStamp = s.PostTimeStamp,
+                              Price = s.Price,
+                              Status = s.Status,
+                              Bookmark = s.Bookmark,
+                             
+                              CreatedOn = s.CreatedOn,
+
+
+                          })
+                          .AsNoTracking()
+                          .ToListAsync();
+        }
+
+
         public async Task<List<PostMultimedia>> getPostMultimediaByPostid(int id)
         {
 
             try
             {
-                var data =await (from s in _dataContext.Multimedia
+                var data = await (from s in _dataContext.Multimedia
                             where s.PostId == id
                             select new PostMultimedia
                             {
@@ -397,7 +469,8 @@ namespace NextDoor.DataLayer.Repositories
                             }
                           ).ToListAsync();
                 return data;
-            }catch(Exception ex)
+            }
+            catch(Exception ex)
             {
                 throw ex;
             }
@@ -457,14 +530,17 @@ namespace NextDoor.DataLayer.Repositories
         {
             return await (from s in _dataContext.Comment
                           where s.Post_id == Id && s.CommentParent_Id ==0
-
+                          
                           select new PostComment
                           {
                               id               = s.Id,
                               User_id          = s.User_id,
+                              FirstName        = s.NextDoorUser.FirstName,
+                              LastName         = s.NextDoorUser.LastName,
                               Post_id          = s.Post_id,
                               CommentParent_Id = s.CommentParent_Id,
                               CommentText      = s.CommentText,
+                              TimeStamp        = s.TimeStamp,
                               Attachment1      = s.Attachment1,
                               Attachment2      = s.Attachment2,
                               Attachment3      = s.Attachment3,
@@ -472,6 +548,7 @@ namespace NextDoor.DataLayer.Repositories
                               lng              = s.lng,
 
                           })
+                          .OrderByDescending(x => x.id)
                           .AsNoTracking()
                           .ToListAsync();
         }
@@ -487,6 +564,7 @@ namespace NextDoor.DataLayer.Repositories
                               Post_id          = s.Post_id,
                               CommentParent_Id = s.CommentParent_Id,
                               CommentText      = s.CommentText,
+                              TimeStamp        = s.TimeStamp,
                               Attachment1      = s.Attachment1,
                               Attachment2      = s.Attachment2,
                               Attachment3      = s.Attachment3,

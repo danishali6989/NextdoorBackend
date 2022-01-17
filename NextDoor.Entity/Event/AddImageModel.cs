@@ -10,6 +10,7 @@ namespace NextDoor.Models.Event
         public string image { get; set; }
         public string FileUrl { get; set; }
         public string MediaType { get; set; }
+        public string FileData { get; set; }
        
     }
 }

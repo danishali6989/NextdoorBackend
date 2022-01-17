@@ -47,6 +47,8 @@ namespace NextDoor.DataLayer.Repositories
                               id = s.Id,
                               userid = s.Userid,
                               Neighbourhood_Name = s.NeighbourhoodName,
+                             // NeighbourhoodTimeStamp = s.NeighbourhoodTimeStamp,
+                              PostalCode = s.Postalcode,
                               CreatedOn = s.CreatedOn,
                               
                               Status = s.Status
@@ -65,6 +67,7 @@ namespace NextDoor.DataLayer.Repositories
                               id = s.Id,
                               userid = s.Userid,
                               Neighbourhood_Name = s.NeighbourhoodName,
+                             // NeighbourhoodTimeStamp = s.NeighbourhoodTimeStamp,
                               CreatedOn = s.CreatedOn,
                               Status = s.Status
                           })
@@ -97,6 +100,7 @@ namespace NextDoor.DataLayer.Repositories
                               id = s.Id,
                               userid = s.Userid,
                               Neighbourhood_Name = s.NeighbourhoodName,
+                             // NeighbourhoodTimeStamp = s.NeighbourhoodTimeStamp,
                               CreatedOn = s.CreatedOn,
                               Status = s.Status
 

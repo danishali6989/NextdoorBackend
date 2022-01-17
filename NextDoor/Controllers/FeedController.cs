@@ -25,14 +25,14 @@ namespace NextDoor.Controllers
         private readonly IPostManager _postManager;
         private readonly IEventManager _eventManager;
         private readonly IPollManager _pollManager;
-        private readonly IHostingEnvironment _environment;
+        //private readonly IHostingEnvironment _environment;
         public FeedController(IPostManager postManager,
-            IEventManager eventManager, IPollManager pollManager, IHostingEnvironment environment)
+            IEventManager eventManager, IPollManager pollManager)//, IHostingEnvironment environment)
         {
             _postManager = postManager;
             _eventManager = eventManager;
             _pollManager = pollManager;
-            _environment = environment;
+           // _environment = environment;
         }
 
         [HttpGet]
@@ -46,7 +46,7 @@ namespace NextDoor.Controllers
             events = events.OrderBy(x => x.CreatedOn).ToList();
             polls = polls.OrderBy(x => x.CreatedOn).ToList();
             List<feedDto> feeds = new List<feedDto>();
-            string path = _environment.WebRootPath;
+           // string path = _environment.WebRootPath;
            
             foreach (var item in posts)
             {
@@ -57,8 +57,11 @@ namespace NextDoor.Controllers
                     Id = item.Id,
                     
                     User_id = item.User_id,
+
                     Category_id = item.Category_id,
                     Category_Name = item.CategoryName,
+                    FirstName = item.FirstName,
+                    LastName = item.LastName,
                     Listing_CategoryId = item.Listing_CategoryId,
                     Listing_Category_Name = item.listingcategoryname,
                     SafetyDescription = item.SafetyDescription,
@@ -74,7 +77,9 @@ namespace NextDoor.Controllers
                     persons = item.persons,
                     vehicles = item.vehicles,
                     postmultimedia = item.multimedia,
+                    PostMultimediaCount = item.multimediaCount,
                     postComments = item.postcomments,
+                    PostCommentCount = item.PostCommentCount,
                     Postlikes = item.postlikes,
                     postAllLikes = item.postlikes.Count,
                     UserReaction_Id = item.Reaction_Id
@@ -88,6 +93,8 @@ namespace NextDoor.Controllers
                     posttype = "Event",
                     Id = item.ID,
                     EventID = item.ID,
+                    FirstName = item.FirstName,
+                    LastName = item.LastName,
                     EventCategory_id = item.EventCategory_Id,
                     EventCategoryName = item.EventCategoryName,
                     User_id = item.User_ID,
@@ -103,12 +110,14 @@ namespace NextDoor.Controllers
                     CreatedOn = item.CreatedOn,
                     EventStatus = item.Status,
                     eventComments = item.eventcomments,
+                    EventCommentCount = item.EventCommentCount,
                     eventLike = item.eventlikes,
                     eventLikes = item.eventlikes.Count,
                     UserReaction_Id = item.UserReaction_Id,
                     
                 };
                 feeds.Add(feed);
+           
             }
 
             foreach (var item in polls)
@@ -117,6 +126,8 @@ namespace NextDoor.Controllers
                 {
                     posttype="Poll",
                     Id = item.Poll_Id,
+                    FirstName = item.FirstName,
+                    LastName = item.LastName,
                     PollId = item.Poll_Id,
                     User_id = item.User_id,
                     PollBookmark = item.PollBookmark,
@@ -126,10 +137,12 @@ namespace NextDoor.Controllers
                     PollStatus = item.Status,
                     options = item.options,
                     multimedia = item.multimedia,
+                    PollMultimedia = item.MultimediaCount,
                     pollComments = item.pollcomment,
+                    PollCommentCount = item.PollCommentCount,
                     pollLike = item.polllike,
                     pollLikes = item.polllike.Count,
-
+                    UserPollReaction_Id = item.UserReaction_id,
 
                     CreatedOn = item.CreatedOn
                 };

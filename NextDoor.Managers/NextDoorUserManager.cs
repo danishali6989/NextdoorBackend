@@ -51,6 +51,15 @@ namespace UserManagement.Managers
             return await _repository.GetByUserEmailAsync(Email);
         }
 
+        public async Task<NextDoorUserDto> CheckNextDoorUser(int userid)
+        {
+            return await _repository.GetByUseridAsync(userid);
+        }
+        public async Task<NextDoorUserDto> getuser(string username)
+        {
+            return await _repository.getuserdetail(username);
+        }
+
         public async Task EditAsync(EditNextDoorUser model)
         {
             var item = await _repository.GetAsync(model.UserId);
@@ -59,22 +68,22 @@ namespace UserManagement.Managers
             await _unitOfWork.SaveChangesAsync();
         }
 
-        /* public async Task DeleteAsync(int id)
-         {
-             await _repository.DeleteAsync(id);
-             await _unitOfWork.SaveChangesAsync();
-         }
+       /* public async Task DeleteAsync(int id)
+        {
+            await _repository.DeleteAsync(id);
+            await _unitOfWork.SaveChangesAsync();
+        }*/
 
-         public async Task<List<NextDoorUserDto>> GetAllAsync()
-         {
-             return await _repository.GetAllAsync();
-         }
+        public async Task<List<NextDoorUserDto>> GetUserList(string PostalCode)
+        {
+            return await _repository.GetUserList(PostalCode);
+        }
 
-         public async Task<NextDoorUserDto> CheckUser(string email)
-         {
-             return await _repository.GetByUserAsync(email);
-         }
- */
+       /* public async Task<NextDoorUserDto> CheckUser(string email)
+        {
+            return await _repository.GetByUserAsync(email);
+        }*/
+
 
     }
 }

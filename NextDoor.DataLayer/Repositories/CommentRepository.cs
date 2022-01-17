@@ -44,6 +44,8 @@ namespace NextDoor.DataLayer.Repositories
                           {
                               Id = s.Id,
                               User_Id = s.User_id,
+                              FirstName = s.NextDoorUser.FirstName,
+                              LastName = s.NextDoorUser.LastName,
                               PostId = s.Post_id,
                               Comment_Parent_Id = s.CommentParent_Id,
                               CommentText = s.CommentText,
@@ -53,6 +55,7 @@ namespace NextDoor.DataLayer.Repositories
                               AttachmentType1 = s.AttachmentType1,
                               AttachmentType2 = s.AttachmentType2,
                               AttachmentType3 = s.AttachmentType3,
+                            //  TimeStamp = s.TimeStamp,
                               Lan = s.lng,
                               Lat = s.lat,
                               Status = s.Status,
@@ -71,6 +74,8 @@ namespace NextDoor.DataLayer.Repositories
                           {
                               Id = s.Id,
                               User_Id = s.User_id,
+                              FirstName = s.NextDoorUser.FirstName,
+                              LastName = s.NextDoorUser.LastName,
                               PostId = s.Post_id,
                               EventId = s.Event_id,
                               Comment_Parent_Id = s.CommentParent_Id,
@@ -78,6 +83,7 @@ namespace NextDoor.DataLayer.Repositories
                               Attachment1 = s.Attachment1,
                               Attachment2 = s.Attachment2,
                               Attachment3 = s.Attachment3,
+                            //  TimeStamp = s.TimeStamp,
                               AttachmentType1 = s.AttachmentType1,
                               AttachmentType2 = s.AttachmentType2,
                               AttachmentType3 = s.AttachmentType3,

@@ -41,7 +41,7 @@ namespace NextDoor.DataLayer.Repositories
                               User_id = s.UserID,
                               Question = s.Question,
                               Description = s.Description,
-
+                          //    PollTimeStamp = s.PollTimeStamp,
 
                               Status = s.Status,
 
@@ -106,10 +106,32 @@ namespace NextDoor.DataLayer.Repositories
                           select new PollDetailDto
                           {
                               Poll_Id = s.Id,
+                              FirstName = s.NextDoorUser.FirstName,
+                              LastName = s.NextDoorUser.LastName,
                               PollBookmark = s.PollBookmark,
                               User_id = s.UserID,
                               Question = s.Question,
                               Description = s.Description,
+                           //   PollTimeStamp = s.PollTimeStamp,
+                              Status = s.Status,
+                              CreatedOn = s.CreatedOn
+                          })
+                          .AsNoTracking()
+                          .ToListAsync();
+        }
+
+        public async Task<List<PollDetailDto>> GetAllPollBookmark(int userid)
+        {
+            return await (from s in _dataContext.Poll
+                          where s.PollBookmark==true && s.UserID== userid
+                          select new PollDetailDto
+                          {
+                              Poll_Id = s.Id,
+                              PollBookmark = s.PollBookmark,
+                              User_id = s.UserID,
+                              Question = s.Question,
+                              Description = s.Description,
+                          //   PollTimeStamp = s.PollTimeStamp,
                               Status = s.Status,
                               CreatedOn = s.CreatedOn
                           })
@@ -126,6 +148,7 @@ namespace NextDoor.DataLayer.Repositories
                               User_id = s.UserID,
                               Question = s.Question,
                               Description = s.Description,
+                          //    PollTimeStamp = s.PollTimeStamp,
                               Status = s.Status,
                               CreatedOn = s.CreatedOn
                           })
@@ -143,6 +166,7 @@ namespace NextDoor.DataLayer.Repositories
                               User_id = s.UserID,
                               Question = s.Question,
                               Description = s.Description,
+                          //    PollTimeStamp = s.PollTimeStamp,
                               Status = s.Status,
                               CreatedOn = s.CreatedOn
 
@@ -160,8 +184,11 @@ namespace NextDoor.DataLayer.Repositories
                           {
                               id = s.Id,
                               User_id = s.User_id,
+                              FirstName = s.NextDoorUser.FirstName,
+                              LastName = s.NextDoorUser.LastName,
                               Pollid = s.Poll_id,
                               CommentParent_Id = s.CommentParent_Id,
+                          //    PollTimeStamp = s.TimeStamp,
                               CommentText = s.CommentText,
                               Attachment1 = s.Attachment1,
                               Attachment2 = s.Attachment2,
@@ -170,6 +197,7 @@ namespace NextDoor.DataLayer.Repositories
                               lng = s.lng,
 
                           })
+                          .OrderByDescending(x=> x.id)
                           .AsNoTracking()
                           .ToListAsync();
         }
