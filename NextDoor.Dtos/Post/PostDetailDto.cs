@@ -12,6 +12,7 @@ namespace NextDoor.Dtos.Post
         public int Id { get; set; }
         public int User_id { get; set; }
         public int Category_id { get; set; }
+        public int Bookmarkid { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public int Listing_CategoryId { get; set; }
@@ -26,28 +27,19 @@ namespace NextDoor.Dtos.Post
         public double lat { get; set; }
         public double lan { get; set; }
         public string TimeStamp { get; set; }
-
-
+        public int PostShareCount { get; set; }
         public Constants.RecordStatus Status { get; set; }
         public DateTime CreatedOn { get; set; }
-
         public List<PostPersons> persons { get; set; }
         public List<PostVehicle> vehicles { get; set; }
         public List<PostMultimedia> multimedia { get; set; }
         public int multimediaCount { get; set; }
-
         public List<PostComment> postcomments { get; set; }
         public int PostCommentCount { get; set; }
         public List<PostLikes> postlikes { get; set; }
         public List<CommentDetailDto> replies { get; set; }
         public List<LikeDetailDto> likes { get; set; }
         public Constants.ReactionStatus Reaction_Id { get; set; }
-
-        //person details
-
-
-        // vechile details
-
     }
 
     public class PostPersons
@@ -74,7 +66,6 @@ namespace NextDoor.Dtos.Post
         public string Type { get; set; }
         public string RegNo { get; set; }
         public string Other_Details { get; set; }
-
     }
 
     public class PostMultimedia
@@ -98,20 +89,18 @@ namespace NextDoor.Dtos.Post
         public double lat { get; set; }
         public double lng { get; set; }
         public string TimeStamp { get; set; }
-
         public string Attachment1 { get; set; }
         public string Attachment2 { get; set; }
         public string Attachment3 { get; set; }
         public List<CommentDetailDto> replies { get; set; }
         public int likes { get; set; }
-       
     }
-    public class PostLikes
-    {
-        public int Post_id { get; set; }
-        public int Comment_id { get; set; }
-        public int User_id { get; set; }
-        public Constants.ReactionStatus Reaction_Id { get; set; }
-
-    }
+        public class PostLikes
+        {
+            public int Post_id { get; set; }
+            public int Comment_id { get; set; }
+            public int User_id { get; set; }
+            public Constants.ReactionStatus Reaction_Id { get; set; }
+        }
+    
 }

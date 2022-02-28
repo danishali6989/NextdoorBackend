@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using NextDoor.Helpers;
 using NextDoor.Infrastructure.Managers;
 using NextDoor.Models.Poll;
+using NextDoor.Models.Post;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -41,8 +42,6 @@ namespace NextDoor.Controllers
 
             if (model.Question != null && model.Question != "string")
             {
-
-               //add data to Poll
                await _manager.AddPollAsync(model);
             }
             else
@@ -225,16 +224,34 @@ namespace NextDoor.Controllers
                 return BadRequest(ex.Message);
             }
 
-            // return Ok(await _manager.GetAllOptionAsync(model.Poll_id));
             var options = await _manager.GetAllOptionAsync(model.Poll_id);
             var result = new
             {
                 StatusCode = 200,
                 vote = options,
-                //  likes = data1
             };
             return Ok(result);
 
+        }
+
+        [HttpPost]
+        [Route("SharePoll")]
+        public async Task<IActionResult> AddShare([FromBody] SharePostAddModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState.GetErrorList());
+            }
+
+            if (model.Userid != 0 && model.Pollid != 0)
+            {
+                await _manager.AddShare(model);
+            }
+            else
+            {
+                return BadRequest("value required");
+            }
+            return Ok("Poll Shared");
         }
 
         [HttpGet]
@@ -247,14 +264,10 @@ namespace NextDoor.Controllers
         }
 
 
-
         [HttpPost]
-
         [Route("delete/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-
-
             await _manager.DeleteAsync(id);
 
             return Ok("Poll Deleted");

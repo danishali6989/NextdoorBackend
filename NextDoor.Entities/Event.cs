@@ -14,6 +14,7 @@ namespace NextDoor.Entities
         public EventCategories EventCategories { get; set; }
         public bool? EventBookmark { get; set; }
         public string Title { get; set; }
+        public int EventShareCount { get; set; }
         public string Description { get; set; }
         public string Attachmentfile { get; set; }
         public string EventFileData { get; set; }
@@ -27,7 +28,6 @@ namespace NextDoor.Entities
         public DateTime CreatedOn { get; set; }
         public string CreatedBy { get; set; }
         public DateTime? UpdatedOn { get; set; }
-
         public string UpdatedBy { get; set; }
     }
 }

@@ -19,17 +19,19 @@ namespace NextDoor.Managers
         private readonly IPostRepository _repository;
         private readonly ICommentRepository _Commentrepository;
         private readonly ILikeRepository _likerepository;
+        private readonly IBookmarkRepository _bookRepository;
 
         private readonly IUnitOfWork _unitOfWork;
 
         private readonly string _userId;
 
         public PostManager(IHttpContextAccessor contextAccessor, ICommentRepository commentRepository,
-          ILikeRepository likerepository,IPostRepository repository,
+          ILikeRepository likerepository,IPostRepository repository, IBookmarkRepository bookmarkRepository,
           IUnitOfWork unitOfWork)
         {
             _userId = contextAccessor.HttpContext.User.GetUserId();
             _Commentrepository = commentRepository;
+            _bookRepository = bookmarkRepository;
             _likerepository = likerepository;
             _repository = repository;
             _unitOfWork = unitOfWork;
@@ -40,7 +42,15 @@ namespace NextDoor.Managers
             await _repository.AddPostAsync(PostFactory.Create(model, _userId));
             await _unitOfWork.SaveChangesAsync();
         }
-       
+       public async Task AddShare(SharePostAddModel model)
+        {
+            var item = await _repository.getpostdetail(model.Postid);
+            PostFactory.CreateCount(model, item, _userId);
+            _repository.Edit(item);
+            await _unitOfWork.SaveChangesAsync();
+            await _repository.AddShareUserDetailsAsync(PostFactory.CreateShareDetails(model, _userId));
+            await _unitOfWork.SaveChangesAsync();
+        }
 
         public async Task PostEdit(PostEditModel model)
         {
@@ -216,21 +226,18 @@ namespace NextDoor.Managers
                 item.postcomments = await _repository.getPostsCommentByid(item.Id);
                 item.multimediaCount = item.multimedia.Count;
                 item.postlikes = await _repository.getPostlikesById(item.Id);
-                //item.Reaction_Id = _repository.getPostLikesReactionByUserId(userid, item.Id);
                 foreach (var r in item.postcomments)
                 {
                     var replies = await _Commentrepository.GetAllCommentById(r.id);
                     r.replies = replies;
                     var likes = await _likerepository.GetAllLikesByCommentId(r.id);
                     r.likes = likes.Count;
-                    // r.Reaction_Id =  _likerepository.getreactionId(r.id);
                     if (r.replies.Count > 0)
                     {
                         foreach (var item1 in r.replies)
                         {
                             var innerReplies = await _Commentrepository.GetAllCommentById(item1.Id);
                             item1.replies = innerReplies;
-                            //item1.likes = await _likerepository.GetAllLikesByCommentId(item1.Id);
                             var Commentlikes = await _likerepository.GetAllLikesByCommentId(item1.Id);
                             item1.Commentlikes = Commentlikes.Count;
                         }
@@ -246,9 +253,7 @@ namespace NextDoor.Managers
             var data = await _repository.getfindspostbylistingid(listingid);
             foreach (var item in data)
             {
-               
                 item.multimedia = await _repository.getPostMultimediaByPostid(item.Id);
-                
             }
             return data;
         }
@@ -277,9 +282,9 @@ namespace NextDoor.Managers
                 item.multimedia = await _repository.getPostMultimediaByPostid(item.Id);
                 item.postcomments = await _repository.getPostsCommentByid(item.Id);
                 item.PostCommentCount = item.postcomments.Count;
+                item.Bookmarkid =  _bookRepository.GetBookmarkId(item.Id);
                 item.postlikes = await _repository.getPostlikesById(item.Id);
                 item.multimediaCount = item.multimedia.Count;
-
                 item.Reaction_Id = _repository.getPostLikesReactionByUserId(userid,item.Id);
                 foreach (var r in item.postcomments)
                 {
@@ -287,19 +292,16 @@ namespace NextDoor.Managers
                     r.replies = replies;
                     var likes = await _likerepository.GetAllLikesByCommentId(r.id);
                     r.likes = likes.Count;
-                   // r.Reaction_Id =  _likerepository.getreactionId(r.id);
                     if (r.replies.Count > 0)
                     {
                         foreach (var item1 in r.replies)
                         {
                             var innerReplies = await _Commentrepository.GetAllCommentById(item1.Id);
                             item1.replies = innerReplies;
-                            //item1.likes = await _likerepository.GetAllLikesByCommentId(item1.Id);
                             var Commentlikes = await _likerepository.GetAllLikesByCommentId(item1.Id);
                             item1.Commentlikes = Commentlikes.Count;
                         }
                     }
-
                 }
             }
 
@@ -324,14 +326,12 @@ namespace NextDoor.Managers
                     r.replies = replies;
                     var likes = await _likerepository.GetAllLikesByCommentId(r.id);
                     r.likes = likes.Count;
-                    // r.Reaction_Id =  _likerepository.getreactionId(r.id);
                     if (r.replies.Count > 0)
                     {
                         foreach (var item1 in r.replies)
                         {
                             var innerReplies = await _Commentrepository.GetAllCommentById(item1.Id);
                             item1.replies = innerReplies;
-                            //item1.likes = await _likerepository.GetAllLikesByCommentId(item1.Id);
                             var Commentlikes = await _likerepository.GetAllLikesByCommentId(item1.Id);
                             item1.Commentlikes = Commentlikes.Count;
                         }
@@ -340,7 +340,7 @@ namespace NextDoor.Managers
                 }
             }
 
-            return data;// await _repository.GetAllPostAsync();
+            return data;
         }
         public async Task<JqDataTableResponse<PostDetailDto>> GetPostPagedResultAsync(JqDataTableRequest model)
         {

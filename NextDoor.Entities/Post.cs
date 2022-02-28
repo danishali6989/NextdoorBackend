@@ -14,6 +14,7 @@ namespace NextDoor.Entities
         public Categories Categories { get; set; }
         public int ListingCategoryId { get; set; }
         public ListingCategories ListingCategories { get; set; }
+        public int ShareCount { get; set; }
         public bool? Bookmark { get; set; }
         public string Subject { get; set; }
         public string SafetyDescription { get; set; }
@@ -28,7 +29,6 @@ namespace NextDoor.Entities
         public DateTime CreatedOn { get; set; }
         public string CreatedBy { get; set; }
         public DateTime? UpdatedOn { get; set; }
-        
         public string UpdatedBy { get; set; }
 
     }

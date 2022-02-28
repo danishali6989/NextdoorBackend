@@ -14,6 +14,7 @@ namespace NextDoor.Entities
         public string Description { get; set; }
         public bool? PollBookmark { get; set; }
         public string PollTimeStamp { get; set; }
+        public int PollShareCount { get; set; }
         public Constants.RecordStatus Status { get; set; }
         public DateTime CreatedOn { get; set; }
         public string CreatedBy { get; set; }

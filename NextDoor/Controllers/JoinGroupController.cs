@@ -14,7 +14,6 @@ namespace NextDoor.Controllers
     public class JoinGroupController : ControllerBase
     {
         private readonly IJoinGroupManager _manager;
-
         public JoinGroupController(IJoinGroupManager manager)
         {
             _manager = manager;

@@ -34,8 +34,6 @@ namespace NextDoor.DataLayer.Repositories
                               Email = s.Email,
                               Lan = s.Lan,
                               Lat = s.Lat,
-                            
-
                           })
                          .AsNoTracking()
                          .SingleOrDefaultAsync();

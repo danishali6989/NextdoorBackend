@@ -16,7 +16,5 @@ namespace NextDoor.Infrastructure.Repositories
         Task<CategoriesDetailDto> GetDetailAsync(int id);
         Task DeleteAsync(int id);
         Task<List<CategoriesDetailDto>> GetAllAsync();
-
-
     }
 }

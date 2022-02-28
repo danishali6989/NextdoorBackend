@@ -15,15 +15,11 @@ namespace NextDoor.Controllers
     [ApiController]
     public class MasterCredentialController : ControllerBase
     {
-
         private readonly IMasterCredentialManager _manager;
-       // private readonly IHostingEnvironment _environment;
-
-
-        public MasterCredentialController(IMasterCredentialManager manager)//, IHostingEnvironment environment)
+     
+        public MasterCredentialController(IMasterCredentialManager manager)
         {
             _manager = manager;
-           // _environment = environment;
         }
 
         [HttpPost]

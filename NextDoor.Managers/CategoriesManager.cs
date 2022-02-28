@@ -15,13 +15,9 @@ namespace NextDoor.Managers
 {
     public class CategoriesManager: ICategoriesManager
     {
-
         private readonly ICategoriesRepository _repository;
-        
         private readonly IUnitOfWork _unitOfWork;
-
         private readonly string _userId;
-
         public CategoriesManager(IHttpContextAccessor contextAccessor,
           ICategoriesRepository repository,
           IUnitOfWork unitOfWork)
@@ -30,8 +26,6 @@ namespace NextDoor.Managers
 
             _repository = repository;
             _unitOfWork = unitOfWork;
-           
-
 
         }
         public async Task AddAsync(CategoriesAddModel model)

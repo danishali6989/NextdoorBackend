@@ -1,5 +1,6 @@
 ﻿using NextDoor.Entities;
 using NextDoor.Models.Event;
+using NextDoor.Models.Post;
 using NextDoor.Utilities;
 using System;
 using System.Collections.Generic;
@@ -12,8 +13,6 @@ namespace NextDoor.Factories
 
         public static Event CreateEvent(EventAddModel model, string userId)
         {
-
-
             var data = new Event
             {
                 User_ID = model.User_id,
@@ -31,26 +30,27 @@ namespace NextDoor.Factories
                 EventTimestamp = model.TimeStamp == null ? "" : model.TimeStamp,
                 CreatedBy = userId ?? "0",
                 CreatedOn = Utility.GetDateTime(),
-                // CreatedOn = model.CreatedOn,
                 Status = Constants.RecordStatus.Active,
-
             };
 
             return data;
         }
+
+        public static void CreateCount(SharePostAddModel model, Event entity, string userId)
+        {
+            entity.EventShareCount = entity.EventShareCount + 1;
+        }
+
         public static ImageCollection CreateImage(AddImageModel model, string userId)
         {
 
 
             var data = new ImageCollection
             {
-                
                 Atachments = model.FileUrl,
                 AtachmentType = model.MediaType,
                 CreatedOn = Utility.GetDateTime(),
-              // CreatedOn = model.CreatedOn,
                 Status = Constants.RecordStatus.Active,
-
             };
 
             return data;
@@ -73,26 +73,20 @@ namespace NextDoor.Factories
             {
                 if(entity.Attachmentfile == "")
                 {
-                entity.Attachmentfile = "";
-
+                   entity.Attachmentfile = "";
                 }
                 else
                 {
                     entity.Attachmentfile = entity.Attachmentfile;
                 }
-                
             }
             else
             {
               entity.Attachmentfile = model.FileUrl;
-
             }
-            
+
             entity.UpdatedBy = userId ?? "0";
             entity.UpdatedOn = Utility.GetDateTime();
-
-
-
         }
     }
 }

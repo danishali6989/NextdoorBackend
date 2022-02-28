@@ -15,6 +15,10 @@ namespace NextDoor.Infrastructure.Repositories
         Task AddBookmarkPost(int postid);
         Task AddBookmarkEventt(int eventid);
         Task AddBookmarkPoll(int pollid);
-        Task<List<BookmarkDetailDto>> GetAllBookmarkAsync(); 
+        Task<List<BookmarkDetailDto>> GetAllBookmarkAsync();
+        int GetBookmarkId(int postId);
+        int GetEventBookmarkId(int eventId);
+        int GetPollBookmarkId(int pollId);
+
     }
 }

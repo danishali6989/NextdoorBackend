@@ -8,7 +8,6 @@ namespace UserManagement.Dtos.NextDoorUser
 {
     public  class NextDoorUserDto
     {
-
         public int Id { get; set; }
         public int UserId { get; set; }
         public string FirstName { get; set; }
@@ -18,9 +17,7 @@ namespace UserManagement.Dtos.NextDoorUser
         public string State { get; set; }
         public string FAPronounce { get; set; }
         public string TimeStamp { get; set; }
-
         public string PostalCode { get; set; }
-       
         public string StreetAdress { get; set; }
         public int ApartmentNo { get; set; }
         public string Email { get; set; }

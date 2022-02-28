@@ -22,16 +22,12 @@ namespace NextDoor.Entities
         public double Lan { get; set; }
         public double Lat { get; set; }
         public string UserTimeStamp { get; set; }
-
         public string FAPreference { get; set; }
         public string Pronoun { get; set; }
-        //public int otp { get; set; }
         public string CreatedBy { get; set; }
-      
         public Constants.RecordStatus Status { get; set; }
         public DateTime CreatedOn { get; set; }
         public DateTime? UpdatedOn { get; set; }
-        //public DateTime? LastLogin { get; set; }
         public string UpdatedBy { get; set; }
         
     }

@@ -154,7 +154,7 @@ namespace NextDoor
 
             services.AddHangfireServer();
 
-
+            services.AddSignalR();  
             services.AddScoped<IEmailService, EmailService>();//27-7
 
             
@@ -216,7 +216,11 @@ namespace NextDoor
             });
 
 
-         
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+                endpoints.MapHub<ChatHub>("/chatsocket");     // path will look like this https://localhost:44379/chatsocket 
+            });
 
         }
 

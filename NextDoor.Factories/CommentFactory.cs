@@ -31,8 +31,6 @@ namespace NextDoor.Factories
                 Status           = Constants.RecordStatus.Active,
                 CreatedBy        = userId ?? "0",
                 CreatedOn        = Utility.GetDateTime(),
-
-
             };
             return data;
         }
@@ -61,7 +59,7 @@ namespace NextDoor.Factories
                 }
 
             }
-            else //if (entity.Attachment1 != "" )
+            else 
             {
                 if(model.FileUrl1 == null)
                 {
@@ -96,7 +94,7 @@ namespace NextDoor.Factories
                 }
 
             }
-            else //if (entity.Attachment2 != "" )
+            else
             {
                 if (model.FileUrl2 == null)
                 {
@@ -130,7 +128,7 @@ namespace NextDoor.Factories
                 }
 
             }
-            else //if (entity.Attachment1 != "" )
+            else 
             {
                 if (model.FileUrl3 == null)
                 {
@@ -146,9 +144,6 @@ namespace NextDoor.Factories
                 }
 
             }
-
-
-
 
             entity.AttachmentType1 = model.MediaType1 == null || model.MediaType1 == "string" ? "" : model.MediaType1;
             entity.AttachmentType2 = model.MediaType2 == null || model.MediaType2 == "string" ? "" : model.MediaType2;

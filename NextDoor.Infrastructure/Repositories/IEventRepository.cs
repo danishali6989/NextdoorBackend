@@ -15,6 +15,8 @@ namespace NextDoor.Infrastructure.Repositories
         Task DeleteEvent(int eventid);
         Task AddImageAsync(ImageCollection entity);
         Task<Event> geteventdetail(int eventid);
+        Task AddShareUserDetailsAsync(ShareDetail entity);
+
         Task<List<ImageDetailDto>> ImageGetAllAsync();
         Task<List<EventDetailDto>> EventGetAllAsync();
         Task<List<EventDetailDto>> EventGetAllBookmarkAsync(int userid);

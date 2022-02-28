@@ -10,8 +10,7 @@ namespace NextDoor.Models.Poll
         public int UserID { get; set; }
         public string Question { get; set; }
         public string Description { get; set; }
-        /*public string Response1 { get; set; }
-        public string Response2 { get; set; }*/
+       
         public string TimeStamp { get; set; }
 
         public List<string> image { get; set; }

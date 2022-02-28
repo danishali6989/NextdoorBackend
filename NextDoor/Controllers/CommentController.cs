@@ -28,7 +28,7 @@ namespace NextDoor.Controllers
         }
 
         [HttpPost]
-        //  [Authorize]
+       
         [Route("AddComment")]
         public async Task<IActionResult> Add([FromBody] CommentAddModel model)
         {
@@ -41,11 +41,7 @@ namespace NextDoor.Controllers
 
             try
             {
-
                 CommentAddModel cmnt = new CommentAddModel();
-                /* Post.Id = data.Id;
-                 Post.User_Id = data.User_id;
-                 Post.CategoryId = data.Category_id;*/
                 cmnt.User_Id = model.User_Id;
                 cmnt.PostId = model.PostId;
                 cmnt.Poll_id = model.Poll_id;
@@ -58,15 +54,11 @@ namespace NextDoor.Controllers
                 cmnt.File1 = model.File1;
                 cmnt.File2 = model.File2;
                 cmnt.File3 = model.File3;
-
-
                 cmnt.FileUrl1 = model.FileUrl1;
                 cmnt.FileUrl2 = model.FileUrl2;
                 cmnt.FileUrl3 = model.FileUrl3;
 
                 string extensions;
-               
-
                 if (cmnt.File1 != null && cmnt.File1 != "string")
                 {
                     var myfilename = string.Format(@"{0}", Guid.NewGuid());
@@ -307,8 +299,6 @@ namespace NextDoor.Controllers
                 cmnt.File1 = model.File1;
                 cmnt.File2 = model.File2;
                 cmnt.File3 = model.File3;
-
-
                 cmnt.FileUrl1 = model.FileUrl1;
                 cmnt.FileUrl2 = model.FileUrl2;
                 cmnt.FileUrl3 = model.FileUrl3;
@@ -531,10 +521,7 @@ namespace NextDoor.Controllers
         [Route("get-all-Comment-By-PostId")]
         public async Task<IActionResult> GetAllAsync(int postId)
         {
-
             var data = await _manager.GetAllCommentByPostIdAsync(postId);
-          //  var data1 = 
-
             foreach (var r in data)
             {
                 var replies = await _manager.GetAllCommentByIdAsync(r.Id);
@@ -555,7 +542,6 @@ namespace NextDoor.Controllers
             {
                 StatusCode = 200,
                 comments = data ,
-              //  likes = data1
             };
             return Ok(result);
         }
@@ -565,8 +551,6 @@ namespace NextDoor.Controllers
         [Route("Delete-Comment")]
         public async Task<IActionResult> Delete(int Commentid)
         {
-
-
             await _manager.DeleteAsync(Commentid);
 
             return Ok("Comment Deleted");

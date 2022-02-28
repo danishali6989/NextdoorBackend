@@ -20,6 +20,7 @@ namespace NextDoor.DataLayer.EntityConfiguration
             builder.Property(x => x.Category_id).IsRequired();
             builder.Property(x => x.ListingCategoryId).IsRequired();
             builder.Property(x => x.Subject).IsRequired(); 
+            builder.Property(x => x.ShareCount).IsRequired();
             builder.Property(x => x.Message).IsRequired();
             builder.Property(x => x.SafetyDescription).IsRequired(false);
             builder.Property(x => x.SafetyPersonDescription).IsRequired(false);

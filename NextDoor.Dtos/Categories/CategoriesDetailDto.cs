@@ -11,8 +11,6 @@ namespace NextDoor.Dtos.Categories
     {
         public int Id { get; set; }
         public string CategoryName { get; set; }
-
-       
         public Constants.RecordStatus Status { get; set; }
     }
 }

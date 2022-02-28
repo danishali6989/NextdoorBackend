@@ -13,15 +13,12 @@ namespace NextDoor.Models.Comment
         public int Comment_Parent_Id { get; set; }
         public string CommentText { get; set; }
         public string TimeStamp { get; set; }
-
-
         public string File1 { get; set; }
         public string File2 { get; set; }
         public string File3 { get; set; }
         public string FileUrl1 { get; set; }
         public string FileUrl2 { get; set; }
         public string FileUrl3 { get; set; }
-        //  public string videoUrl { get; set; }
         public string MediaType1 { get; set; }
         public string MediaType2 { get; set; }
         public string MediaType3 { get; set; }

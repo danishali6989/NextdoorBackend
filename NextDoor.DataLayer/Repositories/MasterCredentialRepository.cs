@@ -10,7 +10,6 @@ namespace NextDoor.DataLayer.Repositories
     public class MasterCredentialRepository : IMasterCredentialRepository
     {
         private readonly DataContext _dataContext;
-
         public MasterCredentialRepository(DataContext datacontext)
         {
             _dataContext = datacontext;

@@ -16,15 +16,11 @@ namespace NextDoor.Controllers
     public class NeighbourhoodController : ControllerBase
     {
         private readonly INeighbourhoodManager _manager;
-        private readonly IHostingEnvironment _environment;
         private readonly IJoinNeighbourhoodManager _joinmanager;
-
-
-        public NeighbourhoodController(INeighbourhoodManager manager,IHostingEnvironment environment,
+        public NeighbourhoodController(INeighbourhoodManager manager,
             IJoinNeighbourhoodManager joinmanager)
         {
             _manager = manager;
-            _environment = environment;
             _joinmanager = joinmanager;
         }
       
@@ -33,8 +29,6 @@ namespace NextDoor.Controllers
         [Route("addNeighbourhood")]
         public async Task<IActionResult> Add([FromBody] NeighbourhoodAddModel model)
         {
-
-
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState.GetErrorList());
@@ -77,8 +71,6 @@ namespace NextDoor.Controllers
         [Route("editNeighbourhood")]
         public async Task<IActionResult> Edit([FromBody] NeighbourhoodAddModel model)
         {
-
-
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState.GetErrorList());
@@ -101,7 +93,6 @@ namespace NextDoor.Controllers
         [Route("get-detail/{id}")]
         public async Task<IActionResult> GetDetail(int id)
         {
-
             var data = await _manager.GetDetailAsync(id);
             if (data == null)
             {
@@ -114,10 +105,7 @@ namespace NextDoor.Controllers
         [Route("Delete/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-
-
             await _manager.DeleteAsync(id);
-
             return Ok("Neighbourhood Deleted");
         }
 

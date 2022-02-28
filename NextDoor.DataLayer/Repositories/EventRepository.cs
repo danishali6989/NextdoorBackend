@@ -14,9 +14,7 @@ namespace NextDoor.DataLayer.Repositories
 {
    public class EventRepository : IEventRepository
     {
-
         private readonly DataContext _dataContext;
-
         public EventRepository(DataContext dataContext)
         {
             _dataContext = dataContext;
@@ -25,7 +23,10 @@ namespace NextDoor.DataLayer.Repositories
         {
             _dataContext.Event.Update(entity);
         }
-
+        public async Task AddShareUserDetailsAsync(ShareDetail entity)
+        {
+            await _dataContext.ShareDetail.AddAsync(entity);
+        }
         public async Task DeleteEvent(int eventid)
         {
             var data = await _dataContext.Event.FindAsync(eventid);
@@ -48,16 +49,13 @@ namespace NextDoor.DataLayer.Repositories
         public async Task<List<ImageDetailDto>> ImageGetAllAsync()
         {
             return await (from s in _dataContext.ImageCollection
-
                           select new ImageDetailDto
                           {
                               id = s.Id,
                               Atachments = s.Atachments,
                               AtachmentType= s.AtachmentType,
                               CreatedOn = s.CreatedOn,
-
                               Status = s.Status
-
                           })
                           .AsNoTracking()
                           .ToListAsync();
@@ -66,10 +64,7 @@ namespace NextDoor.DataLayer.Repositories
         public async Task<List<EventDetailDto>> geteventbyeventid(int eventid)
         {
             return await (from s in _dataContext.Event
-
-
                           where s.ID == eventid
-
                           select new EventDetailDto
                           {
                               ID = s.ID,
@@ -84,12 +79,8 @@ namespace NextDoor.DataLayer.Repositories
                               StartTime = s.StartTime,
                               EndDate = s.EndDate,
                               EndTime = s.EndTime,
-                             // EventTimeStamp = s.EventTimestamp,
                               CreatedOn = s.CreatedOn,
-
                               Status = s.Status
-
-
                           })
                           .AsNoTracking()
                           .ToListAsync();
@@ -97,7 +88,6 @@ namespace NextDoor.DataLayer.Repositories
         public async Task<List<EventDetailDto>> EventGetAllAsync()
         {
             return await (from s in _dataContext.Event
-
                           select new EventDetailDto
                           {
                               ID = s.ID,
@@ -115,11 +105,9 @@ namespace NextDoor.DataLayer.Repositories
                               StartTime = s.StartTime,
                               EndDate = s.EndDate,
                               EndTime = s.EndTime,
-                           //   EventTimeStamp = s.EventTimestamp,
                               CreatedOn = s.CreatedOn,
-
-                              Status = s.Status
-
+                              Status = s.Status,
+                              EventShareCount = s.EventShareCount
                           })
                           .AsNoTracking()
                           .ToListAsync();
@@ -144,11 +132,8 @@ namespace NextDoor.DataLayer.Repositories
                               StartTime = s.StartTime,
                               EndDate = s.EndDate,
                               EndTime = s.EndTime,
-                            //  EventTimeStamp = s.EventTimestamp,
                               CreatedOn = s.CreatedOn,
-
                               Status = s.Status
-
                           })
                           .AsNoTracking()
                           .ToListAsync();
@@ -158,7 +143,6 @@ namespace NextDoor.DataLayer.Repositories
         {
             return await (from s in _dataContext.Comment
                           where s.Event_id == Id && s.CommentParent_Id == 0
-
                           select new EventComment
                           {
                               id = s.Id,
@@ -174,10 +158,6 @@ namespace NextDoor.DataLayer.Repositories
                               lat = s.lat,
                               lng = s.lng,
                               TimeStamp = s.TimeStamp
-
-
-
-
                           })
                           .OrderByDescending(x => x.id)
                           .AsNoTracking()
@@ -187,16 +167,11 @@ namespace NextDoor.DataLayer.Repositories
         {
             return await (from s in _dataContext.Likes
                           where s.Event_id == Id && s.Comment_id == 0
-
                           select new EventLikes
                           {
                               Comment_id = s.Comment_id,
                               Reaction_Id = s.Reaction_Id,
                               User_id = s.User_id,
-
-
-
-
                           })
                           .AsNoTracking()
                           .ToListAsync();
@@ -205,7 +180,6 @@ namespace NextDoor.DataLayer.Repositories
 
         public Constants.ReactionStatus getEventLikesReactionById(int userid,int eventid)
         {
-
             var obj = _dataContext.Likes.Where(x => x.User_id == userid && x.Event_id == eventid && x.Comment_id == 0).FirstOrDefault();
             if (obj == null)
             {
@@ -214,7 +188,6 @@ namespace NextDoor.DataLayer.Repositories
             else
             {
               return obj.Reaction_Id;
-
             }
 
         }

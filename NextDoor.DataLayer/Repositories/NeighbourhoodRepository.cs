@@ -15,7 +15,6 @@ namespace NextDoor.DataLayer.Repositories
     public class NeighbourhoodRepository : INeighbourhoodRepository
     {
         private readonly DataContext _dataContext;
-
         public NeighbourhoodRepository(DataContext datacontext)
         {
             _dataContext = datacontext;
@@ -47,12 +46,9 @@ namespace NextDoor.DataLayer.Repositories
                               id = s.Id,
                               userid = s.Userid,
                               Neighbourhood_Name = s.NeighbourhoodName,
-                             // NeighbourhoodTimeStamp = s.NeighbourhoodTimeStamp,
                               PostalCode = s.Postalcode,
                               CreatedOn = s.CreatedOn,
-                              
                               Status = s.Status
-
                           })
                           .AsNoTracking()
                           .SingleOrDefaultAsync();
@@ -67,7 +63,6 @@ namespace NextDoor.DataLayer.Repositories
                               id = s.Id,
                               userid = s.Userid,
                               Neighbourhood_Name = s.NeighbourhoodName,
-                             // NeighbourhoodTimeStamp = s.NeighbourhoodTimeStamp,
                               CreatedOn = s.CreatedOn,
                               Status = s.Status
                           })
@@ -85,7 +80,6 @@ namespace NextDoor.DataLayer.Repositories
         public async Task DeleteLocation(int id)
         {
             var data1 = _dataContext.Location.Where(x => x.id == id).FirstOrDefault();
-
             _dataContext.Location.Remove(data1);
             await _dataContext.SaveChangesAsync();
         }
@@ -100,10 +94,8 @@ namespace NextDoor.DataLayer.Repositories
                               id = s.Id,
                               userid = s.Userid,
                               Neighbourhood_Name = s.NeighbourhoodName,
-                             // NeighbourhoodTimeStamp = s.NeighbourhoodTimeStamp,
                               CreatedOn = s.CreatedOn,
                               Status = s.Status
-
                           })
                           .AsNoTracking()
                           .ToListAsync();
@@ -113,7 +105,6 @@ namespace NextDoor.DataLayer.Repositories
         {
             return await (from s in _dataContext.Location
                           where s.UserId == userid
-
                           select new AddLocation
                           {
                               lat = s.lat,
@@ -126,7 +117,6 @@ namespace NextDoor.DataLayer.Repositories
         {
             return await (from s in _dataContext.Location
                           where s.NeighbourhoodId == id
-
                           select new AddLocation
                           {
                               lat = s.lat,

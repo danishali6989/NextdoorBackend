@@ -5,6 +5,7 @@ using NextDoor.Infrastructure.DataLayer;
 using NextDoor.Infrastructure.Managers;
 using NextDoor.Infrastructure.Repositories;
 using NextDoor.Models.Event;
+using NextDoor.Models.Post;
 using NextDoor.Utilities;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,7 @@ namespace NextDoor.Managers
     {
 
         private readonly IEventRepository _repository;
+        private readonly IBookmarkRepository _Bookmarkrepository;
 
         private readonly IUnitOfWork _unitOfWork;
         private readonly ICommentRepository _Commentrepository;
@@ -25,7 +27,7 @@ namespace NextDoor.Managers
         private readonly string _userId;
 
         public EventManager(IHttpContextAccessor contextAccessor, ICommentRepository commentRepository,
-          ILikeRepository likerepository,
+          ILikeRepository likerepository, IBookmarkRepository bookmarkRepository,
           IEventRepository repository,
           IUnitOfWork unitOfWork)
         {
@@ -34,6 +36,7 @@ namespace NextDoor.Managers
             _likerepository = likerepository;
             _repository = repository;
             _unitOfWork = unitOfWork;
+            _Bookmarkrepository = bookmarkRepository;
         }
 
         public async Task EventEditAsync(EventAddModel model)
@@ -51,6 +54,15 @@ namespace NextDoor.Managers
         public async Task AddImageAsync(AddImageModel model)
         {
             await _repository.AddImageAsync(EventFactory.CreateImage(model, _userId));
+            await _unitOfWork.SaveChangesAsync();
+        }
+        public async Task AddShare(SharePostAddModel model)
+        {
+            var item = await _repository.geteventdetail(model.Eventid);
+            EventFactory.CreateCount(model, item, _userId);
+            _repository.Edit(item);
+            await _unitOfWork.SaveChangesAsync();
+            await _repository.AddShareUserDetailsAsync(PostFactory.CreateShareDetails(model, _userId));
             await _unitOfWork.SaveChangesAsync();
         }
         public async Task AddEventAsync(EventAddModel model)
@@ -74,6 +86,7 @@ namespace NextDoor.Managers
                 item.EventCommentCount = item.eventcomments.Count;
                 item.eventlikes = await _repository.getEventlikesById(item.ID);
                 item.UserReaction_Id =  _repository.getEventLikesReactionById(userid,item.ID);
+                item.BookmarkId = _Bookmarkrepository.GetEventBookmarkId(item.ID);
                 foreach (var r in item.eventcomments)                               // for comments replies
                 {
                     var replies = await _Commentrepository.GetAllCommentById(r.id);
@@ -81,16 +94,13 @@ namespace NextDoor.Managers
                     var likes = await _likerepository.GetAllLikesByCommentId(r.id);
                     r.like = likes;
                     r.likes = likes.Count;
-                   // var readctionId = await _likerepository.GetAllLikesByCommentId(r.id);
-                  // r.Reaction_Id = ;
-
+                   
                     if (r.replies.Count > 0)
                     {
                         foreach (var item1 in r.replies)                                        // for inner replies
                         {
                             var innerReplies = await _Commentrepository.GetAllCommentById(item1.Id);
                             item1.replies = innerReplies;
-                            //item1.likes = await _likerepository.GetAllLikesByCommentId(item1.Id);
                             var Commentlikes = await _likerepository.GetAllLikesByCommentId(item1.Id);
                             item1.likes = Commentlikes;
                             item1.Commentlikes = Commentlikes.Count;
@@ -121,8 +131,6 @@ namespace NextDoor.Managers
                     var likes = await _likerepository.GetAllLikesByCommentId(r.id);
                     r.like = likes;
                     r.likes = likes.Count;
-                    // var readctionId = await _likerepository.GetAllLikesByCommentId(r.id);
-                    // r.Reaction_Id = ;
 
                     if (r.replies.Count > 0)
                     {
@@ -130,12 +138,9 @@ namespace NextDoor.Managers
                         {
                             var innerReplies = await _Commentrepository.GetAllCommentById(item1.Id);
                             item1.replies = innerReplies;
-                            //item1.likes = await _likerepository.GetAllLikesByCommentId(item1.Id);
                             var Commentlikes = await _likerepository.GetAllLikesByCommentId(item1.Id);
                             item1.likes = Commentlikes;
                             item1.Commentlikes = Commentlikes.Count;
-
-
                         }
                     }
                 }
@@ -146,14 +151,11 @@ namespace NextDoor.Managers
 
         public async Task<List<EventDetailDto>> EventGetAllAsync()
         {
-
             var data = await _repository.EventGetAllAsync();
-
             foreach (var item in data)                                      // for events
             {
                 item.eventcomments = await _repository.getEventCommentByid(item.ID);        //for event comments
                 item.eventlikes = await _repository.getEventlikesById(item.ID);
-               // item.UserReaction_Id = _repository.getEventLikesReactionById(userid, item.ID);
                 foreach (var r in item.eventcomments)                               // for comments replies
                 {
                     var replies = await _Commentrepository.GetAllCommentById(r.id);
@@ -161,8 +163,6 @@ namespace NextDoor.Managers
                     var likes = await _likerepository.GetAllLikesByCommentId(r.id);
                     r.like = likes;
                     r.likes = likes.Count;
-                    // var readctionId = await _likerepository.GetAllLikesByCommentId(r.id);
-                    // r.Reaction_Id = ;
 
                     if (r.replies.Count > 0)
                     {
@@ -170,12 +170,9 @@ namespace NextDoor.Managers
                         {
                             var innerReplies = await _Commentrepository.GetAllCommentById(item1.Id);
                             item1.replies = innerReplies;
-                            //item1.likes = await _likerepository.GetAllLikesByCommentId(item1.Id);
                             var Commentlikes = await _likerepository.GetAllLikesByCommentId(item1.Id);
                             item1.likes = Commentlikes;
                             item1.Commentlikes = Commentlikes.Count;
-
-
                         }
                     }
                 }
@@ -192,7 +189,6 @@ namespace NextDoor.Managers
             {
                 item.eventcomments = await _repository.getEventCommentByid(item.ID);        //for event comments
                 item.eventlikes = await _repository.getEventlikesById(item.ID);
-                // item.UserReaction_Id = _repository.getEventLikesReactionById(userid, item.ID);
                 foreach (var r in item.eventcomments)                               // for comments replies
                 {
                     var replies = await _Commentrepository.GetAllCommentById(r.id);
@@ -200,21 +196,15 @@ namespace NextDoor.Managers
                     var likes = await _likerepository.GetAllLikesByCommentId(r.id);
                     r.like = likes;
                     r.likes = likes.Count;
-                    // var readctionId = await _likerepository.GetAllLikesByCommentId(r.id);
-                    // r.Reaction_Id = ;
-
                     if (r.replies.Count > 0)
                     {
                         foreach (var item1 in r.replies)                                        // for inner replies
                         {
                             var innerReplies = await _Commentrepository.GetAllCommentById(item1.Id);
                             item1.replies = innerReplies;
-                            //item1.likes = await _likerepository.GetAllLikesByCommentId(item1.Id);
                             var Commentlikes = await _likerepository.GetAllLikesByCommentId(item1.Id);
                             item1.likes = Commentlikes;
                             item1.Commentlikes = Commentlikes.Count;
-
-
                         }
                     }
                 }

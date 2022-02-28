@@ -11,8 +11,5 @@ namespace NextDoor.Entities
         public int Poll_Id { get; set; }
         public int Response_Id { get; set; }
         public DateTime CreatedOn { get; set; }
-
-
-
     }
 }

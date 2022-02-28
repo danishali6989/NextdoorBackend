@@ -277,6 +277,43 @@ namespace NextDoor.DataLayer.Migrations
                     b.ToTable("Bookmark");
                 });
 
+            modelBuilder.Entity("NextDoor.Entities.BusinessType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("BusinessName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("BusinessType");
+                });
+
             modelBuilder.Entity("NextDoor.Entities.Categories", b =>
                 {
                     b.Property<int>("Id")
@@ -479,6 +516,9 @@ namespace NextDoor.DataLayer.Migrations
                     b.Property<string>("EventFileData")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("EventShareCount")
+                        .HasColumnType("int");
+
                     b.Property<string>("EventTimestamp")
                         .HasColumnType("nvarchar(max)");
 
@@ -587,6 +627,51 @@ namespace NextDoor.DataLayer.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Group");
+                });
+
+            modelBuilder.Entity("NextDoor.Entities.HelpMap", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ParentMessageId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<double>("lat")
+                        .HasColumnType("float");
+
+                    b.Property<double>("lng")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("HelpMap");
                 });
 
             modelBuilder.Entity("NextDoor.Entities.ImageCollection", b =>
@@ -1202,6 +1287,9 @@ namespace NextDoor.DataLayer.Migrations
                     b.Property<bool?>("PollBookmark")
                         .HasColumnType("bit");
 
+                    b.Property<int>("PollShareCount")
+                        .HasColumnType("int");
+
                     b.Property<string>("PollTimeStamp")
                         .HasColumnType("nvarchar(max)");
 
@@ -1307,6 +1395,9 @@ namespace NextDoor.DataLayer.Migrations
                     b.Property<string>("SafetyPersonDescription")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("ShareCount")
+                        .HasColumnType("int");
+
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
@@ -1339,6 +1430,48 @@ namespace NextDoor.DataLayer.Migrations
                     b.HasIndex("User_id");
 
                     b.ToTable("Post");
+                });
+
+            modelBuilder.Entity("NextDoor.Entities.ShareDetail", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("EventId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PollId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PostId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Userid")
+                        .HasColumnType("int");
+
+                    b.HasKey("id");
+
+                    b.ToTable("ShareDetail");
                 });
 
             modelBuilder.Entity("NextDoor.Entities.VechileSafety", b =>
@@ -1467,6 +1600,17 @@ namespace NextDoor.DataLayer.Migrations
                         .IsRequired();
 
                     b.Navigation("EventCategories");
+
+                    b.Navigation("NextDoorUser");
+                });
+
+            modelBuilder.Entity("NextDoor.Entities.HelpMap", b =>
+                {
+                    b.HasOne("NextDoor.Entities.NextDoorUser", "NextDoorUser")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("NextDoorUser");
                 });

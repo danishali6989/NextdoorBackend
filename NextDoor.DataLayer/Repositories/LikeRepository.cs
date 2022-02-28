@@ -15,12 +15,10 @@ namespace NextDoor.DataLayer.Repositories
     public class LikeRepository : ILikeRepository
     {
         private readonly DataContext _dataContext;
-
         public LikeRepository(DataContext dataContext)
         {
             _dataContext = dataContext;
         }
-
         public async Task AddLikeAsync(Likes entity)
         {
             await _dataContext.Likes.AddAsync(entity);
@@ -30,7 +28,6 @@ namespace NextDoor.DataLayer.Repositories
         {
             return await (from s in _dataContext.Likes
                           where s.User_id == userId
-
                           select new LikeDetailDto
                           {
                               Id = s.Id,
@@ -48,7 +45,6 @@ namespace NextDoor.DataLayer.Repositories
         {
             return await (from s in _dataContext.Likes
                           where  s.Comment_id == CommentId
-
                           select new LikeDetailDto
                           {
                               Id = s.Id,
@@ -61,30 +57,7 @@ namespace NextDoor.DataLayer.Repositories
                           .AsNoTracking()
                           .ToListAsync();
         }
-        /*public Constants.ReactionStatus getreactionId(int CommentId)
-        {
-            return (from s in _dataContext.Likes
-                    where s.Comment_id == CommentId
-
-                    select new LikeDetailDto
-                    {
-
-                        Reaction_Id = s.Reaction_Id,
-                    })
-                          .AsNoTracking()
-                          .ToListAsync();
-            var cmntid = _dataContext.Likes.Where(x=> x.Comment_id == CommentId).FirstOrDefault();
-            if(cmntid == null)
-            {
-                cmntid.Reaction_Id = 0;
-                return cmntid.Reaction_Id;
-            }
-            else
-            {
-
-            return cmntid.Reaction_Id;
-            }
-        }*/
+        
         public async Task<LikeDetailDto> GetLikeByUserAsync(int userId, int postId)
         {
             return await (from s in _dataContext.Likes
@@ -97,9 +70,6 @@ namespace NextDoor.DataLayer.Repositories
                               EventId = s.Event_id,
                               Reaction_Id = s.Reaction_Id,
                               CommentId = s.Comment_id,
-                              
-
-
                           })
                          .AsNoTracking()
                          .SingleOrDefaultAsync();
@@ -116,9 +86,6 @@ namespace NextDoor.DataLayer.Repositories
                               EventId = s.Event_id,
                               Reaction_Id = s.Reaction_Id,
                               CommentId = s.Comment_id,
-
-
-
                           })
                          .AsNoTracking()
                          .SingleOrDefaultAsync();
@@ -135,9 +102,6 @@ namespace NextDoor.DataLayer.Repositories
                               EventId = s.Event_id,
                               Reaction_Id = s.Reaction_Id,
                               CommentId = s.Comment_id,
-
-
-
                           })
                          .AsNoTracking()
                          .SingleOrDefaultAsync();
@@ -172,9 +136,6 @@ namespace NextDoor.DataLayer.Repositories
                               EventId = s.Event_id,
                               Reaction_Id = s.Reaction_Id,
                               CommentId = s.Comment_id,
-
-
-
                           })
                          .AsNoTracking()
                          .SingleOrDefaultAsync();
@@ -191,9 +152,6 @@ namespace NextDoor.DataLayer.Repositories
                               EventId = s.Event_id,
                               Reaction_Id = s.Reaction_Id,
                               CommentId = s.Comment_id,
-
-
-
                           })
                          .AsNoTracking()
                          .SingleOrDefaultAsync();

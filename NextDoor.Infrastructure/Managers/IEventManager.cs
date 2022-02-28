@@ -1,5 +1,6 @@
 ﻿using NextDoor.Dtos.Event;
 using NextDoor.Models.Event;
+using NextDoor.Models.Post;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,6 +13,7 @@ namespace NextDoor.Infrastructure.Managers
         Task AddImageAsync(AddImageModel model);
         Task AddEventAsync(EventAddModel model);
         Task EventEditAsync(EventAddModel model);
+        Task AddShare(SharePostAddModel model);
         Task<List<ImageDetailDto>> ImageGetAllAsync();
         Task<List<EventDetailDto>> EventGetAllAsync(int userid);
         Task<List<EventDetailDto>> EventGetAllBookmarkAsync(int userid);

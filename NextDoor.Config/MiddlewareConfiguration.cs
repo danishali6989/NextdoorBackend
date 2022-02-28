@@ -51,6 +51,9 @@ namespace NextDoor.Config
             services.AddScoped<IJoinNeighbourhoodManager, JoinNeighbourhoodManager>();
             services.AddScoped<IGroupManager, GroupManager>();
             services.AddScoped<IJoinGroupManager, JoinGroupManager>();
+            services.AddScoped<IHelpMapManager, HelpMapManager>();
+            services.AddScoped<IBusinessTypeManager, BusinessTypeManager>();
+
 
         }
         public static void ConfigureRepository(IServiceCollection services)
@@ -73,6 +76,10 @@ namespace NextDoor.Config
             services.AddScoped<IJoinNeighbourhoodRepository, JoinNeighbourhoodRepository>();
             services.AddScoped<IGroupRepository, GroupRepository>();
             services.AddScoped<IJoinGroupRepository, JoinGroupRepository>();
+            services.AddScoped<IHelpMapRepository, HelpMapRepository>();
+            services.AddScoped<IBusinessTypeRepository, BusinessTypeRepository>();
+
+
 
         }
         public static void ConfigureServices(IServiceCollection services)

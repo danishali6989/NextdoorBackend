@@ -9,8 +9,6 @@ namespace NextDoor.Dtos.ListingCategories
     {
         public int Id { get; set; }
         public string ListingCategoryName { get; set; }
-
-
         public Constants.RecordStatus Status { get; set; }
     }
 }

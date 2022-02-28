@@ -36,10 +36,6 @@ namespace UserManagement.Managers
         }
 
 
-       /* public async Task<NextDoorUserDto> CheckNextDoorUserEmail(string Email)
-        {
-            return await _repository.GetByNextDoorUserEmailAsync(Email);
-        }*/
         public async Task AddAsync(AddNextDoorUserModel model,string header)
         {
             await _repository.AddAsync(NextDoorUserFactory.Create(model, _userId,header));
@@ -68,22 +64,11 @@ namespace UserManagement.Managers
             await _unitOfWork.SaveChangesAsync();
         }
 
-       /* public async Task DeleteAsync(int id)
-        {
-            await _repository.DeleteAsync(id);
-            await _unitOfWork.SaveChangesAsync();
-        }*/
-
+      
         public async Task<List<NextDoorUserDto>> GetUserList(string PostalCode)
         {
             return await _repository.GetUserList(PostalCode);
         }
-
-       /* public async Task<NextDoorUserDto> CheckUser(string email)
-        {
-            return await _repository.GetByUserAsync(email);
-        }*/
-
 
     }
 }

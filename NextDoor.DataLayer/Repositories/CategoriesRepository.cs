@@ -16,7 +16,6 @@ namespace NextDoor.DataLayer.Repositories
     {
 
         private readonly DataContext _dataContext;
-
         public CategoriesRepository(DataContext dataContext)
         {
             _dataContext = dataContext;

@@ -19,20 +19,17 @@ namespace NextDoor.Controllers
     [ApiController]
     public class FeedController : ControllerBase
     {
-        //PostManager postManager = new PostManager();
-        //EventManager eventManager = new EventManager();
-        //PollManager pollManager = new PollManager();
         private readonly IPostManager _postManager;
         private readonly IEventManager _eventManager;
         private readonly IPollManager _pollManager;
-        //private readonly IHostingEnvironment _environment;
+       
         public FeedController(IPostManager postManager,
-            IEventManager eventManager, IPollManager pollManager)//, IHostingEnvironment environment)
+            IEventManager eventManager, IPollManager pollManager)
         {
             _postManager = postManager;
             _eventManager = eventManager;
             _pollManager = pollManager;
-           // _environment = environment;
+          
         }
 
         [HttpGet]
@@ -46,18 +43,13 @@ namespace NextDoor.Controllers
             events = events.OrderBy(x => x.CreatedOn).ToList();
             polls = polls.OrderBy(x => x.CreatedOn).ToList();
             List<feedDto> feeds = new List<feedDto>();
-           // string path = _environment.WebRootPath;
-           
             foreach (var item in posts)
             {
                 var feed = new feedDto()
                 {
                     posttype = "Post",
-
                     Id = item.Id,
-                    
                     User_id = item.User_id,
-
                     Category_id = item.Category_id,
                     Category_Name = item.CategoryName,
                     FirstName = item.FirstName,
@@ -82,7 +74,9 @@ namespace NextDoor.Controllers
                     PostCommentCount = item.PostCommentCount,
                     Postlikes = item.postlikes,
                     postAllLikes = item.postlikes.Count,
-                    UserReaction_Id = item.Reaction_Id
+                    UserReaction_Id = item.Reaction_Id,
+                    ShareCount = item.PostShareCount,
+                    BookmarkId = item.Bookmarkid
                 };
                 feeds.Add(feed);
             }
@@ -114,7 +108,8 @@ namespace NextDoor.Controllers
                     eventLike = item.eventlikes,
                     eventLikes = item.eventlikes.Count,
                     UserReaction_Id = item.UserReaction_Id,
-                    
+                    ShareCount = item.EventShareCount,
+                    BookmarkId = item.BookmarkId
                 };
                 feeds.Add(feed);
            
@@ -132,7 +127,6 @@ namespace NextDoor.Controllers
                     User_id = item.User_id,
                     PollBookmark = item.PollBookmark,
                     Question = item.Question,
-                    // response_id = ,
                     Description = item.Description,
                     PollStatus = item.Status,
                     options = item.options,
@@ -142,13 +136,14 @@ namespace NextDoor.Controllers
                     PollCommentCount = item.PollCommentCount,
                     pollLike = item.polllike,
                     pollLikes = item.polllike.Count,
-                    UserPollReaction_Id = item.UserReaction_id,
-
-                    CreatedOn = item.CreatedOn
+                    UserReaction_Id = item.UserReaction_id,
+                    ShareCount=item.PollShareCount,
+                    CreatedOn = item.CreatedOn,
+                    BookmarkId = item.Bookmarkid
                 };
                 feeds.Add(feed);
             }
-
+            
             feeds = feeds.OrderByDescending(x => x.CreatedOn).ToList();
             return Ok(feeds);
 

@@ -13,7 +13,7 @@ namespace NextDoor.Dtos.Event
         public int User_ID { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-
+        public int BookmarkId { get; set; }
         public int EventCategory_Id { get; set; }
         public string EventCategoryName { get; set; }
         public bool? EventBookmark { get; set; }
@@ -26,18 +26,15 @@ namespace NextDoor.Dtos.Event
         public string EndTime { get; set; }
         public string Address { get; set; }
         public string EventTimeStamp { get; set; }
-
+        public int EventShareCount { get; set; }
         public Constants.RecordStatus Status { get; set; }
         public DateTime CreatedOn { get; set; }
         public List<EventComment> eventcomments { get; set; }
         public int EventCommentCount { get; set; } 
         public List<EventLikes> eventlikes { get; set; }
-       /* public List<CommentDetailDto> replies { get; set; }
-        public List<LikeDetailDto> likes { get; set; }*/
         public Constants.ReactionStatus UserReaction_Id { get; set; }
     }
 }
-
 
 public class EventComment
 {
@@ -48,7 +45,6 @@ public class EventComment
     public string LastName { get; set; }
     public int Eventid { get; set; }
     public string TimeStamp { get; set; }
-
     public string CommentText { get; set; }
     public double lat { get; set; }
     public double lng { get; set; }

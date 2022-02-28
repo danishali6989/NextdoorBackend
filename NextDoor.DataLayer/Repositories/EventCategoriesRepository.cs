@@ -16,7 +16,6 @@ namespace NextDoor.DataLayer.Repositories
     {
 
         private readonly DataContext _dataContext;
-
         public EventCategoriesRepository(DataContext dataContext)
         {
             _dataContext = dataContext;

@@ -19,14 +19,11 @@ namespace NextDoor.Controllers
 {
 
     [Route("api/[controller]")]
-   //[Produces("application/json")]
     [ApiController]
     public class NextDoorUserLoginController : ControllerBase
     {
-       // private readonly IConfiguration _configuration;
         private readonly INextDoorUserLoginManager _manager;
         private readonly INextDoorUserManager _usermanager;
-      //  private readonly IHostingEnvironment _environment;
         private readonly IJoinNeighbourhoodManager _joinmanager;
         private readonly IConfiguration _configuration;
 
@@ -36,7 +33,6 @@ namespace NextDoor.Controllers
 
             _configuration = configuration;
             _manager = manager;
-           // _environment = environment;
             _usermanager = usermanager;
             _joinmanager = joinmanager;
         }
@@ -68,9 +64,7 @@ namespace NextDoor.Controllers
             try
             {
            
-
-
-                        var response = await client.PostAsync(url, data);
+                var response = await client.PostAsync(url, data);
                 if (response.ReasonPhrase == "OK")
                 {
                     string result = response.Content.ReadAsStringAsync().Result;
@@ -87,7 +81,8 @@ namespace NextDoor.Controllers
                                 { new Claim("id", user.Id.ToString()) ,
                                    new Claim("userid",result.ToString()),
                                    new Claim("name", user.FirstName.ToString()),
-                                   new Claim("lastname",user.LastName.ToString())
+                                   new Claim("lastname",user.LastName.ToString()),
+                                   new Claim("PostalCode",user.PostalCode.ToString())
                                 }
                                 ),
                             Audience = _configuration.GetValue<string>("Jwt:Audience"),
@@ -114,10 +109,7 @@ namespace NextDoor.Controllers
                             var res = new
                             {
                                 token1 = tokenHandler.WriteToken(token),
-                               // result,
                                 isJoined = false,
-                            
-
                             };
                             return Ok(res);
                         }
@@ -163,13 +155,9 @@ namespace NextDoor.Controllers
         }
 
         [HttpPost]
-        //    [Authorize]
         [Route("logout/{id}")]
         public async Task<IActionResult> LogOut(int id)
         {
-
-            
-          //  var header = Request.Headers["CompanyId"];
             var json = Newtonsoft.Json.JsonConvert.SerializeObject(id);
             var data = new System.Net.Http.StringContent(json, Encoding.UTF8, "application/json");
 
@@ -231,8 +219,6 @@ namespace NextDoor.Controllers
 
                 var url = "http://172.119.151.139:80/api/UserLogin/checkpassword";
                // var url = "https://localhost:44308/api/UserLogin/checkpassword";
-
-
                 using var client = new HttpClient();
                 var response = await client.PostAsync(url, data2);
                 ApiResponse = response.Content.ReadAsStringAsync().Result;
@@ -276,9 +262,6 @@ namespace NextDoor.Controllers
                 return BadRequest("Record not exist");
             }
             
-
-           // return Ok("Password Change");
-
         }
     }
 

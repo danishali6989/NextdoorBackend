@@ -14,15 +14,12 @@ namespace NextDoor.Factories
         {
             var data = new JoinNeighbourhood
             {
-                
                 NeighbourhoodId = model.NeighbourhoodId,
                 UserId = model.UserId,
                 TimeStamp = model.TimeStamp==null?"":model.TimeStamp,
                 Status = Constants.RecordStatus.Active,
                 CreatedBy = userId ?? "0",
                 CreatedOn = Utility.GetDateTime(),
-
-
             };
             return data;
         }
@@ -31,15 +28,12 @@ namespace NextDoor.Factories
         {
             var data = new JoinNeighbourhood
             {
-
                 NeighbourhoodId = model.id,
                 UserId = model.userid,
                 TimeStamp = model.TimeStamp==null?"":model.TimeStamp,
                 Status = Constants.RecordStatus.Active,
                 CreatedBy = userId ?? "0",
                 CreatedOn = Utility.GetDateTime(),
-
-
             };
             return data;
         }

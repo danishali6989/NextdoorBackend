@@ -23,6 +23,7 @@ namespace NextDoor.DataLayer.EntityConfiguration
             builder.Property(x => x.EventFileData).IsRequired(false);
             builder.Property(x => x.Title).IsRequired();
             builder.Property(x => x.Description).IsRequired();
+            builder.Property(x => x.EventShareCount).IsRequired();
 
             builder.Property(x => x.StartDate).IsRequired();
             builder.Property(x => x.StartTime).IsRequired(false);

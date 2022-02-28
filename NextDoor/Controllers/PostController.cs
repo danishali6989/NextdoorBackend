@@ -30,9 +30,27 @@ namespace NextDoor.Controllers
             _environment = environment;
         }
 
+        [HttpPost]
+        [Route("SharePost")]
+        public async Task<IActionResult> AddShare([FromBody] SharePostAddModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState.GetErrorList());
+            }
+            
+            if(model.Userid !=0 && model.Postid != 0)
+            {
+                await _manager.AddShare(model);
+            }
+            else
+            {
+                return BadRequest("value required");
+            }
+            return Ok("Post Shared");
+        }
 
         [HttpPost]
-
         [Route("AddPost")]
         public async Task<IActionResult> Add([FromBody] PostAddModel model)
         {
@@ -47,10 +65,8 @@ namespace NextDoor.Controllers
 
                 if (model.Subject != null && model.Subject != "string" && model.Subject != "")
                 {
-
                     //add data to Post
                     await _manager.AddPostAsync(model);
-
                 }
                 else
                 {
@@ -207,8 +223,6 @@ namespace NextDoor.Controllers
                     }
                 }
 
-
-
             }
             catch (Exception ex)
             {
@@ -225,8 +239,6 @@ namespace NextDoor.Controllers
         [Route("editFindsPost")]
         public async Task<IActionResult> EditFinds([FromBody] PostFindsEditModel model)
         {
-
-
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState.GetErrorList());
@@ -351,12 +363,9 @@ namespace NextDoor.Controllers
 
 
         [HttpPost]
-        // [Authorize]
         [Route("editPost")]
         public async Task<IActionResult> Edit([FromBody] PostEditModel model)
         {
-
-
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState.GetErrorList());
@@ -380,15 +389,7 @@ namespace NextDoor.Controllers
                     Post.FileUrl = model.FileUrl;
                    
                     var data = await _manager.getpostmultimedia(model.Id,model.UserId);
-              /*  var img = data.Where(x => x.AttachmentType == "image").Select(x => x.Attachment).ToList();
-                var vid = data.Where(x => x.AttachmentType == "video").Select(x => x.Attachment).ToList();
-                var doc = data.Where(x => x.AttachmentType == "document").Select(x => x.Attachment).ToList();
-*/
-                
-                
-                //Post.oldImage = img;
-              /*  Post.oldVideo = vid;
-                Post.oldDocument = doc;*/
+             
                foreach (var s in data)
                     {
                         await _manager.Deletemultimedia(s.Id);
@@ -593,7 +594,6 @@ namespace NextDoor.Controllers
                 return BadRequest(ModelState.GetErrorList());
             }
 
-
             PostFindsAddModel Post = new PostFindsAddModel();
             Post.UserId = model.UserId;
             Post.CategoryId = model.CategoryId;
@@ -776,7 +776,6 @@ namespace NextDoor.Controllers
                 
                 if (model.Vechile != null)
                 {
-
                     //add Vechile
                     foreach (var S in model.Vechile)
                     {
@@ -794,7 +793,6 @@ namespace NextDoor.Controllers
 
                         if (vech.Color != null || vech.Make != null || vech.Model != null || vech.Year != null || vech.Type != null || vech.RegNo != null || vech.Other_Details != null)
                         {
-
                             //add vechile details
                             await _manager.AddVechileDetailAsync(vech);
                         }
@@ -982,14 +980,10 @@ namespace NextDoor.Controllers
 
             if (model.CategoryId != 0 && model.CategoryId != null)
             {
-
-
                 if (model.Subject != null && model.Subject != "string" && model.Subject != "")
                 {
                     //add data to Post
                     await _manager.AddSafetyPostAsync(Post);
-
-
                 }
                 else
                 {
@@ -1004,7 +998,6 @@ namespace NextDoor.Controllers
             
             //get data from post
             var data = await _manager.PostDetail(Post.UserId);
-
 
             PostSafetyAddModel Post1 = new PostSafetyAddModel();
             Post1.Id = data.Id;
@@ -1049,7 +1042,6 @@ namespace NextDoor.Controllers
 
             if (model.Vechile != null)
             {
-
                 //add Vechile
                 foreach (var S in model.Vechile)
                 {
@@ -1195,15 +1187,7 @@ namespace NextDoor.Controllers
             return Ok(await _manager.GetAllByCategoryAsync(categoryId));
         }
 
-        /*[HttpGet]
-        [Route("get-all-Post")]
-        public async Task<IActionResult> GetAllPostAsync()
-        {
-
-
-            return Ok(await _manager.GetAllPostAsync());
-        }*/
-
+     
         [HttpPost]
         [Route("Change-Category")]
         public async Task<IActionResult> ChangeCategory(int userid,int postid,int categoryid)

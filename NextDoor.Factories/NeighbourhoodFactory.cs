@@ -22,8 +22,6 @@ namespace NextDoor.Factories
                 Status = Constants.RecordStatus.Active,
                 CreatedBy = userId ?? "0",
                 CreatedOn = Utility.GetDateTime(),
-
-
             };
             return data;
         }
@@ -51,7 +49,6 @@ namespace NextDoor.Factories
             entity.Postalcode = model.PostalCode;
             entity.UpdatedBy = userId ?? "0";
             entity.UpdatedOn = Utility.GetDateTime();
-
         }
     }
 }

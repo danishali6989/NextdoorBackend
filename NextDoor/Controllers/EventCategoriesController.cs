@@ -15,21 +15,15 @@ namespace NextDoor.Controllers
     public class EventCategoriesController : ControllerBase
     {
         private readonly IEventCategoriesManager _manager;
-      //  private readonly IHostingEnvironment _environment;
-
         public EventCategoriesController(IEventCategoriesManager manager)
         {
             _manager = manager;
-          //  _environment = environment;
         }
 
         [HttpPost]
-        //  [Authorize]
         [Route("add")]
         public async Task<IActionResult> Add([FromBody] EventCategoriesAddModel model)
         {
-
-
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState.GetErrorList());
@@ -49,7 +43,6 @@ namespace NextDoor.Controllers
 
 
         [HttpPost]
-        // [Authorize]
         [Route("edit")]
         public async Task<IActionResult> Edit([FromBody] EventCategoriesAddModel model)
         {
@@ -74,7 +67,6 @@ namespace NextDoor.Controllers
 
 
         [HttpGet]
-
         [Route("get-detail/{id}")]
         public async Task<IActionResult> GetDetail(int id)
         {
@@ -88,7 +80,6 @@ namespace NextDoor.Controllers
         }
 
         [HttpPost]
-
         [Route("delete/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
@@ -101,7 +92,6 @@ namespace NextDoor.Controllers
 
 
         [HttpGet]
-
         [Route("get-all")]
         public async Task<IActionResult> GetAllAsync()
         {

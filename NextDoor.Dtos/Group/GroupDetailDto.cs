@@ -10,7 +10,5 @@ namespace NextDoor.Dtos.Group
         public int UserID { get; set; }
         public string GroupName { get; set; }
         public string TimeStamp { get; set; }
-
-
-    }
+   }
 }

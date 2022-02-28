@@ -23,7 +23,7 @@ namespace NextDoor.Models.Post
         public List<string> video { get; set; }
         public List<string> document { get; set; }
         public string FileUrl { get; set; }
-      //  public string videoUrl { get; set; }
+    
         public string MediaType { get; set; }
         public string FileData { get; set; }
     }

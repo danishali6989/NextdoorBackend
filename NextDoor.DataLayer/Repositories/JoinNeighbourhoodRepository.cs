@@ -14,7 +14,6 @@ namespace NextDoor.DataLayer.Repositories
     public  class JoinNeighbourhoodRepository : IJoinNeighbourhoodRepository
     {
         public readonly DataContext _dataContext;
-
         public JoinNeighbourhoodRepository(DataContext dataContext)
         {
             _dataContext = dataContext;
@@ -24,8 +23,6 @@ namespace NextDoor.DataLayer.Repositories
         {
             await _dataContext.JoinNeighbourhood.AddAsync(entity);
         }
-
-
         public async Task<JoinNeighbourhoodDto> checkuserjoin(int userid)
         {
             return await (from s in _dataContext.JoinNeighbourhood
@@ -37,7 +34,6 @@ namespace NextDoor.DataLayer.Repositories
                               userid = s.UserId,
                               CreatedOn = s.CreatedOn,
                               Status = s.Status,
-                              
                           })
                            .AsNoTracking()
                            .SingleOrDefaultAsync();

@@ -13,8 +13,6 @@ namespace NextDoor.Infrastructure.Repositories
         Task AddLikeAsync(Likes entity);
         Task<List<LikeDetailDto>> GetAllByUserId(int useId);
         Task<List<LikeDetailDto>> GetAllLikesByCommentId(int CommentId);
-       // Constants.ReactionStatus getreactionId(int Commentid);
-        //  Task<LikeDetailDto> GetByUserAsync(Likes entity);
         Task<LikeDetailDto> GetLikeByUserAsync(int userId, int postId);
         Task<LikeDetailDto> CheckPostCommentLike(int userId, int postId,int commentid);
         Task<LikeDetailDto> CheckEventCommentLike(int userId, int eventid, int commentid);

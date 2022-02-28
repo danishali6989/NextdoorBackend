@@ -18,10 +18,7 @@ namespace NextDoor.Factories
                 Groupid = model.GroupId,
                 GroupTimeStamp = model.TimeStamp == null ?"":model.TimeStamp,
                 CreatedBy = userId ?? "0",
-                // USerId = model.userid,
                 CreatedOn = Utility.GetDateTime(),
-
-
             };
             return data;
         }

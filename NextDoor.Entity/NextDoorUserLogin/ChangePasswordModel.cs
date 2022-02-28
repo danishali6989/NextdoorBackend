@@ -10,9 +10,6 @@ namespace NextDoor.Models.NextDoorUserLogin
        
         public string oldPassword { get; set; }
 
-        /*[Required]
-        [MinLength(6)]
-        [MaxLength(50)]*/
         public string NewPassword { get; set; }
 
         public int Userid{ get; set; }

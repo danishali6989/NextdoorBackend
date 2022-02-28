@@ -17,14 +17,11 @@ namespace UserManagement.DataLayer.Repositories
 {
     public  class NextDoorUserRepository : INextDoorUserRepository
     {
-
         private readonly DataContext _dataContext;
-
         public NextDoorUserRepository(DataContext dataContext)
         {
             _dataContext = dataContext;
         }
-
 
         public async Task<NextDoorUserDto> GetByUserEmailAsync(string Email)
         {
@@ -37,13 +34,11 @@ namespace UserManagement.DataLayer.Repositories
                               FirstName = s.FirstName,
                               LastName = s.LastName,
                               Gender = s.Gender,
-                           //  TimeStamp = s.UserTimeStamp,
                               StreetAdress = s.StreetAdress,
                               ApartmentNo = s.ApartmentNo,
                               Email = s.Email,
                               Lan = s.Lan,
                               Lat = s.Lat
-
                           })
                          .AsNoTracking()
                          .SingleOrDefaultAsync();
@@ -64,7 +59,6 @@ namespace UserManagement.DataLayer.Repositories
                               StreetAdress = s.StreetAdress,
                               ApartmentNo = s.ApartmentNo,
                               Email = s.Email,
-                            //  TimeStamp = s.UserTimeStamp,
                               Lan = s.Lan,
                               Lat = s.Lat
 
@@ -83,13 +77,12 @@ namespace UserManagement.DataLayer.Repositories
                               FirstName = s.FirstName,
                               LastName = s.LastName,
                               Gender = s.Gender,
-                           //   TimeStamp = s.UserTimeStamp,
                               StreetAdress = s.StreetAdress,
+                              PostalCode = s.Postalcode,
                               ApartmentNo = s.ApartmentNo,
                               Email = s.Email,
                               Lan = s.Lan,
                               Lat = s.Lat
-
                           })
                          .AsNoTracking()
                          .SingleOrDefaultAsync();
@@ -102,26 +95,17 @@ namespace UserManagement.DataLayer.Repositories
         public async Task<NextDoorUser> GetAsync(int userid)
         {
             var data1 = _dataContext.NextDoorUser.Where(x => x.UserId == userid).FirstOrDefault();
-            //return await _dataContext.NextDoorUser.FindAsync(userid);
             return data1;
         }
         public void Edit(NextDoorUser entity)
         {
             _dataContext.NextDoorUser.Update(entity);
         }
-       /* public async Task DeleteAsync(int id)
-        {
-            var data = await _dataContext.NextDoorUser.FindAsync(id);
-            data.Status = Constants.RecordStatus.Deleted;
-            _dataContext.NextDoorUser.Update(data);
-        }*/
-
+      
         public async Task<List<NextDoorUserDto>> GetUserList(string PostalCode)
         {
             return await (from s in _dataContext.NextDoorUser
                           where s.Postalcode == PostalCode
-
-
                           select new NextDoorUserDto
                           {
                               Id = s.Id,
@@ -138,40 +122,12 @@ namespace UserManagement.DataLayer.Repositories
                               Lan = s.Lan,
                               Lat = s.Lat,
                               Status = s.Status,
-                            //  TimeStamp = s.UserTimeStamp
-
                           })
                           .OrderBy(x=> x.FirstName)
                           .AsNoTracking()
                           .ToListAsync();
         }
 
-       /* public async Task<NextDoorUserDto> GetByUserAsync(string email)
-        {
-            return await (from s in _dataContext.NextDoorUser
-                          where s.Email == email
-                          select new NextDoorUserDto
-                          {
-                              Id = s.Id,
-                              FirstName = s.FirstName,
-                              LastName = s.LastName,
-                              Gender = s.Gender,
-                              Password = s.Password,
-                              StreetAdress = s.StreetAdress,
-                              Email = s.Email,
-                              ApartmentNo = s.ApartmentNo,
-                              Lan = s.Lan,
-                              Lat = s.Lat,
-
-                              Status = s.Status,
-
-
-
-                          })
-                         .AsNoTracking()
-                         .SingleOrDefaultAsync();
-        }*/
-
-
+      
     }
 }

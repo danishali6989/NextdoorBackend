@@ -13,6 +13,7 @@ namespace NextDoor.Infrastructure.Repositories
         Task AddPostAsync(Post entity);
         Task<Post> getpostdetail(int postid);
         void Edit(Post entity);
+        Task AddShareUserDetailsAsync(ShareDetail entity);
         Task<PostDetailDto> PostDetail(int user_id);
         Task<PostDetailDto> getpostdetailbyid(int postid);
         Task<List<PostMultimediaDetailDto>> PostmultimediaDetail(int postid, int user_id);
@@ -28,7 +29,6 @@ namespace NextDoor.Infrastructure.Repositories
         Task deletevechile(int postid);
         Task DeletePost(int postid);
         Task changecategory(int userid,int postid,int categoryid);
-
         Task AddPersonDetailAsync(Person entity);
         Task AddVechileDetailAsync(VechileSafety entity);
         Task<List<PostDetailDto>> GetAllByCategoryAsync(int categoryId);
@@ -37,7 +37,6 @@ namespace NextDoor.Infrastructure.Repositories
         Task<List<PostDetailDto>> getfindspostbyuserid(int userid);
         Task<List<PostDetailDto>> GetAllPostAsync();
         Task<List<PostDetailDto>> GetAllBookmarkPostAsync(int userid);
-
         Task<JqDataTableResponse<PostDetailDto>> GetPostPagedResultAsync(JqDataTableRequest model);
         Task<List<PostPersons>> getPeronsbyid(int Id);
         Task<List<PostComment>> getPostsCommentByid(int id);
@@ -48,7 +47,6 @@ namespace NextDoor.Infrastructure.Repositories
         Task<List<PostMultimedia>> getPostMultimediaByPostid(int id);
         Task<List<PostMultimedia>> getPostMultimediaRecord(int id);
         Constants.ReactionStatus getPostLikesReactionByUserId(int userid,int postid);
-
         Task<List<PostDetailDto>> GetFreeFinds();
     }
 }

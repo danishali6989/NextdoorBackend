@@ -14,9 +14,7 @@ namespace NextDoor.DataLayer.Repositories
 {
     public class GroupRepository: IGroupRepository
     {
-      
         public readonly DataContext _dataContext;
-
         public GroupRepository(DataContext dataContext)
         {
             _dataContext = dataContext;
@@ -43,7 +41,6 @@ namespace NextDoor.DataLayer.Repositories
                               Id = s.Id,
                               UserID = s.UserID,
                               GroupName = s.GroupName,
-                            //  TimeStamp = s.GroupTimeStamp
                           })
                           .AsNoTracking()
                           .ToListAsync();

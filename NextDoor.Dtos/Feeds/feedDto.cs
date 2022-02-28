@@ -12,6 +12,7 @@ namespace NextDoor.Dtos.Feeds
     {
         public string posttype { get; set; }
         public DateTime CreatedOn { get; set; }
+        public int BookmarkId { get; set; }
         #region post
         public int Id { get; set; }
         public int User_id { get; set; }
@@ -29,11 +30,10 @@ namespace NextDoor.Dtos.Feeds
         public double Price { get; set; }
         public double lat { get; set; }
         public double lan { get; set; }
+        public int ShareCount { get; set; }
         public string Attachment { get; set; }
         public string AttachmentType { get; set; }
         public Constants.RecordStatus Status { get; set; }
-
-
         public List<PostPersons> persons { get; set; }
         public List<PostVehicle> vehicles { get; set; }
         public List<PostMultimedia> postmultimedia { get; set; }
@@ -42,17 +42,14 @@ namespace NextDoor.Dtos.Feeds
         public int PostCommentCount { get; set; }
         public List<PostLikes> Postlikes { get; set; }
         public int postAllLikes { get; set; }
-        public Constants.ReactionStatus User_ReactionId { get; set; }
+      //  public Constants.ReactionStatus User_ReactionId { get; set; }
 
         #endregion post
 
         #region Poll
         public int PollId { get; set; }
-        //public int User_id { get; set; }
         public string Question { get; set; }
         public string Description { get; set; }
-        //public string Response1 { get; set; }
-        //public string Response2 { get; set; }
         public string OptionName { get; set; }
         public string Attachments { get; set; }
         public string AttachmentPollType { get; set; }
@@ -64,7 +61,6 @@ namespace NextDoor.Dtos.Feeds
         public int PollMultimedia { get; set; }
         public List<PollComment> pollComments { get; set; }
         public int PollCommentCount { get; set; }
-
         public List<PollLikes> pollLike { get; set; }
         public int pollLikes { get; set; }
         public int? count { get; set; }
@@ -94,7 +90,5 @@ namespace NextDoor.Dtos.Feeds
         public Constants.ReactionStatus UserReaction_Id { get; set; }
 
         #endregion Events
-
-        //public int Bookmarkid { get; set; }
     }
 }

@@ -22,9 +22,6 @@ namespace NextDoor.Factories
                 Reaction_Id = model.Reaction_Id,
                 CreatedBy   = userId ?? "0",
                 CreatedOn   = Utility.GetDateTime(),
-
-
-
             };
             return data;
         }
@@ -33,14 +30,9 @@ namespace NextDoor.Factories
         {
             var data = new Likes
             {
-               
-               
                 Reaction_Id = reactionid,
                 CreatedBy = userId ?? "0",
                 CreatedOn = Utility.GetDateTime(),
-
-
-
             };
             return data;
         }

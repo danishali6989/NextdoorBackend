@@ -12,7 +12,9 @@ namespace NextDoor.DataLayer
     public  class DataContext : IdentityDbContext<AppUser>
     {
        
-        public DataContext(DbContextOptions<DataContext> options) : base(options) { }
+        public DataContext(DbContextOptions<DataContext> options) : base(options)
+        { 
+        }
 
         public DbSet<Company> Company { get; set; }
         public DbSet<Categories> Categories { get; set; }
@@ -43,6 +45,14 @@ namespace NextDoor.DataLayer
         public DbSet<JoinNeighbourhood> JoinNeighbourhood { get; set; }
         public DbSet<Group> Group { get; set; }
         public DbSet<JoinGroup> JoinGroup { get; set; }
+        public DbSet<ShareDetail> ShareDetail { get; set; }
+        public DbSet<HelpMap> HelpMap { get; set; }
+        public DbSet<BusinessType> BusinessType { get; set; }
+
+
+
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -73,6 +83,10 @@ namespace NextDoor.DataLayer
             modelBuilder.ApplyConfiguration(new JoinNeighbourhoodConfiguration());
             modelBuilder.ApplyConfiguration(new GroupConfiguration());
             modelBuilder.ApplyConfiguration(new JoinGroupConfiguration());
+            modelBuilder.ApplyConfiguration(new ShareDetailConfiguration());
+            modelBuilder.ApplyConfiguration(new HelpMapConfiguration());
+            modelBuilder.ApplyConfiguration(new BusinessTypeConfiguration());
+
 
             modelBuilder.Entity<Post>()
             .HasOne(p => p.ListingCategories)
@@ -101,6 +115,10 @@ namespace NextDoor.DataLayer
             modelBuilder.Entity<Comment>()
          .HasOne(p => p.NextDoorUser)
          .WithMany().HasForeignKey(x => x.User_id); ;
+        
+            modelBuilder.Entity<HelpMap>()
+       .HasOne(p => p.NextDoorUser)
+       .WithMany().HasForeignKey(x => x.UserId); ;
 
         }
     }

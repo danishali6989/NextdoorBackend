@@ -9,8 +9,6 @@ namespace NextDoor.Dtos.EventCategories
     {
         public int Id { get; set; }
         public string EventCategoryName { get; set; }
-
-
         public Constants.RecordStatus Status { get; set; }
     }
 }

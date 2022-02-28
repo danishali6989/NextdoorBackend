@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using NextDoor.Helpers;
 using NextDoor.Infrastructure.Managers;
 using NextDoor.Models.Event;
+using NextDoor.Models.Post;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -29,12 +30,9 @@ namespace NextDoor.Controllers
 
 
         [HttpPost]
-        //  [Authorize]
         [Route("addimage")]
         public async Task<IActionResult> Add([FromBody] AddImageModel model)
         {
-            
-
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState.GetErrorList());
@@ -83,13 +81,31 @@ namespace NextDoor.Controllers
 
         }
 
-        [HttpGet]
+        [HttpPost]
+        [Route("ShareEvent")]
+        public async Task<IActionResult> AddShare([FromBody] SharePostAddModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState.GetErrorList());
+            }
+
+            if (model.Userid != 0 && model.Eventid != 0)
+            {
+                await _manager.AddShare(model);
+            }
+            else
+            {
+                return BadRequest("value required");
+            }
+            return Ok("Event Shared");
+        }
+       
         
+        [HttpGet]
         [Route("get-all-image")]
         public async Task<IActionResult> GetAllImageAsync()
         {
-           
-
             return Ok(await _manager.ImageGetAllAsync());
         }
 
@@ -97,8 +113,6 @@ namespace NextDoor.Controllers
         [Route("get-all-event")]
         public async Task<IActionResult> GetAllEventAsync()
         {
-
-
             return Ok(await _manager.EventGetAllAsync());
         }
 
@@ -155,16 +169,9 @@ namespace NextDoor.Controllers
        
         
         [HttpPost]
-        // [Authorize]
         [Route("Edit-Event")]
         public async Task<IActionResult> Edit([FromBody] EventAddModel model)
         {
-
-
-           /* if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState.GetErrorList());
-            }*/
 
             try
             {

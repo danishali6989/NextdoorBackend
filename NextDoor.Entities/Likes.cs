@@ -14,9 +14,7 @@ namespace NextDoor.Entities
         public int Event_id { get; set; }
         public int Poll_id { get; set; }
         public int Comment_id { get; set; }
-       
         public Constants.ReactionStatus Reaction_Id { get; set; } 
-       
         public DateTime CreatedOn { get; set; }
         public string CreatedBy { get; set; }
         public DateTime? UpdatedOn { get; set; }

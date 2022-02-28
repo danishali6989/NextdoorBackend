@@ -18,10 +18,7 @@ namespace NextDoor.Factories
                GroupName = model.GroupName,
                GroupTimeStamp = model.TimeStamp == null ? "" : model.TimeStamp,
                 CreatedBy = userId ?? "0",
-               // USerId = model.userid,
                 CreatedOn = Utility.GetDateTime(),
-
-
             };
             return data;
         }
@@ -32,7 +29,6 @@ namespace NextDoor.Factories
             entity.GroupTimeStamp = model.TimeStamp == null ? "" : model.TimeStamp;
             entity.UpdatedBy = userId ?? "0";
             entity.UpdatedOn = Utility.GetDateTime();
-
         }
 
     }

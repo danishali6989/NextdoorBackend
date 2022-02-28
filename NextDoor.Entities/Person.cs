@@ -9,7 +9,6 @@ namespace NextDoor.Entities
         public int Id { get; set; }
         public int U_Id { get; set; }
         public int P_Id { get; set; }
-
         public string Hair { get; set; }
         public string Top { get; set; }
         public string Bottom { get; set; }

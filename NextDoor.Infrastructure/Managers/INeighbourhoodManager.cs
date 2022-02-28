@@ -15,7 +15,6 @@ namespace NextDoor.Infrastructure.Managers
         Task EditAsync(NeighbourhoodAddModel model);
         Task<NeighbourhoodDetailDto> GetDetailAsync(int id);
         Task<NeighbourhoodDetailDto> GetDetail(int userid);
-
         Task DeleteAsync(int id);
         Task<List<NeighbourhoodDetailDto>> GetAllAsync();
     }

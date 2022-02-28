@@ -15,12 +15,10 @@ namespace NextDoor.DataLayer.Repositories
     public class PollRepository : IPollRepository
     {
         private readonly DataContext _dataContext;
-
         public PollRepository(DataContext dataContext)
         {
             _dataContext = dataContext;
         }
-
 
         public async Task AddPollAsync(Poll entity)
         {
@@ -34,19 +32,14 @@ namespace NextDoor.DataLayer.Repositories
         public async Task<PollDetailDto> PollDetail(int user_id)
         {
             return await (from s in _dataContext.Poll
-                          where s.UserID == user_id   //&& s.Status == Constants.RecordStatus.Active
+                          where s.UserID == user_id 
                           select new PollDetailDto
                           {
                               Poll_Id = s.Id,
                               User_id = s.UserID,
                               Question = s.Question,
                               Description = s.Description,
-                          //    PollTimeStamp = s.PollTimeStamp,
-
-                              Status = s.Status,
-
-
-
+                               Status = s.Status,
                           })
                           .AsNoTracking().OrderBy(s => s.Poll_Id)
                           .LastOrDefaultAsync();
@@ -61,17 +54,26 @@ namespace NextDoor.DataLayer.Repositories
             await _dataContext.PolOption.AddAsync(entity);
         }
 
-
         public async Task<PolOption> GetAsync(int id)
         {
             return await _dataContext.PolOption.FindAsync(id);
         }
-
+        public async Task<Poll> GetPollDetailAsync(int Pollid)
+        {
+            return await _dataContext.Poll.FindAsync(Pollid);
+        }
+        public async Task AddShareUserDetailsAsync(ShareDetail entity)
+        {
+            await _dataContext.ShareDetail.AddAsync(entity);
+        }
         public void Edit(PolOption entity)
         {
             _dataContext.PolOption.Update(entity);
         }
-
+        public void EditSharePost(Poll entity)
+        {
+            _dataContext.Poll.Update(entity);
+        }
         public async Task<List<PollOptionDetailDto>> GetAllOption(int pollid)
         {
             return await (from s in _dataContext.PolOption
@@ -82,12 +84,9 @@ namespace NextDoor.DataLayer.Repositories
                               Id = s.Id,
                               User_id = s.User_id,
                               Poll_id = s.Poll_id,
-                              // response_id = ,
                               OptionName = s.Option_Name,
                               count = s.Count,
-
                               CreatedOn = s.CreatedOn
-
                           })
                           .AsNoTracking()
                           .ToListAsync();
@@ -96,13 +95,6 @@ namespace NextDoor.DataLayer.Repositories
         public async Task<List<PollDetailDto>> GetAllPoll()
         {
             return await (from s in _dataContext.Poll
-                              /* join s1 in _dataContext.PolOption on s.Id equals s1.Poll_id
-                               into sp
-                               from s1 in sp.DefaultIfEmpty()
-
-                               join s2 in _dataContext.PollMultimedia on s.Id equals s2.Polld
-                               into sp2
-                               from s2 in sp2.DefaultIfEmpty()*/
                           select new PollDetailDto
                           {
                               Poll_Id = s.Id,
@@ -112,9 +104,9 @@ namespace NextDoor.DataLayer.Repositories
                               User_id = s.UserID,
                               Question = s.Question,
                               Description = s.Description,
-                           //   PollTimeStamp = s.PollTimeStamp,
                               Status = s.Status,
-                              CreatedOn = s.CreatedOn
+                              CreatedOn = s.CreatedOn,
+                              PollShareCount = s.PollShareCount
                           })
                           .AsNoTracking()
                           .ToListAsync();
@@ -131,7 +123,6 @@ namespace NextDoor.DataLayer.Repositories
                               User_id = s.UserID,
                               Question = s.Question,
                               Description = s.Description,
-                          //   PollTimeStamp = s.PollTimeStamp,
                               Status = s.Status,
                               CreatedOn = s.CreatedOn
                           })
@@ -148,7 +139,6 @@ namespace NextDoor.DataLayer.Repositories
                               User_id = s.UserID,
                               Question = s.Question,
                               Description = s.Description,
-                          //    PollTimeStamp = s.PollTimeStamp,
                               Status = s.Status,
                               CreatedOn = s.CreatedOn
                           })
@@ -166,7 +156,6 @@ namespace NextDoor.DataLayer.Repositories
                               User_id = s.UserID,
                               Question = s.Question,
                               Description = s.Description,
-                          //    PollTimeStamp = s.PollTimeStamp,
                               Status = s.Status,
                               CreatedOn = s.CreatedOn
 
@@ -179,7 +168,6 @@ namespace NextDoor.DataLayer.Repositories
         {
             return await (from s in _dataContext.Comment
                           where s.Poll_id == Id && s.CommentParent_Id == 0
-
                           select new PollComment
                           {
                               id = s.Id,
@@ -188,7 +176,6 @@ namespace NextDoor.DataLayer.Repositories
                               LastName = s.NextDoorUser.LastName,
                               Pollid = s.Poll_id,
                               CommentParent_Id = s.CommentParent_Id,
-                          //    PollTimeStamp = s.TimeStamp,
                               CommentText = s.CommentText,
                               Attachment1 = s.Attachment1,
                               Attachment2 = s.Attachment2,
@@ -206,16 +193,11 @@ namespace NextDoor.DataLayer.Repositories
         {
             return await (from s in _dataContext.Likes
                           where s.Poll_id == Id && s.Comment_id == 0
-
                           select new PollLikes
                           {
                               Comment_id = s.Comment_id,
                               Reaction_Id = s.Reaction_Id,
                               User_id = s.User_id,
-
-
-
-
                           })
                           .AsNoTracking()
                           .ToListAsync();
@@ -223,7 +205,6 @@ namespace NextDoor.DataLayer.Repositories
 
         public Constants.ReactionStatus getPollLikesReactionByUserId(int userid, int pollid)
         {
-
             var obj = _dataContext.Likes.Where(x => x.User_id == userid && x.Poll_id == pollid && x.Comment_id == 0).FirstOrDefault();
             if (obj == null)
             {
@@ -234,7 +215,6 @@ namespace NextDoor.DataLayer.Repositories
                 return obj.Reaction_Id;
 
             }
-
         }
         public async Task<List<PollOptionDto>> getPollOptionByPoll(int id)
         {
@@ -267,14 +247,12 @@ namespace NextDoor.DataLayer.Repositories
         public async Task deletemultimedia(int id)
         {
             var data1 = _dataContext.PollMultimedia.Where(x => x.Polld == id).FirstOrDefault();
-
             _dataContext.PollMultimedia.Remove(data1);
             await _dataContext.SaveChangesAsync();
         }
         public async Task deleteOption(int id)
         {
             var data1 = _dataContext.PolOption.Where(x => x.Poll_id == id).FirstOrDefault();
-
             _dataContext.PolOption.Remove(data1);
             await _dataContext.SaveChangesAsync();
         }
@@ -307,7 +285,6 @@ namespace NextDoor.DataLayer.Repositories
 
                 var data = await (from s in _dataContext.CheckUserVote
                                   where s.Poll_Id == pollid && s.User_Id == userid && s.Response_Id == responseid
-
                                   select new CheckUserVoteDetailDto
                                   {
                                       Id = s.Id,
@@ -324,7 +301,6 @@ namespace NextDoor.DataLayer.Repositories
             catch(Exception ex)
             {
                 throw ex;
-
             }
         }
     }

@@ -19,13 +19,10 @@ namespace NextDoor.Controllers
         private readonly IJoinNeighbourhoodManager _manager;
         private readonly INextDoorUserManager _nxtusermanager;
         private readonly INeighbourhoodManager _neighbourhoodManager; 
-      //  private readonly IHostingEnvironment _environment;
-
         public JoinNeighbourhoodController(IJoinNeighbourhoodManager manager
             , INextDoorUserManager nxtusermanager, INeighbourhoodManager neighbourhoodManager)
         {
             _manager = manager;
-           // _environment = environment;
             _nxtusermanager = nxtusermanager;
             _neighbourhoodManager = neighbourhoodManager;
         }

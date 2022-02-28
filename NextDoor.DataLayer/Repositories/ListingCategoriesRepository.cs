@@ -14,9 +14,7 @@ namespace NextDoor.DataLayer.Repositories
 {
     public  class ListingCategoriesRepository : IListingCategoriesRepository
     {
-
         private readonly DataContext _dataContext;
-
         public ListingCategoriesRepository(DataContext dataContext)
         {
             _dataContext = dataContext;
@@ -45,7 +43,6 @@ namespace NextDoor.DataLayer.Repositories
                               Id = s.ListingCategoryId,
                               ListingCategoryName = s.ListingCategoryName,
                               Status = s.Status
-
                           })
                           .AsNoTracking()
                           .SingleOrDefaultAsync();
@@ -61,14 +58,11 @@ namespace NextDoor.DataLayer.Repositories
         public async Task<List<ListingCategoriesDetailDto>> GetAllAsync()
         {
             return await (from s in _dataContext.ListingCategories
-
                           select new ListingCategoriesDetailDto
                           {
                               Id = s.ListingCategoryId,
                               ListingCategoryName = s.ListingCategoryName,
-
                               Status = s.Status
-
                           })
                           .AsNoTracking()
                           .ToListAsync();

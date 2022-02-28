@@ -31,10 +31,7 @@ namespace UserManagement.Factories
                 Status = Constants.RecordStatus.Active,
                 CreatedBy = userId ?? "0",
                 CreatedOn = Utility.GetDateTime(),
-               // CompanyId = Convert.ToInt32(header)
                CompanyId = Int32.Parse(header)
-               
-
             };
             return data;
         }
@@ -51,7 +48,6 @@ namespace UserManagement.Factories
             entity.UserTimeStamp = model.TimeStamp == null ? "" : model.TimeStamp;
             entity.UpdatedBy    = userId ?? "0";
             entity.UpdatedOn    = Utility.GetDateTime();
-
         }
     }
 }

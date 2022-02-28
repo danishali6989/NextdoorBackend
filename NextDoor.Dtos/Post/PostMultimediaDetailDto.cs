@@ -13,10 +13,7 @@ namespace NextDoor.Dtos.Post
         public int Category_id { get; set; }
         public string Attachment { get; set; }
         public string AttachmentType { get; set; }
-
-
         public Constants.RecordStatus Status { get; set; }
         public DateTime CreatedOn { get; set; }
-      //  public List<PostMultimedia> multimedia { get; set; }
     }
 }

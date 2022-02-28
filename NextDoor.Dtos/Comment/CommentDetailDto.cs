@@ -27,11 +27,8 @@ namespace NextDoor.Dtos.Comment
         public string AttachmentType3 { get; set; }
         public Constants.RecordStatus Status { get; set; }
         public string TimeStamp { get; set; }
-
-
-
         public List<LikeDetailDto> likes { get; set; }
-         public int Commentlikes { get; set; }
+        public int Commentlikes { get; set; }
         public List<CommentDetailDto> replies { get; set; }
         public Constants.ReactionStatus Reaction_Id { get; set; }
 

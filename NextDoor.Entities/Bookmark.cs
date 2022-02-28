@@ -13,7 +13,6 @@ namespace NextDoor.Entities
         public int Poll_id { get; set; }
         public int Category_id { get; set; }
         public string BookmarkTimeStamp { get; set; }
-
         public int Listingcategory_id { get; set; }
         public int EventCategory_id { get; set; }
         public DateTime CreatedOn { get; set; }

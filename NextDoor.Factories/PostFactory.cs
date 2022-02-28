@@ -9,14 +9,10 @@ namespace NextDoor.Factories
 {
     public class PostFactory
     {
-
         public static Post Create(PostAddModel model, string userId)
         {
-
-
             var data = new Post
             {
-                // CategoryName = model.CategoryName,
                 User_id            = model.UserId,
                 Category_id        = model.CategoryId,
                 ListingCategoryId  = model.Listing_CategoryId == 0 ? 23 : model.Listing_CategoryId,
@@ -30,19 +26,13 @@ namespace NextDoor.Factories
                 Status             = Constants.RecordStatus.Active,
                 CreatedBy          = userId ?? "0",
                 CreatedOn          = Utility.GetDateTime(),
-
-
             };
-
                 return data;
         }
         public static Post CreateFinds(PostAddModel model, string userId)
         {
-
-
             var data = new Post
             {
-                // CategoryName = model.CategoryName,
                 User_id           = model.UserId,
                 Category_id       = model.CategoryId,
                 ListingCategoryId = model.Listing_CategoryId == 0 ? 23 : model.Listing_CategoryId,
@@ -55,20 +45,14 @@ namespace NextDoor.Factories
                 Status            = Constants.RecordStatus.Active,
                 CreatedBy         = userId ?? "0",
                 CreatedOn         = Utility.GetDateTime(),
-
-
             };
-
             return data;
         }
 
         public static Post Create(PostFindsAddModel model, string userId)
         {
-
-
             var data = new Post
             {
-               
                 User_id            = model.UserId,
                 Category_id        = model.CategoryId,
                 ListingCategoryId = model.Listing_CategoryId == 0 ? 23 : model.Listing_CategoryId,
@@ -82,20 +66,14 @@ namespace NextDoor.Factories
                 Status             = Constants.RecordStatus.Active,
                 CreatedBy          = userId ?? "0",
                 CreatedOn          = Utility.GetDateTime(),
-
-
             };
-
             return data;
         }
 
         public static Post Create(PostSafetyAddModel model, string userId)
         {
-
-
             var data = new Post
             {
-
                 User_id                 = model.UserId,
                 Category_id             = model.CategoryId,
                 SafetyDescription       = model.SafetyDescription,
@@ -110,16 +88,11 @@ namespace NextDoor.Factories
                 Status                  = Constants.RecordStatus.Active,
                 CreatedBy               = userId ?? "0",
                 CreatedOn               = Utility.GetDateTime(),
-
-
             };
-
             return data;
         }
         public static Multimedia CreateMultimedia(PostAddModel model, string userId)
         {
-
-
             var data = new Multimedia
             {
                 PostId = model.Id,
@@ -129,17 +102,34 @@ namespace NextDoor.Factories
                 CreatedOn = Utility.GetDateTime(),
                 CategoryiD = model.CategoryId,
                 FileData = model.FileData
-
             };
-
             return data;
         }
 
+        public static void CreateCount(SharePostAddModel model, Post entity, string userId)
+        {
+            entity.ShareCount = entity.ShareCount + 1;
+        }
 
+        public static void CreateShareCount(SharePostAddModel model, Poll entity, string userId)
+        {
+            entity.PollShareCount = entity.PollShareCount + 1;
+        }
+        public static ShareDetail CreateShareDetails(SharePostAddModel model, string userId)
+        {
+            var data = new ShareDetail
+            {
+                Userid    = model.Userid,
+                PostId    = model.Postid,
+                PollId    = model.Pollid,
+                CreatedBy = userId ?? "0",
+                EventId   = model.Eventid,
+                CreatedOn = Utility.GetDateTime(),
+            };
+            return data;
+        }
         public static Multimedia CreateMultimedia(PostEditModel model, string userId)
         {
-
-
             var data = new Multimedia
             {
                 PostId        = model.Id,
@@ -149,17 +139,12 @@ namespace NextDoor.Factories
                 CreatedOn     = Utility.GetDateTime(),
                 CategoryiD    = model.CategoryId,
                 FileData       = model.FileData,
-
-
             };
-
             return data;
         }
 
         public static Multimedia CreateMultimedia(PostFindsEditModel model, string userId)
         {
-
-
             var data = new Multimedia
             {
                 PostId        = model.Id,
@@ -169,16 +154,11 @@ namespace NextDoor.Factories
                 CreatedOn     = Utility.GetDateTime(),
                 CategoryiD    = model.CategoryId,
                 FileData      = model.FileData,
-                
-
             };
-
             return data;
         }
         public static Multimedia CreateMultimedia(PostFindsAddModel model, string userId)
         {
-
-
             var data = new Multimedia
             {
                 PostId        = model.Id,
@@ -189,13 +169,10 @@ namespace NextDoor.Factories
                 CategoryiD    = model.CategoryId,
                 FileData      = model.FileData,
             };
-
             return data;
         }
         public static Multimedia CreateMultimedia(PostSafetyAddModel model, string userId)
         {
-
-
             var data = new Multimedia
             {
                 PostId        = model.Id,
@@ -206,18 +183,13 @@ namespace NextDoor.Factories
                 CategoryiD    = model.CategoryId,
                 FileData      = model.FileData,
             };
-
             return data;
         }
 
         public static Person CreatePerson(AddPersonModel model, string userId)
         {
-
-
             var data = new Person
-            {
-                // CategoryName = model.CategoryName,
-                    
+            { 
                     P_Id         =  model.Pid,
                     U_Id         =  model.userid,
                     Hair         =  model.Hair == null         ? "" : model.Hair,
@@ -230,21 +202,14 @@ namespace NextDoor.Factories
                     Sex          =  model.Sex == null          ? "" : model.Sex,
                     OtherDetails =  model.OtherDetails == null ? "" : model.OtherDetails,
                     CreatedOn    =  Utility.GetDateTime(),
-
-
             };
-
             return data;
         }
 
         public static VechileSafety CreateVechile(AddVechileModel model, string userId)
         {
-
-
             var data = new VechileSafety
             {
-                // CategoryName = model.CategoryName,
-
                 Post_Id        = model.P_id,
                 Userid         = model.User_id,
                 Color          = model.Color == null          ? "" : model.Color,
@@ -255,10 +220,7 @@ namespace NextDoor.Factories
                 Other_Details  = model.Other_Details == null  ? "" : model.Other_Details,
                 RegNo          = model.RegNo == null          ? "" : model.RegNo,
                 CreatedOn      = Utility.GetDateTime(),
-
-
             };
-
             return data;
         }
 

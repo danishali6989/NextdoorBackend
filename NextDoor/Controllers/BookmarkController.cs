@@ -22,16 +22,16 @@ namespace NextDoor.Controllers
         private readonly IPostManager _postManager;
         private readonly IPollManager _pollManager;
         private readonly IEventManager _eventManager;
-      //  private readonly IHostingEnvironment _environment;
+      
 
         public BookmarkController(IBookmarkManager manager, IPostManager postmanager, IPollManager pollmanager, IEventManager eventmanager)
-        //    ,IHostingEnvironment environment)
+        
         {
             _postManager = postmanager;
             _pollManager = pollmanager;
             _eventManager = eventmanager;
             _manager = manager;
-           // _environment = environment;
+          
         }
 
 
@@ -90,8 +90,7 @@ namespace NextDoor.Controllers
             events = events.OrderBy(x => x.CreatedOn).ToList();
             polls = polls.OrderBy(x => x.CreatedOn).ToList();
             List<feedDto> feeds = new List<feedDto>();
-           // string path = _environment.WebRootPath;
-
+          
             foreach (var item in posts)
             {
                 var feed = new feedDto()
@@ -184,16 +183,9 @@ namespace NextDoor.Controllers
             feeds = feeds.OrderByDescending(x => x.CreatedOn).ToList();
             return Ok(feeds);
 
-           // return Ok(await _manager.GetAllAsync());
+         
         }
 
-        /*[HttpGet]
-        [Route("get-all-bookmark-by-userid")]
-        public async Task<IActionResult> GetAllAsyncByUserId(int userid)
-        {
-
-
-            return Ok(await _manager.GetAllAsyncByUserId(userid));
-        }*/
+       
     }
 }

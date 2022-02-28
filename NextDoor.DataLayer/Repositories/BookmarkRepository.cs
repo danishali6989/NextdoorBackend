@@ -15,7 +15,6 @@ namespace NextDoor.DataLayer.Repositories
     public class BookmarkRepository :IBookmarkRepository
     {
         private readonly DataContext _dataContext;
-
         public BookmarkRepository(DataContext dataContext)
         {
             _dataContext = dataContext;
@@ -25,8 +24,6 @@ namespace NextDoor.DataLayer.Repositories
         {
             await _dataContext.Bookmark.AddAsync(entity);
         }
-
-        
 
         public async Task DeleteBookmark(int id)
         {
@@ -94,6 +91,47 @@ namespace NextDoor.DataLayer.Repositories
                           })
                           .AsNoTracking()
                           .ToListAsync();
+        }
+        public  int GetBookmarkId(int postId)
+        {
+            var obj = _dataContext.Bookmark.Where(x => x.Post_id == postId ).FirstOrDefault();
+            if (obj == null)
+            {
+                return 0;
+            }
+            else
+            {
+                return obj.id;
+            }
+
+        }
+
+        public int GetEventBookmarkId(int eventId)
+        {
+            var obj = _dataContext.Bookmark.Where(x => x.Event_id == eventId).FirstOrDefault();
+            if (obj == null)
+            {
+                return 0;
+            }
+            else
+            {
+                return obj.id;
+            }
+
+        }
+
+        public int GetPollBookmarkId(int pollId)
+        {
+            var obj = _dataContext.Bookmark.Where(x => x.Poll_id == pollId).FirstOrDefault();
+            if (obj == null)
+            {
+                return 0;
+            }
+            else
+            {
+                return obj.id;
+            }
+
         }
 
     }

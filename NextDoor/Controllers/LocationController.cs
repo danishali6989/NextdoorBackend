@@ -15,21 +15,15 @@ namespace NextDoor.Controllers
     public class LocationController : ControllerBase
     {
         private readonly ILocationManager _manager;
-       // private readonly IHostingEnvironment _environment;
-
-
         public LocationController(ILocationManager manager)
         {
             _manager = manager;
-           // _environment = environment;
         }
 
         [HttpPost]
         [Route("addNeighbourhoodLocation")]
         public async Task<IActionResult> Add([FromBody] AddLocationModel model)
         {
-
-
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState.GetErrorList());

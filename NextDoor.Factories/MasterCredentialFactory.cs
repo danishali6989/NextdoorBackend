@@ -20,8 +20,6 @@ namespace NextDoor.Factories
                 Status = Constants.RecordStatus.Active,
                 CreatedBy = userId ?? "0",
                 CreatedOn = Utility.GetDateTime(),
-
-
             };
             return data;
         }

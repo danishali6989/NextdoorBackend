@@ -15,7 +15,6 @@ namespace NextDoor.Controllers
     public class GroupController : ControllerBase
     {
         private readonly IGroupManager _manager;
-
         public GroupController(IGroupManager manager)
         {
             _manager = manager;
@@ -25,8 +24,6 @@ namespace NextDoor.Controllers
         [Route("Add")]
         public async Task<IActionResult> Add([FromBody] GroupAddModel model)
         {
-
-
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState.GetErrorList());

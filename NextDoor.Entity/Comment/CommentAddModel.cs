@@ -24,7 +24,6 @@ namespace NextDoor.Models.Comment
         public string FileUrl1 { get; set; }
         public string FileUrl2 { get; set; }
         public string FileUrl3 { get; set; }
-        //  public string videoUrl { get; set; }
         public string MediaType1 { get; set; }
         public string MediaType2 { get; set; }
         public string MediaType3 { get; set; }

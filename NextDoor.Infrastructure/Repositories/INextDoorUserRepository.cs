@@ -16,12 +16,6 @@ namespace UserManagement.Infrastructure.Repositories
         Task<NextDoorUserDto> getuserdetail(string username);
         Task<NextDoorUser> GetAsync(int userid);
         void Edit(NextDoorUser entity);
-        
-
         Task<List<NextDoorUserDto>> GetUserList(string PostalCode);
-
-       /* Task DeleteAsync(int id);
-        Task<NextDoorUserDto> GetByUserAsync(string email);
-*/
     }
 }

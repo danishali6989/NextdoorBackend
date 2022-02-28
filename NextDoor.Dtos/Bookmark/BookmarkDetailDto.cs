@@ -21,15 +21,10 @@ namespace NextDoor.Dtos.Bookmark
         public List<PostVehicle> vehicles { get; set; }
         public List<PostMultimedia> multimedia { get; set; }
         public List<PostLikes> postlikes { get; set; }
-      //  public List<PostComment> postComments { get; set; }
-      
         public List<PostComment> postcomments { get; set; }
         public Constants.ReactionStatus Reaction_Id { get; set; }
-
         public List<EventComment> eventcomments { get; set; }
         public List<EventLikes> eventlikes { get; set; }
-
-
         public List<PollOptionDto> options { get; set; }
         public List<PollMultimediDto> pollmultimedia { get; set; }
 

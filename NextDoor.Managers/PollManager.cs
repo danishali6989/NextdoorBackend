@@ -5,6 +5,7 @@ using NextDoor.Infrastructure.DataLayer;
 using NextDoor.Infrastructure.Managers;
 using NextDoor.Infrastructure.Repositories;
 using NextDoor.Models.Poll;
+using NextDoor.Models.Post;
 using NextDoor.Utilities;
 using System;
 using System.Collections.Generic;
@@ -18,17 +19,18 @@ namespace NextDoor.Managers
         private readonly IPollRepository _repository;
         private readonly ICommentRepository _Commentrepository;
         private readonly ILikeRepository _likerepository;
+        private readonly IBookmarkRepository _BookMarkrepository;
 
         private readonly IUnitOfWork _unitOfWork;
 
         private readonly string _userId;
 
         public PollManager(IHttpContextAccessor contextAccessor,ICommentRepository commentRepository,
-          IPollRepository repository, ILikeRepository likeRepository,
+          IPollRepository repository, ILikeRepository likeRepository, IBookmarkRepository bookmarkRepository,
           IUnitOfWork unitOfWork)
         {
             _userId = contextAccessor.HttpContext.User.GetUserId();
-
+            _BookMarkrepository = bookmarkRepository;
             _repository = repository;
             _unitOfWork = unitOfWork;
             _Commentrepository = commentRepository;
@@ -55,8 +57,15 @@ namespace NextDoor.Managers
             await _unitOfWork.SaveChangesAsync();
             await _repository.AddPollUserVoteAsync(PollFactory.CreateUserVote(model, _userId));
             await _unitOfWork.SaveChangesAsync();
-
-
+        }
+        public async Task AddShare(SharePostAddModel model)
+        {
+            var item = await _repository.GetPollDetailAsync(model.Pollid);
+            PostFactory.CreateShareCount(model, item, _userId);
+            _repository.EditSharePost(item);
+            await _unitOfWork.SaveChangesAsync();
+            await _repository.AddShareUserDetailsAsync(PostFactory.CreateShareDetails(model, _userId));
+            await _unitOfWork.SaveChangesAsync();
         }
         public async Task<PollDetailDto> PollDetail(int user_id)
         {
@@ -92,6 +101,7 @@ namespace NextDoor.Managers
                 item.PollCommentCount = item.pollcomment.Count;
                 item.polllike = await _repository.getPolllikesById(item.Poll_Id);
                 item.UserReaction_id = _repository.getPollLikesReactionByUserId(userid, item.Poll_Id);
+                item.Bookmarkid = _BookMarkrepository.GetPollBookmarkId(item.Poll_Id);
 
                 foreach (var r in item.pollcomment)
                 {
@@ -99,14 +109,12 @@ namespace NextDoor.Managers
                     r.replies = replies;
                     var likes = await _likerepository.GetAllLikesByCommentId(r.id);
                     r.likes = likes.Count;
-                    // r.Reaction_Id =  _likerepository.getreactionId(r.id);
                     if (r.replies.Count > 0)
                     {
                         foreach (var item1 in r.replies)
                         {
                             var innerReplies = await _Commentrepository.GetAllCommentById(item1.Id);
                             item1.replies = innerReplies;
-                            //item1.likes = await _likerepository.GetAllLikesByCommentId(item1.Id);
                             var Commentlikes = await _likerepository.GetAllLikesByCommentId(item1.Id);
                             item1.Commentlikes = Commentlikes.Count;
                         }
@@ -135,14 +143,12 @@ namespace NextDoor.Managers
                     r.replies = replies;
                     var likes = await _likerepository.GetAllLikesByCommentId(r.id);
                     r.likes = likes.Count;
-                    // r.Reaction_Id =  _likerepository.getreactionId(r.id);
                     if (r.replies.Count > 0)
                     {
                         foreach (var item1 in r.replies)
                         {
                             var innerReplies = await _Commentrepository.GetAllCommentById(item1.Id);
                             item1.replies = innerReplies;
-                            //item1.likes = await _likerepository.GetAllLikesByCommentId(item1.Id);
                             var Commentlikes = await _likerepository.GetAllLikesByCommentId(item1.Id);
                             item1.Commentlikes = Commentlikes.Count;
                         }
